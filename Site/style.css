@@ -16,6 +16,8 @@ body {
 
 .item {
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .img {
@@ -40,9 +42,9 @@ body {
     background: #ffe4c4;
 }
 
+
 .item_name {
     font-family: 'Open Sans', sans-serif;
     font-size: 13px;
-    padding-bottom: 12px;
     padding-top: 1px;
 }
