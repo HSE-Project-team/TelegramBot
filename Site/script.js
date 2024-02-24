@@ -1,5 +1,4 @@
 let tg = window.Telegram.WebApp;
-
 tg.expand();
 
 tg.MainButton.textColor = "#2d2d2d";
@@ -7,7 +6,7 @@ tg.MainButton.color = "#ffbf74";
 tg.MainButton.setText("Оформить заказ");
 tg.MainButton.show();
 
-const items_number = 4;
+const items_number = 6;
 
 function set_btn_plus_minus_style(btn_plus_minus_object, sign) {
     btn_plus_minus_object.style.border = "none";
@@ -29,7 +28,6 @@ function set_btn_plus_minus_style(btn_plus_minus_object, sign) {
 
 function set_btn_add_style(btn_add_object) {
     btn_add_object.style.display = "inline-block";
-    // btn_add_object.style.padding = "8px 8px 8px 8px";
     btn_add_object.style.border = "none";
     btn_add_object.style.borderRadius = "20px";
     btn_add_object.style.width = "100px";
@@ -69,17 +67,6 @@ function set_add_remove_figure_style(figure_object) {
     figure_object.style.marginTop = "12px";
 }
 
-function generate_data_for_send(data) {
-    let answer_string = ""
-    for (let i = 1; i < item_id_array.length; ++i) {
-        answer_string += `item_id=${i}, item_counter=${data[i].textContent}`
-        if (i !== item_id_array.length - 1) {
-            answer_string += ", "
-        }
-    }
-    return answer_string;
-}
-
 class ItemFromCatalog {
     constructor(item_img, item_name) {
         this.item_img = item_img;
@@ -90,109 +77,115 @@ class ItemFromCatalog {
 class Catalog {
     Items = new Array(1);
 
-    addItem(item) {
-        this.Items.push(item);
+    addItem(item_name, item_img) {
+        this.Items.push(new ItemFromCatalog(item_name, item_img));
+    }
+}
+
+class Order {
+    order_items = new Array(items_number + 1).fill(document.createElement("label"));
+
+    generate_data_for_send() {
+        let answer_string = ""
+        for (let i = 1; i < this.order_items.length; ++i) {
+            answer_string += `item_id=${i}, item_counter=${this.order_items[i].textContent}`
+            if (i !== this.order_items.length - 1) {
+                answer_string += ", "
+            }
+        }
+        return answer_string;
     }
 }
 
 catalog = new Catalog();
+order = new Order();
 
-catalog.addItem(new ItemFromCatalog("Dish1.png", "Блюдо 1"));
-catalog.addItem(new ItemFromCatalog("Dish1.png", "Блюдо 2"));
-catalog.addItem(new ItemFromCatalog("Dish1.png", "Блюдо 3"));
-catalog.addItem(new ItemFromCatalog("Dish1.png", "Блюдо 4"));
+catalog.addItem("Dish1.png", "Блюдо 1");
+catalog.addItem("Dish1.png", "Блюдо 2");
+catalog.addItem("Dish1.png", "Блюдо 3");
+catalog.addItem("Dish1.png", "Блюдо 4");
+catalog.addItem("Dish1.png", "Блюдо 5");
+catalog.addItem("Dish1.png", "Блюдо 6");
 
-let item_id_array = new Array(items_number + 1).fill(document.createElement("label"));
-
-let itemNewArray = new Array(items_number + 1);
+let graphicCatalogItems = new Array(items_number + 1);
 
 for (let i = 1; i < items_number + 1; ++i) {
-    itemNewArray[i] = document.createElement("div");
-    itemNewArray[i].className = "item";
+    graphicCatalogItems[i] = document.createElement("div");
+    graphicCatalogItems[i].className = "item";
 
-    itemNewArray[i].item_img = document.createElement("img");
-    itemNewArray[i].item_img.src = catalog.Items[i].item_img;
-    itemNewArray[i].item_img.alt = "";
-    itemNewArray[i].item_img.className = "img";
+    graphicCatalogItems[i].item_img = document.createElement("img");
+    graphicCatalogItems[i].item_img.src = catalog.Items[i].item_img;
+    graphicCatalogItems[i].item_img.alt = "";
+    graphicCatalogItems[i].item_img.className = "img";
 
-    itemNewArray[i].item_title = document.createElement("div");
-    itemNewArray[i].item_title.className = "item_name";
-    itemNewArray[i].item_title.textContent = catalog.Items[i].item_name;
+    graphicCatalogItems[i].item_name = document.createElement("div");
+    graphicCatalogItems[i].item_name.className = "item_name";
+    graphicCatalogItems[i].item_name.textContent = catalog.Items[i].item_name;
 
-    itemNewArray[i].item_button = document.createElement("button");
-    itemNewArray[i].item_button.className = "btn_add";
-    itemNewArray[i].item_button.textContent = "Добавить";
+    graphicCatalogItems[i].item_btn = document.createElement("button");
+    graphicCatalogItems[i].item_btn.className = "btn_add";
+    graphicCatalogItems[i].item_btn.textContent = "Добавить";
 
-    itemNewArray[i].appendChild(itemNewArray[i].item_img);
-    itemNewArray[i].appendChild(itemNewArray[i].item_title);
-    itemNewArray[i].appendChild(itemNewArray[i].item_title);
-    itemNewArray[i].appendChild(itemNewArray[i].item_button);
+    graphicCatalogItems[i].add_remove_figures = document.createElement("figure");
 
-    document.getElementById("items").appendChild(itemNewArray[i]);
+    document.getElementById("items").appendChild(graphicCatalogItems[i]);
+    graphicCatalogItems[i].appendChild(graphicCatalogItems[i].item_img);
+    graphicCatalogItems[i].appendChild(graphicCatalogItems[i].item_name);
+    graphicCatalogItems[i].appendChild(graphicCatalogItems[i].add_remove_figures);
+    graphicCatalogItems[i].add_remove_figures.appendChild(graphicCatalogItems[i].item_btn);
 
-    itemNewArray[i].add_remove_figures = document.createElement("figure");
-
-    itemNewArray[i].appendChild(itemNewArray[i].add_remove_figures)
-    itemNewArray[i].add_remove_figures.appendChild(itemNewArray[i].item_button);
-
-    set_add_remove_figure_style(itemNewArray[i].add_remove_figures);
-
-    console.log(i);
-    console.log(itemNewArray[i].lastElementChild);
-
-    set_btn_add_style(itemNewArray[i].item_button);
+    set_add_remove_figure_style(graphicCatalogItems[i].add_remove_figures);
+    set_btn_add_style(graphicCatalogItems[i].item_btn);
 }
 
 for (let i = 1; i < items_number + 1; ++i) {
-    itemNewArray[i].item_button.addEventListener("click", () => {
+    graphicCatalogItems[i].item_btn.addEventListener("click", () => {
 
-        itemNewArray[i].item_button.style.display = "none";
+        graphicCatalogItems[i].item_btn.style.display = "none";
 
-        itemNewArray[i].munus_btn = document.createElement("button");
-        itemNewArray[i].munus_btn.textContent = "-";
+        graphicCatalogItems[i].munus_btn = document.createElement("button");
+        graphicCatalogItems[i].munus_btn.textContent = "-";
 
-        item_id_array[i] = document.createElement("label");
-        item_id_array[i].textContent = "1";
+        order.order_items[i] = document.createElement("label");
+        order.order_items[i].textContent = "1";
 
-        itemNewArray[i].plus_btn = document.createElement("button");
-        itemNewArray[i].plus_btn.textContent = "+";
+        graphicCatalogItems[i].plus_btn = document.createElement("button");
+        graphicCatalogItems[i].plus_btn.textContent = "+";
 
-        itemNewArray[i].add_remove_figures.appendChild(itemNewArray[i].munus_btn);
-        itemNewArray[i].add_remove_figures.appendChild(item_id_array[i]);
-        itemNewArray[i].add_remove_figures.appendChild(itemNewArray[i].plus_btn);
+        graphicCatalogItems[i].add_remove_figures.appendChild(graphicCatalogItems[i].munus_btn);
+        graphicCatalogItems[i].add_remove_figures.appendChild(order.order_items[i]);
+        graphicCatalogItems[i].add_remove_figures.appendChild(graphicCatalogItems[i].plus_btn);
 
-        itemNewArray[i].plus_btn.addEventListener("click", () => {
-            let new_number = +(item_id_array[i].textContent);
+        graphicCatalogItems[i].plus_btn.addEventListener("click", () => {
+            let new_number = +(order.order_items[i].textContent);
             new_number += 1;
-            item_id_array[i].textContent = new_number + "";
-
-            console.log(generate_data_for_send(item_id_array));
+            order.order_items[i].textContent = new_number + "";
+            console.log(order.generate_data_for_send());
         });
 
-        itemNewArray[i].munus_btn.addEventListener("click", () => {
-            let new_number = +(item_id_array[i].textContent);
+        graphicCatalogItems[i].munus_btn.addEventListener("click", () => {
+            let new_number = +(order.order_items[i].textContent);
             if (new_number >= 2) {
                 new_number -= 1;
-                item_id_array[i].textContent = new_number + "";
+                order.order_items[i].textContent = new_number + "";
             } else {
-                itemNewArray[i].item_button.style.display = "inline-block";
-                itemNewArray[i].munus_btn.style.display = "none";
-                itemNewArray[i].plus_btn.style.display = "none";
-                item_id_array[i].style.display = "none";
-                item_id_array[i].textContent = "0";
+                graphicCatalogItems[i].item_btn.style.display = "inline-block";
+                graphicCatalogItems[i].munus_btn.style.display = "none";
+                graphicCatalogItems[i].plus_btn.style.display = "none";
+                order.order_items[i].style.display = "none";
+                order.order_items[i].textContent = "0";
             }
-
-            console.log(generate_data_for_send(item_id_array));
+            console.log(order.generate_data_for_send());
         });
 
-        set_btn_plus_minus_style(itemNewArray[i].plus_btn, "+");
-        set_btn_plus_minus_style(itemNewArray[i].munus_btn, "-");
-        set_item_counter_style(item_id_array[i]);
+        set_btn_plus_minus_style(graphicCatalogItems[i].plus_btn, "+");
+        set_btn_plus_minus_style(graphicCatalogItems[i].munus_btn, "-");
+        set_item_counter_style(order.order_items[i]);
 
-        console.log(generate_data_for_send(item_id_array));
+        console.log(order.generate_data_for_send());
     })
 }
 
 Telegram.WebApp.onEvent("mainButtonClicked", () => {
-    tg.sendData(generate_data_for_send(item_id_array));
+    tg.sendData(order.generate_data_for_send());
 });
