@@ -37,7 +37,7 @@ def create_new_order(user_name, user_id):
 # @dp.message_handler(content_types=['web_app_data'])
 def print_new_order(message: types.Message):
     print(f"Order number={orders[len(orders) - 1].order_number}")
-    print(f"Order_items=[{message.web_app_data.data}]")
+    print(f"Order_data='{message.web_app_data.data}'")
     print(f"User_data=[user_id={orders[len(orders) - 1].user_id}, user_name={orders[len(orders) - 1].user_name}]")
     print("---------------")
 
@@ -48,7 +48,7 @@ async def buy_process(message: types.Message):
     first_name = message.from_user.first_name
     orders.append(create_new_order(first_name, user_id))
     print_new_order(message)
-    to_user = f"{first_name}, бот принял ваш заказ. Вы заказали блюдо номер {message.web_app_data.data}. \n\nID " \
+    to_user = f"{first_name}, бот принял ваш заказ. Данные из WebApp: '{message.web_app_data.data}'. \n\nID " \
               f"аккаунта: {user_id}."
     await message.answer(to_user)
 
