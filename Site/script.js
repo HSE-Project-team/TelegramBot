@@ -6,8 +6,6 @@ tg.MainButton.color = "#ffbf74";
 tg.MainButton.setText("Оформить заказ");
 tg.MainButton.show();
 
-const items_number = 6;
-
 function set_btn_plus_minus_style(btn_plus_minus_object, sign) {
     btn_plus_minus_object.style.border = "none";
     if (sign === "+") {
@@ -76,17 +74,19 @@ class ItemFromCatalog {
 
 class Catalog {
     Items = new Array(1);
+    size = 0;
 
     addItem(item_name, item_img) {
         this.Items.push(new ItemFromCatalog(item_name, item_img));
+        this.size += 1;
     }
 }
 
 class Order {
-    order_items = new Array(items_number + 1).fill(document.createElement("label"));
+    order_items = new Array(catalog.size + 1).fill(document.createElement("label"));
 
     generate_data_for_send() {
-        let answer_string = ""
+        let answer_string = "";
         for (let i = 1; i < this.order_items.length; ++i) {
             answer_string += `item_id=${i}, item_counter=${this.order_items[i].textContent}`
             if (i !== this.order_items.length - 1) {
@@ -98,7 +98,6 @@ class Order {
 }
 
 catalog = new Catalog();
-order = new Order();
 
 catalog.addItem("Dish1.png", "Блюдо 1");
 catalog.addItem("Dish1.png", "Блюдо 2");
@@ -107,9 +106,11 @@ catalog.addItem("Dish1.png", "Блюдо 4");
 catalog.addItem("Dish1.png", "Блюдо 5");
 catalog.addItem("Dish1.png", "Блюдо 6");
 
-let graphicCatalogItems = new Array(items_number + 1);
+order = new Order();
 
-for (let i = 1; i < items_number + 1; ++i) {
+let graphicCatalogItems = new Array(catalog.size + 1);
+
+for (let i = 1; i < catalog.size + 1; ++i) {
     graphicCatalogItems[i] = document.createElement("div");
     graphicCatalogItems[i].className = "item";
 
@@ -138,7 +139,7 @@ for (let i = 1; i < items_number + 1; ++i) {
     set_btn_add_style(graphicCatalogItems[i].item_btn);
 }
 
-for (let i = 1; i < items_number + 1; ++i) {
+for (let i = 1; i < catalog.size + 1; ++i) {
     graphicCatalogItems[i].item_btn.addEventListener("click", () => {
 
         graphicCatalogItems[i].item_btn.style.display = "none";
