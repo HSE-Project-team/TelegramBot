@@ -80,66 +80,88 @@ function generate_data_for_send(data) {
     return answer_string;
 }
 
+class ItemFromCatalog {
+    constructor(item_img, item_name) {
+        this.item_img = item_img;
+        this.item_name = item_name;
+    }
+}
+
+class Catalog {
+    Items = new Array(1);
+
+    addItem(item) {
+        this.Items.push(item);
+    }
+}
+
+catalog = new Catalog();
+
+catalog.addItem(new ItemFromCatalog("Dish1.png", "Блюдо 1"));
+catalog.addItem(new ItemFromCatalog("Dish1.png", "Блюдо 2"));
+catalog.addItem(new ItemFromCatalog("Dish1.png", "Блюдо 3"));
+catalog.addItem(new ItemFromCatalog("Dish1.png", "Блюдо 4"));
+
 let item_id_array = new Array(items_number + 1).fill(document.createElement("label"));
-let itemsContainer = document.getElementById("items");
-let items = new Array(items_number + 1);
-let images = new Array(items_number + 1);
-let item_names = new Array(items_number + 1);
-let btn_add_array = new Array(items_number + 1);
-let add_remove_figures = new Array(items_number + 1);
-let btn_minus_array = new Array(items_number + 1);
-let btn_plus_array = new Array(items_number + 1);
+
+let itemNewArray = new Array(items_number + 1);
 
 for (let i = 1; i < items_number + 1; ++i) {
-    items[i] = document.createElement("div");
-    items[i].className = "item";
+    itemNewArray[i] = document.createElement("div");
+    itemNewArray[i].className = "item";
 
-    images[i] = document.createElement("img");
-    images[i].src = "Dish1.png";
-    images[i].alt = "";
-    images[i].className = "img";
+    itemNewArray[i].item_img = document.createElement("img");
+    itemNewArray[i].item_img.src = catalog.Items[i].item_img;
+    itemNewArray[i].item_img.alt = "";
+    itemNewArray[i].item_img.className = "img";
 
-    item_names[i] = document.createElement("div");
-    item_names[i].className = "item_name";
-    item_names[i].textContent = "Блюдо " + i;
+    itemNewArray[i].item_title = document.createElement("div");
+    itemNewArray[i].item_title.className = "item_name";
+    itemNewArray[i].item_title.textContent = catalog.Items[i].item_name;
 
-    btn_add_array[i] = document.createElement("button");
-    btn_add_array[i].className = "btn_add";
-    btn_add_array[i].textContent = "Добавить";
+    itemNewArray[i].item_button = document.createElement("button");
+    itemNewArray[i].item_button.className = "btn_add";
+    itemNewArray[i].item_button.textContent = "Добавить";
 
-    items[i].appendChild(images[i]);
-    items[i].appendChild(item_names[i]);
-    items[i].appendChild(btn_add_array[i]);
-    itemsContainer.appendChild(items[i]);
+    itemNewArray[i].appendChild(itemNewArray[i].item_img);
+    itemNewArray[i].appendChild(itemNewArray[i].item_title);
+    itemNewArray[i].appendChild(itemNewArray[i].item_title);
+    itemNewArray[i].appendChild(itemNewArray[i].item_button);
 
-    add_remove_figures[i] = document.createElement("figure");
-    set_add_remove_figure_style(add_remove_figures[i]);
+    document.getElementById("items").appendChild(itemNewArray[i]);
 
-    items[i].replaceChild(add_remove_figures[i], items[i].lastElementChild);
+    itemNewArray[i].add_remove_figures = document.createElement("figure");
 
-    add_remove_figures[i].appendChild(btn_add_array[i]);
-    set_btn_add_style(btn_add_array[i]);
+    itemNewArray[i].appendChild(itemNewArray[i].add_remove_figures)
+    itemNewArray[i].add_remove_figures.appendChild(itemNewArray[i].item_button);
+
+    set_add_remove_figure_style(itemNewArray[i].add_remove_figures);
+
+    console.log(i);
+    console.log(itemNewArray[i].lastElementChild);
+
+    set_btn_add_style(itemNewArray[i].item_button);
 }
 
 for (let i = 1; i < items_number + 1; ++i) {
-    btn_add_array[i].addEventListener("click", () => {
+    itemNewArray[i].item_button.addEventListener("click", () => {
 
-        btn_add_array[i].style.display = "none";
+        itemNewArray[i].item_button.style.display = "none";
 
-        btn_minus_array[i] = document.createElement("button");
-        btn_minus_array[i].textContent = "-";
+        itemNewArray[i].munus_btn = document.createElement("button");
+        itemNewArray[i].munus_btn.textContent = "-";
 
         item_id_array[i] = document.createElement("label");
         item_id_array[i].textContent = "1";
 
-        btn_plus_array[i] = document.createElement("button");
-        btn_plus_array[i].textContent = "+";
+        itemNewArray[i].plus_btn = document.createElement("button");
+        itemNewArray[i].plus_btn.textContent = "+";
 
-        add_remove_figures[i].appendChild(btn_minus_array[i]);
-        add_remove_figures[i].appendChild(item_id_array[i]);
-        add_remove_figures[i].appendChild(btn_plus_array[i]);
+        itemNewArray[i].add_remove_figures.appendChild(itemNewArray[i].munus_btn);
+        itemNewArray[i].add_remove_figures.appendChild(item_id_array[i]);
+        itemNewArray[i].add_remove_figures.appendChild(itemNewArray[i].plus_btn);
 
-        btn_plus_array[i].addEventListener("click", () => {
+        itemNewArray[i].plus_btn.addEventListener("click", () => {
             let new_number = +(item_id_array[i].textContent);
             new_number += 1;
             item_id_array[i].textContent = new_number + "";
@@ -147,15 +169,15 @@ for (let i = 1; i < items_number + 1; ++i) {
             console.log(generate_data_for_send(item_id_array));
         });
 
-        btn_minus_array[i].addEventListener("click", () => {
+        itemNewArray[i].munus_btn.addEventListener("click", () => {
             let new_number = +(item_id_array[i].textContent);
             if (new_number >= 2) {
                 new_number -= 1;
                 item_id_array[i].textContent = new_number + "";
             } else {
-                btn_add_array[i].style.display = "inline-block";
-                btn_minus_array[i].style.display = "none";
-                btn_plus_array[i].style.display = "none";
+                itemNewArray[i].item_button.style.display = "inline-block";
+                itemNewArray[i].munus_btn.style.display = "none";
+                itemNewArray[i].plus_btn.style.display = "none";
                 item_id_array[i].style.display = "none";
                 item_id_array[i].textContent = "0";
             }
@@ -163,8 +185,8 @@ for (let i = 1; i < items_number + 1; ++i) {
             console.log(generate_data_for_send(item_id_array));
         });
 
-        set_btn_plus_minus_style(btn_plus_array[i], "+");
-        set_btn_plus_minus_style(btn_minus_array[i], "-");
+        set_btn_plus_minus_style(itemNewArray[i].plus_btn, "+");
+        set_btn_plus_minus_style(itemNewArray[i].munus_btn, "-");
         set_item_counter_style(item_id_array[i]);
 
         console.log(generate_data_for_send(item_id_array));
