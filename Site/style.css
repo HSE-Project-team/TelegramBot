@@ -24,6 +24,16 @@ body {
     width: 90px;
 }
 
+.add_remove_figure {
+    border-radius: 20px;
+    width: 100px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    background-color: #ffdaae;
+    margin-top: 12px;
+}
+
 .btn_add {
     display: inline-block;
     background-color: gray;
@@ -38,8 +48,32 @@ body {
     font-size: 13px;
 }
 
-.btn_add:hover {
+.btn_add:hover, .btn_plus:hover, .btn_minus:hover {
     background: #ffe4c4;
+}
+
+.btn_plus {
+    border: none;
+    margin-left: 7px;
+    border-radius: 3px 20px 20px 3px;
+    width: 38px;
+    height: 38px;
+    color: #2d2d2d;
+    background-color: #ffdaae;
+    transition: background-color 0.1s linear;
+    font-size: 15px;
+}
+
+.btn_minus {
+    border: none;
+    margin-right: 7px;
+    border-radius: 20px 3px 3px 20px;
+    width: 38px;
+    height: 38px;
+    color: #2d2d2d;
+    background-color: #ffdaae;
+    transition: background-color 0.1s linear;
+    font-size: 15px;
 }
 
 
@@ -47,4 +81,10 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-size: 13px;
     padding-top: 1px;
+}
+
+.order_item_label {
+    width: 24px;
+    font-size: 18px;
+    font-family: 'Open Sans', sans-serif;
 }
