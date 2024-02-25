@@ -1,10 +1,10 @@
 let tg = window.Telegram.WebApp;
 tg.expand();
 
-tg.MainButton.textColor = "#2d2d2d";
-tg.MainButton.color = "#ffbf74";
-tg.MainButton.setText("Оформить заказ");
-tg.MainButton.show();
+// tg.MainButton.textColor = "#2d2d2d";
+// tg.MainButton.color = "#ffbf74";
+// tg.MainButton.setText("Оформить заказ");
+// tg.MainButton.show();
 
 class ItemFromCatalog {
     constructor(item_img, item_name, item_cost) {
@@ -35,8 +35,45 @@ class Order {
             answer_string += `item_id=${i}, item_counter=${this.order_items[i].textContent}`
             answer_string += ", "
         }
-        answer_string += `order_cost=${this.order_cost}`;
+        answer_string += `order_cost=${this.order_cost}, `;
+        answer_string += `order_time=${now_time.get_time()}`
         return answer_string;
+    }
+}
+
+class Time {
+    constructor() {
+        this.hours = +(new Date().getHours());
+        this.minutes = +(new Date().getMinutes());
+    }
+
+    reset_time() {
+        this.hours = +(new Date().getHours());
+        this.minutes = +(new Date().getMinutes());
+    }
+
+    add_to_time(gap) {
+        this.minutes += +(gap);
+        if (this.minutes >= 60) {
+            this.minutes %= 60;
+            this.hours += 1;
+        }
+    }
+
+    get_now_time() {
+        return this.format_time(new Date().getHours()) + ":" + this.format_time(new Date().getMinutes());
+    }
+
+    get_time() {
+        return this.format_time(this.hours) + ":" + this.format_time(this.minutes);
+    }
+
+    format_time(time) {
+        if (+time < 10) {
+            return "0" + time;
+        } else {
+            return time;
+        }
     }
 }
 
@@ -47,7 +84,9 @@ catalog.addItem("Dish1.png", "Блюдо 2", "200");
 catalog.addItem("Dish1.png", "Блюдо 3", "150");
 catalog.addItem("Dish1.png", "Блюдо 4", "290");
 catalog.addItem("Dish1.png", "Блюдо 5", "175");
-catalog.addItem("Dish1.png", "Блюдо 6", "120");
+catalog.addItem("Dish1.png", "Блюдо 6", "45");
+catalog.addItem("Dish1.png", "Блюдо 7", "777");
+catalog.addItem("Dish1.png", "Блюдо 8", "23");
 
 order = new Order();
 
@@ -84,6 +123,55 @@ for (let i = 1; i < catalog.size + 1; ++i) {
     graphicCatalogItems[i].appendChild(graphicCatalogItems[i].add_remove_figures);
     graphicCatalogItems[i].add_remove_figures.appendChild(graphicCatalogItems[i].item_btn);
 }
+
+let choose_time_btn = document.createElement("button");
+choose_time_btn.className = "choose_time_btn";
+document.getElementById("items").appendChild(choose_time_btn);
+choose_time_btn.textContent = "Выбрать время";
+
+let checkout_btn = document.createElement("button");
+checkout_btn.className = "checkout_btn";
+document.getElementById("items").appendChild(checkout_btn);
+checkout_btn.textContent = "Оформить заказ";
+checkout_btn.style.display = "none";
+
+let time_slider = document.createElement("input");
+time_slider.type = "range";
+
+time_slider.min = "0";
+time_slider.max = "60";
+time_slider.value = "0";
+time_slider.className = "time_slider";
+document.getElementById("items").appendChild(time_slider);
+time_slider.style.display = "none";
+
+
+let choose_time_label = document.createElement("label");
+choose_time_label.className = "choose_time_label";
+document.getElementById("items").appendChild(choose_time_label);
+choose_time_label.style.display = "none";
+
+let now_time = new Time();
+choose_time_label.textContent = now_time.get_now_time();
+
+checkout_btn.addEventListener("click", () => {
+    console.log(order.generate_data_for_send());
+    tg.sendData(order.generate_data_for_send());
+});
+
+choose_time_btn.addEventListener("click", () => {
+    time_slider.style.display = "inline-block";
+    choose_time_label.style.display = "inline-block";
+    checkout_btn.style.display = "inline-block";
+
+    time_slider.addEventListener("input", () => {
+        now_time.reset_time();
+        now_time.add_to_time(time_slider.value);
+        choose_time_label.textContent = now_time.get_time();
+    });
+
+});
+
 
 for (let i = 1; i < catalog.size + 1; ++i) {
     graphicCatalogItems[i].item_btn.addEventListener("click", () => {
@@ -135,6 +223,6 @@ for (let i = 1; i < catalog.size + 1; ++i) {
     })
 }
 
-Telegram.WebApp.onEvent("mainButtonClicked", () => {
-    tg.sendData(order.generate_data_for_send());
-});
+// Telegram.WebApp.onEvent("mainButtonClicked", () => {
+//     tg.sendData(order.generate_data_for_send());
+// });
