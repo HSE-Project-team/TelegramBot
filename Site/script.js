@@ -1,11 +1,6 @@
 let tg = window.Telegram.WebApp;
 tg.expand();
 
-// tg.MainButton.textColor = "#2d2d2d";
-// tg.MainButton.color = "#ffbf74";
-// tg.MainButton.setText("Оформить заказ");
-// tg.MainButton.show();
-
 class ItemFromCatalog {
     constructor(item_img, item_name, item_cost) {
         this.item_img = item_img;
@@ -79,14 +74,14 @@ class Time {
 
 catalog = new Catalog();
 
-catalog.addItem("Dish1.png", "Блюдо 1", "100");
-catalog.addItem("Dish1.png", "Блюдо 2", "200");
-catalog.addItem("Dish1.png", "Блюдо 3", "150");
-catalog.addItem("Dish1.png", "Блюдо 4", "290");
-catalog.addItem("Dish1.png", "Блюдо 5", "175");
-catalog.addItem("Dish1.png", "Блюдо 6", "45");
-catalog.addItem("Dish1.png", "Блюдо 7", "777");
-catalog.addItem("Dish1.png", "Блюдо 8", "23");
+catalog.addItem("Dish1.png", "Пельмени сибирские", "100");
+catalog.addItem("Dish1.png", "Окрошка настоящая", "200");
+catalog.addItem("Dish1.png", "Щи старорусские с яблоками и сосметаной", "150");
+catalog.addItem("Dish1.png", "Утиная грудка с грушей томлёной", "290");
+catalog.addItem("Dish1.png", "Биточки из медведя с яблочной полбой", "175");
+catalog.addItem("Dish1.png", "Бифстекс из кабана", "45");
+catalog.addItem("Dish1.png", "Жаренина изкартофеля", "444");
+catalog.addItem("Dish1.png", "Нежное сливочное мороженое", "67");
 
 order = new Order();
 
@@ -129,12 +124,6 @@ choose_time_btn.className = "choose_time_btn";
 document.getElementById("items").appendChild(choose_time_btn);
 choose_time_btn.textContent = "Выбрать время";
 
-let checkout_btn = document.createElement("button");
-checkout_btn.className = "checkout_btn";
-document.getElementById("items").appendChild(checkout_btn);
-checkout_btn.textContent = "Оформить заказ";
-checkout_btn.style.display = "none";
-
 let time_slider = document.createElement("input");
 time_slider.type = "range";
 
@@ -151,8 +140,20 @@ choose_time_label.className = "choose_time_label";
 document.getElementById("items").appendChild(choose_time_label);
 choose_time_label.style.display = "none";
 
+let cansel_choose_time_btn = document.createElement("button");
+cansel_choose_time_btn.className = "cansel_choose_time_btn";
+document.getElementById("items").appendChild(cansel_choose_time_btn);
+cansel_choose_time_btn.textContent = "×";
+cansel_choose_time_btn.style.display = "none";
+
 let now_time = new Time();
 choose_time_label.textContent = now_time.get_now_time();
+
+let checkout_btn = document.createElement("button");
+checkout_btn.className = "checkout_btn";
+document.getElementById("items").appendChild(checkout_btn);
+checkout_btn.textContent = "Заказать к " + now_time.get_time();
+checkout_btn.style.display = "none";
 
 checkout_btn.addEventListener("click", () => {
     console.log(order.generate_data_for_send());
@@ -160,17 +161,29 @@ checkout_btn.addEventListener("click", () => {
 });
 
 choose_time_btn.addEventListener("click", () => {
+    choose_time_btn.style.display = "none";
     time_slider.style.display = "inline-block";
     choose_time_label.style.display = "inline-block";
     checkout_btn.style.display = "inline-block";
+    cansel_choose_time_btn.style.display = "inline-block";
 
     time_slider.addEventListener("input", () => {
         now_time.reset_time();
         now_time.add_to_time(time_slider.value);
         choose_time_label.textContent = now_time.get_time();
+        checkout_btn.textContent = "Заказать к " + now_time.get_time();
     });
 
 });
+
+cansel_choose_time_btn.addEventListener("click", () => {
+    time_slider.style.display = "none";
+    choose_time_label.style.display = "none";
+    cansel_choose_time_btn.style.display = "none";
+    checkout_btn.style.display = "none";
+    choose_time_btn.style.display = "inline-block";
+
+})
 
 
 for (let i = 1; i < catalog.size + 1; ++i) {
@@ -199,7 +212,7 @@ for (let i = 1; i < catalog.size + 1; ++i) {
             let new_number = +(order.order_items[i].textContent);
             new_number += 1;
             order.order_cost += parseInt(graphicCatalogItems[i].item_cost.textContent);
-            order.order_items[i].textContent = new_number + "";
+            order.order_items[i].textContent = new_number;
             console.log(order.generate_data_for_send());
         });
 
@@ -222,7 +235,3 @@ for (let i = 1; i < catalog.size + 1; ++i) {
         console.log(order.generate_data_for_send());
     })
 }
-
-// Telegram.WebApp.onEvent("mainButtonClicked", () => {
-//     tg.sendData(order.generate_data_for_send());
-// });
