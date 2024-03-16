@@ -13,14 +13,26 @@ body {
     font-family: "Cyntho Pro", sans-serif;
 }
 
+button {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.hidden {
+    display: none;
+}
+
 .container {
     margin: 0;
     width: 100%;
 }
 
+.bottom_container_margin {
+    margin-bottom: 2.5em;
+}
+
 .items {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 }
 
 .item {
@@ -151,4 +163,3 @@ body {
     font-size: 1.3em;
     opacity: 0.9;
 }
-
