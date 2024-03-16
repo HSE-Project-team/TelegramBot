@@ -74,11 +74,13 @@ class Time {
 
 catalog = new Catalog();
 
+document.getElementById("shopping_cart").style.display = "none";
+
 catalog.addItem("Dish1.png", "Пельмени сибирские", "100");
 catalog.addItem("Dish1.png", "Окрошка настоящая", "200");
-catalog.addItem("Dish1.png", "Щи старорусские с яблоками и сосметаной", "150");
+catalog.addItem("Dish1.png", "Щи старорусские с яблоками", "150");
 catalog.addItem("Dish1.png", "Утиная грудка с грушей томлёной", "290");
-catalog.addItem("Dish1.png", "Биточки из медведя с яблочной полбой", "175");
+catalog.addItem("Dish1.png", "Биточки из медведя", "175");
 catalog.addItem("Dish1.png", "Бифстекс из кабана", "45");
 catalog.addItem("Dish1.png", "Жаренина изкартофеля", "444");
 catalog.addItem("Dish1.png", "Нежное сливочное мороженое", "67");
@@ -122,7 +124,7 @@ for (let i = 1; i < catalog.size + 1; ++i) {
 let choose_time_btn = document.createElement("button");
 choose_time_btn.className = "choose_time_btn";
 document.getElementById("items").appendChild(choose_time_btn);
-choose_time_btn.textContent = "Выбрать время";
+choose_time_btn.textContent = "Посмотреть заказ";
 
 let time_slider = document.createElement("input");
 time_slider.type = "range";
@@ -131,18 +133,18 @@ time_slider.min = "0";
 time_slider.max = "60";
 time_slider.value = "0";
 time_slider.className = "time_slider";
-document.getElementById("items").appendChild(time_slider);
+document.getElementById("shopping_cart").appendChild(time_slider);
 time_slider.style.display = "none";
 
 
 let choose_time_label = document.createElement("label");
 choose_time_label.className = "choose_time_label";
-document.getElementById("items").appendChild(choose_time_label);
+document.getElementById("shopping_cart").appendChild(choose_time_label);
 choose_time_label.style.display = "none";
 
 let cansel_choose_time_btn = document.createElement("button");
 cansel_choose_time_btn.className = "cansel_choose_time_btn";
-document.getElementById("items").appendChild(cansel_choose_time_btn);
+document.getElementById("shopping_cart").appendChild(cansel_choose_time_btn);
 cansel_choose_time_btn.textContent = "×";
 cansel_choose_time_btn.style.display = "none";
 
@@ -151,7 +153,7 @@ choose_time_label.textContent = now_time.get_now_time();
 
 let checkout_btn = document.createElement("button");
 checkout_btn.className = "checkout_btn";
-document.getElementById("items").appendChild(checkout_btn);
+document.getElementById("shopping_cart").appendChild(checkout_btn);
 checkout_btn.textContent = "Заказать к " + now_time.get_time();
 checkout_btn.style.display = "none";
 
@@ -161,7 +163,18 @@ checkout_btn.addEventListener("click", () => {
 });
 
 choose_time_btn.addEventListener("click", () => {
-    choose_time_btn.style.display = "none";
+    document.getElementById("items").style.display = "none";
+    document.getElementById("shopping_cart").style.display = "inline-block";
+    document.getElementById("shopping_cart").style.backgroundColor = "red";
+
+    let back_btn = tg.BackButton;
+    back_btn.show();
+    back_btn.onClick(() => {
+        document.getElementById("shopping_cart").style.display = "none";
+        document.getElementById("items").style.display = "grid";
+        back_btn.hide();
+    });
+
     time_slider.style.display = "inline-block";
     choose_time_label.style.display = "inline-block";
     checkout_btn.style.display = "inline-block";
