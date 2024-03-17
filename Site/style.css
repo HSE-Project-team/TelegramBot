@@ -17,9 +17,7 @@ button {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-.hidden {
-    display: none;
-}
+
 
 .container {
     margin: 0;
@@ -162,4 +160,8 @@ button {
     background-color: #ffbf74;
     font-size: 1.3em;
     opacity: 0.9;
+}
+
+.hidden {
+    display: none;
 }

@@ -168,19 +168,17 @@ checkout_btn.addEventListener("click", () => {
 
 choose_time_btn.addEventListener("click", () => {
     document.querySelector(".items").classList.add("hidden");
-    document.querySelector(".items").classList.remove("items");
     choose_time_btn.classList.add("hidden");
     document.querySelector(".container").classList.remove("bottom_container_margin");
     document.querySelector(".shopping_cart").classList.remove("hidden");
 
     let back_btn = tg.BackButton;
     back_btn.show();
+
     back_btn.onClick(() => {
+        console.log("123");
         document.querySelector(".shopping_cart").classList.add("hidden");
-        document.querySelector(".items").classList.remove("hidden");
-        document.querySelector(".items").classList.add("items");
-        choose_time_btn.classList.remove("hidden");
-        document.querySelector(".container").classList.add("bottom_container_margin");
+        document.getElementById("items").classList.remove("hidden");
         back_btn.hide();
     });
 
