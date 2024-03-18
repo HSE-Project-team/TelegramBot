@@ -17,10 +17,9 @@ button {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-
-
 .container {
     margin: 0;
+    height: 100%;
     width: 100%;
 }
 
@@ -73,7 +72,7 @@ button {
     width: 100%;
 }
 
-.add_remove_figure {
+.add_remove_figure, .shopping_cart_add_remove_figure {
     display: flex;
     justify-content: space-between;
     width: 80%;
@@ -97,7 +96,7 @@ button {
     font-family: "Cyntho Pro", sans-serif;
 }
 
-.btn_minus {
+.btn_minus, .shopping_cart_minus_btn {
     background-color: #ffdaae;
     height: 100%;
     width: 35%;
@@ -109,7 +108,8 @@ button {
     vertical-align: middle;
 }
 
-.btn_plus {
+
+.btn_plus, .shopping_cart_plus_btn {
     background-color: #ffdaae;
     height: 100%;
     width: 35%;
@@ -133,7 +133,7 @@ button {
     }
 }
 
-.order_item_label {
+.order_item_label, .shopping_cart_item_label {
     font-size: 1.2em;
     padding: 0;
     width: 30%;
@@ -161,6 +161,91 @@ button {
     font-size: 1.3em;
     opacity: 0.9;
 }
+
+.shopping_cart {
+    display: grid;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.shopping_cart_label {
+    width: 100%;
+    text-align: center;
+    font-size: 2em;
+    margin-top: 0.5em;
+}
+
+.shopping_cart_items {
+    max-height: 50vh;
+    border: 1px solid #ddd;
+    margin-top: 0.8em;
+    margin-right: 5px;
+    margin-left: 5px;
+    border-radius: 25px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.shopping_item {
+    padding: 0;
+    display: grid;
+    grid-template-columns: 20% 35% 30% 20%;
+    height: 60px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    margin-right: 10px;
+    margin-left: 10px;
+    border-radius: 17px;
+    box-shadow: 5px 5px 10px #ddd;
+}
+
+.shopping_item:last-child {
+    margin-bottom: 10px;
+}
+
+.shopping_item_img {
+    display: inline-block;
+    margin: auto 10px;
+    width: 50px;
+    height: auto;
+}
+
+.shopping_cart_item_name {
+    margin: auto 10px;
+    text-align: center;
+    font-size: 0.8em;
+}
+
+.shopping_cart_item_cost {
+    transform: rotate(90deg);
+    font-size: 0.8em;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: fit-content;
+    height: fit-content;
+}
+
+.empty_shopping_cart_label {
+    display: inline-block;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #939393;
+    font-size: 1.2em;
+}
+
+.time_slider {
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 80%;
+}
+
+.time_slider_area {
+    margin-top: 50px;
+    background-color: green;
+}
+
 
 .hidden {
     display: none;
