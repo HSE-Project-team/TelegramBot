@@ -190,7 +190,7 @@ function draw_free_time_in_shopping_cart(free_time_array) {
 
         free_time_button.addEventListener("click", () => {
             checkout_btn.removeAttribute("disabled");
-            checkout_btn.textContent = "Заказать к " + free_time_button.value;
+            checkout_btn.textContent = `Заказать к ${free_time_button.value} • ${order.order_cost} ₽`;
             order.order_time = free_time_button.value;
 
             let time_buttons = buttons_wrapper.children;
@@ -335,7 +335,7 @@ choose_time_btn.addEventListener("click", () => {
     time_slider.addEventListener("input", () => {
         now_time.reset_time();
         now_time.add_to_time(time_slider.value);
-        checkout_btn.textContent = "Заказать к " + now_time.get_time();
+
         order.order_time = now_time.get_time();
     });
 });
@@ -348,6 +348,8 @@ for (let i = 1; i < catalog.size + 1; ++i) {
         document.querySelector(".container").classList.add("bottom_container_margin");
 
         order.order_cost += +catalog.Items[i].item_cost;
+        choose_time_btn.textContent = `Посмотреть заказ • ${order.order_cost} ₽`; 
+
 
         graphicCatalogItems[i].item_btn.classList.add("hidden");
         graphicCatalogItems[i].minus_btn.classList.remove("hidden");
@@ -387,6 +389,7 @@ function decrease_item_counter(i, object_to_delete, location, textField) {
         }
     }
     order.order_cost -= +catalog.Items[i].item_cost;
+    choose_time_btn.textContent = `Посмотреть заказ • ${order.order_cost} ₽`; 
     console.log(order.user_order);
 }
 
@@ -394,6 +397,7 @@ function increase_item_counter(i, textField) {
     let new_number = order.user_order.get(i) + 1;
     order.user_order.set(i, new_number);
     order.order_cost += +catalog.Items[i].item_cost;
+    choose_time_btn.textContent = `Посмотреть заказ • ${order.order_cost} ₽`; 
     textField.textContent = new_number;
     console.log(order.user_order);
 }
