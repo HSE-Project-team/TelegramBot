@@ -146,7 +146,7 @@ button {
     vertical-align: middle;
 }
 
-.choose_time_btn, .checkout_btn{
+.choose_time_btn, .checkout_btn {
     position: fixed;
     bottom: 0;
     grid-column-start: 1;
@@ -164,22 +164,24 @@ button {
 
 .shopping_cart {
     display: grid;
-    height: 100%;
+    grid-template-rows: 10vh 60vh 25vh 5vh;
+    height: 100vh;
     margin: 0;
     padding: 0;
 }
 
 .shopping_cart_label {
     width: 100%;
+    height: fit-content;
     text-align: center;
     font-size: 2em;
     margin-top: 0.5em;
 }
 
 .shopping_cart_items {
+    height: fit-content;
     max-height: 50vh;
     border: 1px solid #ddd;
-    margin-top: 0.8em;
     margin-right: 5px;
     margin-left: 5px;
     border-radius: 25px;
@@ -235,17 +237,52 @@ button {
     font-size: 1.2em;
 }
 
-.time_slider {
-    margin-left: 10%;
-    margin-right: 10%;
-    width: 80%;
-}
-
 .time_slider_area {
-    margin-top: 50px;
-    background-color: green;
+    align-items: center;
+    height: fit-content;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    bottom: 2.2em;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
+.buttons_wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(65px, 1fr));
+    margin: 10px;
+    gap: 10px;
+}
+
+.free_time_button {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    display: none;
+}
+
+.free_time_label {
+    line-height: 30px;
+
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+
+    border-radius: 20px;
+    border: none;
+    transition: background-color 0.2s linear;
+    font-size: 1em;
+    background-color: #ffdaae;
+    font-family: "Cyntho Pro", sans-serif;
+
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.selected_time {
+    box-shadow: 5px 5px 10px #ddd;
+}
+
+.not_selected_time {
+    background-color: #FFF2E0;
+}
 
 .hidden {
     display: none;

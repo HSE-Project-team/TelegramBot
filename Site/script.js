@@ -23,6 +23,7 @@ class Order {
     user_order = new Map();
 
     order_cost = 0;
+    order_time = "";
 
     generate_data_for_send() {
         let answer_string = "Ваш заказ:\n";
@@ -30,7 +31,7 @@ class Order {
         for (let key of order.user_order.keys()) {
             answer_string += `${item_counter++}) ${catalog.Items[key].item_name} (${order.user_order.get(key)} шт.) – ${catalog.Items[key].item_cost}\n`;
         }
-        answer_string += `\nСумма заказа: ${order.order_cost}`;
+        answer_string += `\nСумма заказа: ${order.order_cost}\nВремя заказа: ${order.order_time}`;
         console.log(answer_string);
         return answer_string
     }
@@ -148,6 +149,9 @@ for (let i = 1; i < catalog.size + 1; ++i) {
     graphicCatalogItems[i].add_remove_figures.appendChild(graphicCatalogItems[i].plus_btn);
 }
 
+let free_time_array = ["12:05", "12:10", "12:15", "12:20", "12:25", "12:30", "12:35", "12:40", "12:45", "12:50", "12:55"];
+draw_free_time_in_shopping_cart(free_time_array);
+
 let choose_time_btn = document.createElement("button");
 choose_time_btn.className = "choose_time_btn";
 choose_time_btn.classList.add("hidden");
@@ -156,33 +160,51 @@ document.querySelector(".items").appendChild(choose_time_btn);
 choose_time_btn.textContent = "Посмотреть заказ";
 
 let time_slider = document.createElement("input");
-time_slider.type = "range";
-
-time_slider.min = "0";
-time_slider.max = "60";
-time_slider.value = "0";
-time_slider.className = "time_slider";
 
 let time_slider_area = document.querySelector(".time_slider_area");
-time_slider_area.appendChild(time_slider);
-time_slider.classList.add("hidden");
 
 
-// let choose_time_label = document.createElement("label");
-// choose_time_label.className = "choose_time_label";
-// document.querySelector(".shopping_cart").appendChild(choose_time_label);
-// choose_time_label.classList.add("hidden");
+function draw_free_time_in_shopping_cart(free_time_array) {
+    let time_slider_area = document.querySelector(".time_slider_area");
 
-// let cansel_choose_time_btn = document.createElement("button");
-// cansel_choose_time_btn.className = "cansel_choose_time_btn";
-// document.querySelector(".shopping_cart").appendChild(cansel_choose_time_btn);
-// cansel_choose_time_btn.textContent = "×";
-// cansel_choose_time_btn.classList.add("hidden");
-// document.querySelector(".container").classList.remove("bottom_container_margin");
+    let buttons_wrapper = document.createElement("div");
+    buttons_wrapper.className = "buttons_wrapper";
+    time_slider_area.appendChild(buttons_wrapper);
 
+    for (let free_time of free_time_array) {
+        let free_time_button = document.createElement("input");
+        free_time_button.name = "free_time";
+        free_time_button.type = "radio";
+        free_time_button.className = "free_time_button";
+        free_time_button.value = free_time;
+        free_time_button.id = free_time;
+        let free_time_label = document.createElement("label");
+        free_time_label.textContent = free_time;
+        free_time_label.htmlFor = free_time;
+        free_time_label.className = "free_time_label";
+        buttons_wrapper.appendChild(free_time_button);
+        buttons_wrapper.appendChild(free_time_label);
+
+        free_time_button.addEventListener("click", () => {
+            checkout_btn.textContent = "Заказаьть к " + free_time_button.value;
+            order.order_time = free_time_button.value;
+
+            let time_buttons = buttons_wrapper.children;
+            for (let time_button of time_buttons) {
+                if (time_button.className.includes("free_time_label")) {
+                    time_button.classList.remove("selected_time");
+                    time_button.classList.add("not_selected_time");
+                }
+                console.log(time_button);
+            }
+            free_time_label.classList.add("selected_time");
+            free_time_label.classList.remove("not_selected_time");
+
+        });
+    }
+}
 
 let now_time = new Time();
-// choose_time_label.textContent = now_time.get_now_time();
 
 let checkout_btn = document.createElement("button");
 checkout_btn.className = "checkout_btn";
@@ -203,8 +225,6 @@ choose_time_btn.addEventListener("click", () => {
     document.querySelector(".shopping_cart_items").classList.remove("hidden");
     document.querySelector(".time_slider_area").classList.remove("hidden");
     console.log(document.querySelector(".shopping_cart").classList);
-
-    // !!!!!!!!!
 
     let shopping_cart_items = document.querySelector(".shopping_cart_items");
     for (let key of order.user_order.keys()) {
@@ -257,13 +277,6 @@ choose_time_btn.addEventListener("click", () => {
                 checkout_btn.classList.add("hidden");
                 let empty_shopping_cart_label = document.querySelector(".empty_shopping_cart_label");
                 empty_shopping_cart_label.classList.remove("hidden");
-
-                // let empty_shopping_cart_label = document.createElement("label");
-                // empty_shopping_cart_label.textContent = "Пусто :(";
-                // empty_shopping_cart_label.className = "empty_shopping_cart_label";
-
-                // let shopping_cart = document.querySelector(".shopping_cart");
-                // shopping_cart.appendChild(empty_shopping_cart_label);
             }
             console.log(order.user_order);
         });
@@ -276,13 +289,7 @@ choose_time_btn.addEventListener("click", () => {
     let back_btn = tg.BackButton;
     back_btn.show();
 
-    // let back_btn = document.createElement("button");
-    // back_btn.className = "back_btn";
-    // document.querySelector(".shopping_cart").appendChild(back_btn);
-    // back_btn.textContent = "Назад";
-
     back_btn.onClick(() => {
-        // back_btn.addEventListener("click", () => {
         let shopping_cart = document.querySelector(".shopping_cart");
         shopping_cart.classList.add("hidden");
         let items = document.getElementById("items");
@@ -319,29 +326,16 @@ choose_time_btn.addEventListener("click", () => {
     });
 
     time_slider.classList.remove("hidden");
-    // choose_time_label.classList.remove("hidden");
     checkout_btn.classList.remove("hidden");
-    // cansel_choose_time_btn.classList.remove("hidden");
     document.querySelector(".container").classList.add("bottom_container_margin");
 
     time_slider.addEventListener("input", () => {
         now_time.reset_time();
         now_time.add_to_time(time_slider.value);
-        // choose_time_label.textContent = now_time.get_time();
         checkout_btn.textContent = "Заказать к " + now_time.get_time();
+        order.order_time = now_time.get_time();
     });
 });
-
-// cansel_choose_time_btn.addEventListener("click", () => {
-//     time_slider.classList.add("hidden");
-//     // choose_time_label.classList.add("hidden");
-//     cansel_choose_time_btn.classList.add("hidden");
-//     document.querySelector(".container").classList.remove("bottom_container_margin");
-//     checkout_btn.classList.add("hidden");
-//     choose_time_btn.classList.remove("hidden");
-//     document.querySelector(".container").classList.add("bottom_container_margin");
-// })
-
 
 for (let i = 1; i < catalog.size + 1; ++i) {
     graphicCatalogItems[i].item_btn.addEventListener("click", () => {
@@ -358,30 +352,6 @@ for (let i = 1; i < catalog.size + 1; ++i) {
         graphicCatalogItemCounter[i].textContent = "1";
         graphicCatalogItems[i].plus_btn.classList.remove("hidden");
 
-        // graphicCatalogItems[i].minus_btn = document.createElement("button");
-        // graphicCatalogItems[i].minus_btn.textContent = "-";
-        // graphicCatalogItems[i].minus_btn.className = "btn_minus"
-
-        // graphicCatalogItemCounter[i] = document.createElement("label");
-        // graphicCatalogItemCounter[i].textContent = order.user_order.get(i);
-        // graphicCatalogItemCounter[i].className = "order_item_label";
-
-        // graphicCatalogItems[i].plus_btn = document.createElement("button");
-        // graphicCatalogItems[i].plus_btn.textContent = "+";
-        // graphicCatalogItems[i].plus_btn.className = "btn_plus"
-
-        // graphicCatalogItems[i].add_remove_figures.appendChild(graphicCatalogItems[i].minus_btn);
-        // graphicCatalogItems[i].add_remove_figures.appendChild(graphicCatalogItemCounter[i]);
-        // graphicCatalogItems[i].add_remove_figures.appendChild(graphicCatalogItems[i].plus_btn);
-
-        // graphicCatalogItems[i].plus_btn.addEventListener("click", () => {
-        //     increase_item_counter(i, graphicCatalogItemCounter[i]);
-        // });
-        //
-        // graphicCatalogItems[i].minus_btn.addEventListener("click", () => {
-        //     decrease_item_counter(i, "none", "catalog", graphicCatalogItemCounter[i]);
-        //     console.log(order.user_order);
-        // });
         console.log(graphicCatalogItems[i].add_remove_figures);
     })
 }
@@ -424,4 +394,3 @@ function increase_item_counter(i, textField) {
     textField.textContent = new_number;
     console.log(order.user_order);
 }
-
