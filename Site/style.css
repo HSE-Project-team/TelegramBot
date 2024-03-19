@@ -146,7 +146,7 @@ button {
     vertical-align: middle;
 }
 
-.choose_time_btn, .checkout_btn {
+.choose_time_btn {
     position: fixed;
     bottom: 0;
     grid-column-start: 1;
@@ -162,10 +162,29 @@ button {
     opacity: 0.9;
 }
 
+.checkout_btn {
+    width: 100%;
+    min-height: 2.2em;
+    height: 2.2em;
+    font-family: "Cyntho Pro", sans-serif;
+
+    border: none;
+    color: #2d2d2d;
+    background-color: #ffbf74;
+    font-size: 1.3em;
+    opacity: 0.9;
+    align-self: flex-end;
+}
+
+.checkout_btn:disabled {
+    background-color: #FFE3C2
+}
+
 .shopping_cart {
-    display: grid;
-    grid-template-rows: 10vh 60vh 25vh 5vh;
+    display: flex;
+    flex-direction: column;
     height: 100vh;
+    justify-content: space-between;
     margin: 0;
     padding: 0;
 }
@@ -179,11 +198,11 @@ button {
 }
 
 .shopping_cart_items {
-    height: fit-content;
     max-height: 50vh;
     border: 1px solid #ddd;
     margin-right: 5px;
     margin-left: 5px;
+    margin-top: 10px;
     border-radius: 25px;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -229,22 +248,22 @@ button {
 }
 
 .empty_shopping_cart_label {
-    display: inline-block;
     margin-top: 30px;
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%;
+    text-align: center;
     color: #939393;
     font-size: 1.2em;
 }
 
 .time_slider_area {
     align-items: center;
-    height: fit-content;
+    height: 100%;
     border: 1px solid #ddd;
     border-radius: 25px;
     bottom: 2.2em;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin: 10px 5px;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .buttons_wrapper {
@@ -282,6 +301,13 @@ button {
 
 .not_selected_time {
     background-color: #FFF2E0;
+}
+
+.time_selection_and_checkout {
+    min-height: 30vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
 }
 
 .hidden {

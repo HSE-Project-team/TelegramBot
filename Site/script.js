@@ -1,6 +1,9 @@
 let tg = window.Telegram.WebApp;
 tg.expand();
 
+let back_btn = tg.BackButton;
+back_btn.hide();
+
 class ItemFromCatalog {
     constructor(item_img, item_name, item_cost) {
         this.item_img = item_img;
@@ -186,7 +189,8 @@ function draw_free_time_in_shopping_cart(free_time_array) {
         buttons_wrapper.appendChild(free_time_label);
 
         free_time_button.addEventListener("click", () => {
-            checkout_btn.textContent = "Заказаьть к " + free_time_button.value;
+            checkout_btn.removeAttribute("disabled");
+            checkout_btn.textContent = "Заказать к " + free_time_button.value;
             order.order_time = free_time_button.value;
 
             let time_buttons = buttons_wrapper.children;
@@ -206,10 +210,10 @@ function draw_free_time_in_shopping_cart(free_time_array) {
 
 let now_time = new Time();
 
-let checkout_btn = document.createElement("button");
-checkout_btn.className = "checkout_btn";
-document.querySelector(".shopping_cart").appendChild(checkout_btn);
-checkout_btn.textContent = "Заказать к " + now_time.get_time();
+let checkout_btn = document.querySelector(".checkout_btn");
+
+checkout_btn.textContent = "Выберите время";
+checkout_btn.setAttribute('disabled', '');
 checkout_btn.classList.add("hidden");
 
 checkout_btn.addEventListener("click", () => {
@@ -217,14 +221,13 @@ checkout_btn.addEventListener("click", () => {
 });
 
 choose_time_btn.addEventListener("click", () => {
+    document.querySelector(".container").classList.remove("bottom_container_margin");
     document.querySelector(".items").classList.add("hidden");
     choose_time_btn.classList.add("hidden");
-    document.querySelector(".container").classList.remove("bottom_container_margin");
     document.querySelector(".shopping_cart").classList.remove("hidden");
     document.querySelector(".empty_shopping_cart_label").classList.add("hidden");
     document.querySelector(".shopping_cart_items").classList.remove("hidden");
     document.querySelector(".time_slider_area").classList.remove("hidden");
-    console.log(document.querySelector(".shopping_cart").classList);
 
     let shopping_cart_items = document.querySelector(".shopping_cart_items");
     for (let key of order.user_order.keys()) {
@@ -286,10 +289,11 @@ choose_time_btn.addEventListener("click", () => {
         });
     }
 
-    let back_btn = tg.BackButton;
     back_btn.show();
 
     back_btn.onClick(() => {
+        document.querySelector(".container").classList.add("bottom_container_margin");
+
         let shopping_cart = document.querySelector(".shopping_cart");
         shopping_cart.classList.add("hidden");
         let items = document.getElementById("items");
@@ -327,7 +331,6 @@ choose_time_btn.addEventListener("click", () => {
 
     time_slider.classList.remove("hidden");
     checkout_btn.classList.remove("hidden");
-    document.querySelector(".container").classList.add("bottom_container_margin");
 
     time_slider.addEventListener("input", () => {
         now_time.reset_time();
