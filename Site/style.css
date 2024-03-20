@@ -147,6 +147,8 @@ button {
 }
 
 .choose_time_btn {
+    z-index: 999;
+
     position: fixed;
     bottom: 0;
     grid-column-start: 1;
@@ -308,6 +310,12 @@ button {
     display: flex;
     flex-direction: column;
     justify-content: end;
+}
+
+.error_404_label {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
 }
 
 .hidden {
