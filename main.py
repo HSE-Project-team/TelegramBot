@@ -1,6 +1,7 @@
 from aiogram import Bot, Dispatcher, types, executor
 from aiogram.types.web_app_info import WebAppInfo
 from dotenv import load_dotenv
+from math import floor
 import os
 import requests
 import json
@@ -21,7 +22,12 @@ class Order:
         self.user_id = user_id
 
 
-orders = []
+@dp.message_handler(commands=['orders'])
+async def start(message: types.Message):
+    orders_button = types.ReplyKeyboardMarkup()
+    orders_button.add(
+        types.KeyboardButton("Посмотреть все заказы", web_app=WebAppInfo(url="https://github.com")))
+    await message.answer("Привет!", reply_markup=orders_button)
 
 
 @dp.message_handler(commands=['start'])
@@ -41,40 +47,45 @@ async def start(message: types.Message):
     await message.answer("Привет!", reply_markup=markup)
     """
 
-    markup = types.ReplyKeyboardMarkup()
-    markup.add(
-        types.KeyboardButton("Открыть WebApp", web_app=WebAppInfo(url="https://i2l1a1.github.io/")))
-    await message.answer("Привет!", reply_markup=markup)
+    new_order_button = types.ReplyKeyboardMarkup()
+    new_order_button.add(
+        types.KeyboardButton("Сделать новый заказ", web_app=WebAppInfo(url="https://i2l1a1.github.io/")))
+
+    await message.answer("Привет!", reply_markup=new_order_button)
 
 
-def create_new_order(user_name, user_id):
-    return Order(len(orders) + 1, user_name, user_id)
+def seconds_to_time(seconds):
+    hours = floor(seconds / 3600)
+    minutes = floor((seconds % 3600) / 60)
+    if hours < 10:
+        hours = "0" + str(hours)
 
+    if minutes < 10:
+        minutes = "0" + str(minutes)
 
-# @dp.message_handler(content_types=['web_app_data'])
-def print_new_order(message: types.Message):
-    print(f"Order number={orders[len(orders) - 1].order_number}")
-    print(f"Order_data='{message.web_app_data.data}'")
-    print(f"User_data=[user_id={orders[len(orders) - 1].user_id}, user_name={orders[len(orders) - 1].user_name}]")
-    print("---------------")
+    return f"{str(hours)}:{str(minutes)}"
 
 
 @dp.message_handler(content_types=['web_app_data'])
 async def buy_process(message: types.Message):
     user_id = message.from_user.id
     first_name = message.from_user.first_name
-    orders.append(create_new_order(first_name, user_id))
-    print_new_order(message)
+    # print_new_order(message)
 
     r = requests.post('http://httpbin.org/post', json=message.web_app_data.data)
+    print(message.web_app_data.data)
 
-    json_from_bot = json.loads(r.json()["json"])
+    # print(r.status_code)
+
+    json_from_bot = json.loads(message.web_app_data.data)
     string_for_user = f"{first_name}, бот принял Ваш заказ. Вы заказали:\n"
-    for item in json_from_bot["order"]:
-        string_for_user += f"• {item[0]} ({item[1]} шт.) – {item[2]} ₽\n"
-    string_for_user += f"\nСумма заказа: {json_from_bot['cost']} ₽\n"
-    string_for_user += f"Время заказа: {json_from_bot['time']}\n"
+    for item in json_from_bot["items"]:
+        string_for_user += f"• {item['itemName']} ({item['itemNumber']} шт.) – {item['itemCost']} ₽ (ID продукта: {item['itemId']})\n"
+    string_for_user += f"\nСумма заказа: {json_from_bot['orderCost']} ₽\n"
+    string_for_user += f"Время заказа: {seconds_to_time(json_from_bot['time'])}\n"
     string_for_user += f"ID аккаунта: {user_id}\n"
+
+    string_for_user += f"\n\n JSON for server: {json_from_bot}"
 
     print(string_for_user)
     await message.answer(string_for_user)
