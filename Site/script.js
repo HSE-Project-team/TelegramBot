@@ -1,3 +1,8 @@
+let url_addresses = {
+    catalog_url: "https://api.npoint.io/e8788c3df8ed585a512f",
+    free_order_time_url: "https://api.npoint.io/bb051384b63b14a8cdd8"
+};
+
 let tg = window.Telegram.WebApp;
 tg.expand();
 
@@ -118,6 +123,19 @@ function create_input(class_name = "", name, type, value, id) {
     return element_variable;
 }
 
+function seconds_to_time(seconds) {
+    let hours = Math.floor(seconds / 3600);
+    let minutes = Math.floor((seconds % 3600) / 60);
+    if (hours < 10) {
+        hours = "0" + hours;
+    }
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
+
+    return hours + ":" + minutes;
+}
+
 document.querySelector(".shopping_cart").classList.add("hidden");
 
 let catalog = new Catalog();
@@ -137,7 +155,7 @@ async function get_data_from_server(url) {
     }
 }
 
-get_data_from_server("https://api.npoint.io/e8788c3df8ed585a512f").then((data_from_server) => {
+get_data_from_server(url_addresses.catalog_url).then((data_from_server) => {
     if (data_from_server) {
         for (let catalog_item of data_from_server["catalog"]) {
             catalog.addItem(catalog_item["name"], catalog_item["img"], catalog_item["cost"]);
@@ -210,6 +228,17 @@ get_data_from_server("https://api.npoint.io/e8788c3df8ed585a512f").then((data_fr
         }
 
         choose_time_btn.addEventListener("click", () => {
+            get_data_from_server(url_addresses.free_order_time_url).then((data_from_server) => {
+                let free_time_array = [];
+                for (let free_time of data_from_server["freetime"]) {
+                    console.log(free_time);
+                    free_time_array.push(seconds_to_time(free_time));
+                }
+
+                draw_free_time_in_shopping_cart(free_time_array);
+            });
+
+
             document.querySelector(".container").classList.remove("bottom_container_margin");
             document.querySelector(".items").classList.add("hidden");
             choose_time_btn.classList.add("hidden");
@@ -312,10 +341,6 @@ get_data_from_server("https://api.npoint.io/e8788c3df8ed585a512f").then((data_fr
         }
     }
 })
-
-
-let free_time_array = ["12:05", "12:10", "12:15", "12:20", "12:25", "12:30", "12:35", "12:40", "12:45", "12:50", "12:55"];
-draw_free_time_in_shopping_cart(free_time_array);
 
 let choose_time_btn = create_element("button", "choose_time_btn", "Посмотреть заказ", true);
 document.querySelector(".container").classList.remove("bottom_container_margin");
