@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="new_order_style.css">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>TelegramWebApp</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="error_404_label hidden">Ошибка загрузки</div>
+
+    <div class="items" id="items">
+    </div>
+
+    <div class="shopping_cart" id="shopping_cart">
+        <div class="header_and_shopping_cart_items" id="">
+            <div class="shopping_cart_label">Корзина</div>
+            <button class="back_btn hidden">Back</button>
+            <div class="empty_shopping_cart_label hidden">Пусто :(</div>
+            <div class="shopping_cart_items" id="shopping_cart_items"></div>
+        </div>
+        <div class="time_selection_and_checkout" id="time_selection_and_checkout">
+            <div class="time_slider_area" id="time_slider_area"></div>
+            <button class="checkout_btn" id="checkout_btn"></button>
+        </div>
+    </div>
+</div>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<script src="new_order_script.js"></script>
+</body>
+</html>

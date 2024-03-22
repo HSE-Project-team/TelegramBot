@@ -6,7 +6,8 @@ let url_addresses = {
 let tg = window.Telegram.WebApp;
 tg.expand();
 
-// let back_btn = tg.BackButton;
+let back_btn = tg.BackButton;
+
 // back_btn.hide();
 
 class ItemFromCatalog {
@@ -39,7 +40,7 @@ class Order {
         };
 
         let item_for_send = {
-            itemName: "", itemId: "", itemCost: "", itemNumber: ""
+            itemName: "", itemId: "", itemCost: "", itemNumber: "", comment: ""
         };
 
         for (let key of order.user_order.keys()) {
@@ -56,6 +57,7 @@ class Order {
 
         data_for_send.orderCost = order.order_cost;
         data_for_send.time = order.order_time;
+        data_for_send.comment = "Длинный текст";
 
         data_for_send = JSON.stringify(data_for_send);
 
@@ -177,7 +179,10 @@ get_data_from_server(url_addresses.catalog_url).then((data_from_server) => {
     catalog.size = data_from_server["size"];
 
     for (let catalog_item of data_from_server["items"]) {
-        catalog.addItem(catalog_item["itemId"], catalog_item["itemName"], "Dish1.png", catalog_item["itemCost"]);
+        catalog.addItem(catalog_item["itemId"],
+            catalog_item["itemName"],
+            "Dish1.png",
+            catalog_item["itemCost"]);
     }
 
     function decrease_item_counter(i, object_to_delete, location, textField) {
@@ -302,12 +307,12 @@ get_data_from_server(url_addresses.catalog_url).then((data_from_server) => {
             });
         }
 
-        // back_btn.show();
+        back_btn.show();
 
-        let back_btn = document.querySelector(".back_btn");
+        // let back_btn = document.querySelector(".back_btn");
 
-        // back_btn.onClick(() => {
-        back_btn.addEventListener("click", () => {
+        back_btn.onClick(() => {
+            // back_btn.addEventListener("click", () => {
             document.querySelector(".container").classList.add("bottom_container_margin");
 
             let shopping_cart = document.querySelector(".shopping_cart");
