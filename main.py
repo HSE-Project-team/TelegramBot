@@ -97,6 +97,7 @@ async def buy_process(message: types.Message):
     json_for_server = make_json_for_server(json_from_bot, user_id)
 
     r = requests.post('http://httpbin.org/post', json=json_for_server)
+    print(r.json()["json"])
 
     # print(r.status_code)
 
