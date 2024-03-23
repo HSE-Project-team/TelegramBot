@@ -263,7 +263,7 @@ button {
     border: 1px solid #ddd;
     border-radius: 25px;
     bottom: 2.2em;
-    margin: 10px 5px;
+    margin: 0 5px 10px;
     overflow-x: hidden;
     overflow-y: scroll;
 }
@@ -318,11 +318,47 @@ button {
     margin-top: 20px;
 }
 
-.back_btn {
-    width: 50px;
-    height: 50px;
-}
+/*.back_btn {*/
+/*    width: 50px;*/
+/*    height: 50px;*/
+/*}*/
 
 .hidden {
     display: none;
+}
+
+.order_comment_div {
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.order_comment {
+    width: calc(100% - 70px);
+    outline: none;
+    resize: none;
+    font-family: "Cyntho Pro", sans-serif;
+    padding: 10px;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.order_comment_button {
+    padding: 0;
+    height: 45px;
+    width: 45px;
+    margin-top: auto;
+    margin-bottom: auto;
+    background-color: #ffdaae;
+    border: 0;
+    border-radius: 25px;
+    color: #2d2d2d;
+    font-size: 0.9em;
+    text-align: center;
+    vertical-align: middle;
 }

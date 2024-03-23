@@ -1,0 +1,118 @@
+@font-face {
+    font-family: 'Cyntho Pro';
+    src: local('CynthoPro-Regular'), url('../cynthopro/Cynthopro-regular.woff2') format('woff2'), url('../cynthopro/Cynthopro-regular.woff') format('woff'), url('../cynthopro/Cynthopro-regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    background-color: white;
+    width: 100%;
+    font-size: 14px;
+    font-family: "Cyntho Pro", sans-serif;
+}
+
+button {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.container {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.show_orders_label {
+    width: 100%;
+    height: fit-content;
+    text-align: center;
+    font-size: 2em;
+    margin-top: 0.5em;
+}
+
+
+.order_wrapper {
+    border: 1px solid #ddd;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-top: 20px;
+    border-radius: 25px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.order_item {
+    padding: 0;
+    display: grid;
+    grid-template-columns: 20% 35% 30% 20%;
+    height: 60px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    margin-right: 10px;
+    margin-left: 10px;
+    border-radius: 17px;
+    box-shadow: 5px 5px 10px #ddd;
+}
+
+.order_info {
+    padding: 0;
+    height: fit-content;
+    margin-bottom: 1.3em;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.order_id, .order_time, .order_status {
+    width: 100%;
+    height: fit-content;
+    text-align: center;
+    font-size: 1.2em;
+    margin-top: 0.6em;
+    margin-bottom: 0.6em;
+}
+
+.order_time {
+    font-size: 1em;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.order_status {
+    font-size: 1em;
+    margin-top: 0.2em;
+    margin-bottom: 0;
+}
+
+.order_item:last-child, .order_wrapper:last-child {
+    margin-bottom: 10px;
+}
+
+.order_item_img {
+    display: inline-block;
+    margin: auto 10px;
+    width: 50px;
+    height: auto;
+}
+
+.order_item_name {
+    margin: auto 10px;
+    text-align: center;
+    font-size: 0.8em;
+}
+
+.order_item_cost {
+    font-size: 0.8em;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: fit-content;
+    height: fit-content;
+}
+
+.order_item_number {
+    font-size: 0.8em;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: fit-content;
+    height: fit-content;
+}

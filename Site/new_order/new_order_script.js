@@ -33,6 +33,7 @@ class Order {
 
     order_cost = 0;
     order_time = "";
+    order_comment = "";
 
     generate_data_for_send() {
         let data_for_send = {
@@ -57,7 +58,7 @@ class Order {
 
         data_for_send.orderCost = order.order_cost;
         data_for_send.time = order.order_time;
-        data_for_send.comment = "Длинный текст";
+        data_for_send.comment = order.order_comment;
 
         data_for_send = JSON.stringify(data_for_send);
 
@@ -170,7 +171,7 @@ document.querySelector(".shopping_cart").classList.add("hidden");
 
 let catalog = new Catalog();
 
-order = new Order();
+let order = new Order();
 
 let graphicCatalogItemCounter = new Map();
 
@@ -376,5 +377,7 @@ checkout_btn.setAttribute('disabled', '');
 checkout_btn.classList.add("hidden");
 
 checkout_btn.addEventListener("click", () => {
+    let order_comment = document.querySelector(".order_comment");
+    order.order_comment = order_comment.value;
     tg.sendData(order.generate_data_for_send());
 });
