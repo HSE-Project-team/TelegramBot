@@ -261,7 +261,7 @@ get_data_from_server(url_addresses.catalog_url).then((data_from_server) => {
     choose_time_btn.addEventListener("click", () => {
         get_data_from_server(url_addresses.free_order_time_url).then((data_from_server) => {
             let free_time_array = [];
-            for (let free_time of data_from_server["freetime"]) {
+            for (let free_time of data_from_server["times"]) {
                 free_time_array.push(free_time);
             }
 
