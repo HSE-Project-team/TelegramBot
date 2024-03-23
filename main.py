@@ -5,6 +5,7 @@ from math import floor
 import os
 import requests
 import json
+import copy
 
 load_dotenv()
 bot = Bot(os.getenv("TESTTGTOKEN"))
@@ -66,28 +67,42 @@ def seconds_to_time(seconds):
     return f"{str(hours)}:{str(minutes)}"
 
 
-@dp.message_handler(content_types=['web_app_data'])
-async def buy_process(message: types.Message):
-    user_id = message.from_user.id
-    first_name = message.from_user.first_name
-    # print_new_order(message)
+def make_json_for_server(json_data, user_id):
+    json_for_server = copy.deepcopy(json_data)
+    items_for_server = dict()
+    for item in json_for_server.pop("items"):
+        items_for_server[item["itemId"]] = item["itemNumber"]
 
-    r = requests.post('http://httpbin.org/post', json=message.web_app_data.data)
-    print(message.web_app_data.data)
+    json_for_server["items"] = items_for_server
+    json_for_server["userId"] = user_id
+    return json_for_server
 
-    # print(r.status_code)
 
-    json_from_bot = json.loads(message.web_app_data.data)
+def make_string_for_user(json_from_bot, first_name, user_id):
     string_for_user = f"{first_name}, бот принял Ваш заказ. Вы заказали:\n"
     for item in json_from_bot["items"]:
         string_for_user += f"• {item['itemName']} ({item['itemNumber']} шт.) – {item['itemCost']} ₽ (ID продукта: {item['itemId']})\n"
     string_for_user += f"\nСумма заказа: {json_from_bot['orderCost']} ₽\n"
     string_for_user += f"Время заказа: {seconds_to_time(json_from_bot['time'])}\n"
     string_for_user += f"ID аккаунта: {user_id}\n"
+    return string_for_user
 
-    string_for_user += f"\n\n JSON for server: {json_from_bot}"
 
-    print(string_for_user)
+@dp.message_handler(content_types=['web_app_data'])
+async def buy_process(message: types.Message):
+    user_id = message.from_user.id
+    first_name = message.from_user.first_name
+
+    json_from_bot = json.loads(message.web_app_data.data)
+    json_for_server = make_json_for_server(json_from_bot, user_id)
+
+    r = requests.post('http://httpbin.org/post', json=json_for_server)
+
+    # print(r.status_code)
+
+    string_for_user = make_string_for_user(json_from_bot, first_name, user_id)
+    string_for_user += f"\n\njson_from_bot: {json_from_bot}\n\njson_for_server: {json_for_server}"
+
     await message.answer(string_for_user)
 
 
