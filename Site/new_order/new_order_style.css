@@ -323,10 +323,6 @@ button {
 /*    height: 50px;*/
 /*}*/
 
-.hidden {
-    display: none;
-}
-
 .order_comment_div {
     display: flex;
     justify-content: space-between;
@@ -361,4 +357,8 @@ button {
     font-size: 0.9em;
     text-align: center;
     vertical-align: middle;
+}
+
+.hidden {
+    display: none;
 }

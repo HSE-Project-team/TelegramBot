@@ -1,8 +1,11 @@
+let items_element = document.querySelector(".orders");
+let show_orders_label = document.querySelector(".show_orders_label");
+
 let tg = window.Telegram.WebApp;
 tg.expand();
 
-let back_btn_show_orders = tg.BackButton;
-back_btn_show_orders.show();
+// let back_btn_show_orders = tg.BackButton;
+// back_btn_show_orders.show();
 
 let url_addresses = {
     user_url: "https://api.npoint.io/df9386412941a86767d4"
@@ -59,10 +62,6 @@ function seconds_to_time(seconds) {
     return hours + ":" + minutes;
 }
 
-
-let items_element = document.querySelector(".orders");
-console.log(items_element);
-
 get_data_from_server(url_addresses.user_url).then((data_from_server) => {
     let orders_length = data_from_server["orders"].length;
     for (let i = 0; i < orders_length; ++i) {
@@ -89,13 +88,76 @@ get_data_from_server(url_addresses.user_url).then((data_from_server) => {
             let order_item_name = create_element("div", "order_item_name", item["item"]["itemName"]);
             let order_item_cost = create_element("div", "order_item_cost", item["item"]["itemCost"] + " ₽/шт.");
             let order_item_number = create_element("div", "order_item_number", item["itemNumber"] + " шт.");
+            let order_item_cost_number_wrapper = create_element("div", "order_item_cost_number_wrapper");
 
             order_wrapper.appendChild(order_item);
             order_item.appendChild(order_item_img);
             order_item.appendChild(order_item_name);
-            order_item.appendChild(order_item_cost);
-            order_item.appendChild(order_item_number);
+            order_item_cost_number_wrapper.appendChild(order_item_cost);
+            order_item_cost_number_wrapper.appendChild(order_item_number);
+            order_item.appendChild(order_item_cost_number_wrapper);
+
         }
         items_element.appendChild(order_wrapper);
+    }
+});
+
+animated_page_scroll = (end, duration) => {
+    let start = window.scrollY;
+    let change = end - start;
+    let current_time = 0;
+
+    function easeInOutAnimation(time, start, change, duration) {
+        time /= duration / 2;
+        if (time < 1) {
+            return (change / 2) * time * time + start;
+        }
+        time--;
+        return (-change / 2) * (time * (time - 2) - 1) + start;
+    }
+
+    function animate_scroll() {
+        if (window.scrollY < 10) {
+            current_time += 2;
+        } else if (window.scrollY < 40) {
+            current_time += 3;
+        } else if (window.scrollY < 70) {
+            current_time += 4;
+        } else if (window.scrollY < 400) {
+            current_time += 10;
+        } else {
+            current_time += 20;
+        }
+        window.scrollTo(0, easeInOutAnimation(current_time, start, change, duration));
+        if (current_time < duration) {
+            requestAnimationFrame(animate_scroll);
+        }
+    }
+
+    animate_scroll();
+}
+
+show_orders_label.addEventListener("click", () => {
+    if (window.scrollY < 50) {
+        animated_page_scroll(0, 50);
+        console.log(50);
+    } else if (window.scrollY < 100) {
+        animated_page_scroll(0, 100);
+        console.log(100);
+    } else if (window.scrollY < 200) {
+        animated_page_scroll(0, 200);
+        console.log(200);
+    } else if (window.scrollY < 400) {
+        animated_page_scroll(0, 250);
+        console.log(400);
+    } else if (window.scrollY < 500) {
+        animated_page_scroll(0, 300);
+        console.log(500);
+    } else if (window.scrollY < 550) {
+        animated_page_scroll(0, 400);
+        console.log(550);
+    } else {
+        animated_page_scroll(0, 600);
+        console.log(600 + " and more");
     }
 });
