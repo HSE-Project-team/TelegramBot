@@ -1,5 +1,5 @@
 let items_element = document.querySelector(".orders");
-let show_orders_label = document.querySelector(".show_orders_label");
+let show_orders_label_wrapper = document.querySelector(".show_orders_label_wrapper");
 
 let tg = window.Telegram.WebApp;
 tg.expand();
@@ -137,27 +137,20 @@ animated_page_scroll = (end, duration) => {
     animate_scroll();
 }
 
-show_orders_label.addEventListener("click", () => {
+show_orders_label_wrapper.addEventListener("click", () => {
     if (window.scrollY < 50) {
         animated_page_scroll(0, 50);
-        console.log(50);
     } else if (window.scrollY < 100) {
         animated_page_scroll(0, 100);
-        console.log(100);
     } else if (window.scrollY < 200) {
         animated_page_scroll(0, 200);
-        console.log(200);
     } else if (window.scrollY < 400) {
         animated_page_scroll(0, 250);
-        console.log(400);
     } else if (window.scrollY < 500) {
         animated_page_scroll(0, 300);
-        console.log(500);
     } else if (window.scrollY < 550) {
         animated_page_scroll(0, 400);
-        console.log(550);
     } else {
         animated_page_scroll(0, 600);
-        console.log(600 + " and more");
     }
 });

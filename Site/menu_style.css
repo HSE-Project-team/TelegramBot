@@ -30,7 +30,9 @@ body {
 }
 
 .menu {
-    width: 100%;
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     margin-top: 50px;
 }
 
@@ -53,15 +55,23 @@ body {
 }
 
 .menu_div {
+    margin-right: 5px;
+    margin-left: 5px;
     border-radius: 50px;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    margin-left: 5px;
-    margin-right: 5px;
+    /*margin-left: 5px;*/
+    /*margin-right: 5px;*/
     margin-bottom: 10px;
     height: 60px;
     background-color: #ffdaae;
 }
 
+.menu_div:first-child {
+    display: flex;
+    align-self: center;
+    left: 0;
+}
+
 .menu_div:last-child {
-    margin-bottom: 0;
+    right: 0;
 }
