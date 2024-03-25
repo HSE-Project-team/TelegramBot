@@ -1,14 +1,15 @@
-import {animated_page_scroll} from "../animated_page_scroll.js";
+import {animated_page_scroll} from "../animated_page_scroll_tools_tools.js";
+import {catalog_url, free_order_time_url} from "../URL_storage.js";
+import {
+    get_data_from_server, send_data_to_server
+} from "../networking_tools.js"
+import {
+    create_element, create_image, seconds_to_time, create_input
+} from "../graphical_tools.js";
 
 animated_page_scroll(0, ".header_label_wrapper");
 
-let url_addresses = {
-    catalog_url: "https://api.npoint.io/e8788c3df8ed585a512f",
-    free_order_time_url: "https://api.npoint.io/bb051384b63b14a8cdd8"
-};
-
 let page_header_catalog = document.querySelector(".page_header_catalog");
-
 
 let tg = window.Telegram.WebApp;
 tg.expand();
@@ -114,69 +115,6 @@ function draw_free_time_in_shopping_cart(free_time_array) {
     }
 }
 
-function create_element(element_type, class_name = "", text_content = "", is_hidden = false) {
-    let element_variable = document.createElement(element_type);
-    if (class_name !== "") {
-        element_variable.className = class_name;
-    }
-    if (text_content !== "") {
-        element_variable.textContent = text_content;
-    }
-    if (is_hidden) {
-        element_variable.classList.add("hidden");
-    }
-    return element_variable;
-}
-
-function create_image(class_name = "", src, alt) {
-    let element_variable = document.createElement("img");
-    element_variable.className = class_name;
-    element_variable.src = src;
-    element_variable.alt = alt;
-    return element_variable;
-}
-
-function create_input(class_name = "", name, type, value, id) {
-    let element_variable = document.createElement("input");
-    element_variable.className = class_name;
-    element_variable.name = name;
-    element_variable.type = type;
-    element_variable.value = value;
-    element_variable.id = id;
-    return element_variable;
-}
-
-function seconds_to_time(seconds) {
-    let hours = Math.floor(seconds / 3600);
-    let minutes = Math.floor((seconds % 3600) / 60);
-    if (hours < 10) {
-        hours = "0" + hours;
-    }
-    if (minutes < 10) {
-        minutes = "0" + minutes;
-    }
-
-    return hours + ":" + minutes;
-}
-
-async function get_data_from_server(url) {
-    const response = await fetch(url, {
-        method: "GET",
-    });
-    return await response.json();
-}
-
-async function send_data_to_server(url, data_for_send) {
-    const response = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify(data_for_send),
-    });
-
-    return await response.json();
-}
-
-
-document.querySelector(".shopping_cart").classList.add("hidden");
 
 let catalog = new Catalog();
 
@@ -184,14 +122,14 @@ let order = new Order();
 
 let graphicCatalogItemCounter = new Map();
 
-get_data_from_server(url_addresses.catalog_url).then((data_from_server) => {
+get_data_from_server(catalog_url).then((data_from_server) => {
 
     catalog.size = data_from_server["size"];
 
     for (let catalog_item of data_from_server["items"]) {
         catalog.addItem(catalog_item["itemId"],
             catalog_item["itemName"],
-            "Dish1.png",
+            "../Dish1.png",
             catalog_item["itemCost"]);
     }
 
@@ -266,7 +204,7 @@ get_data_from_server(url_addresses.catalog_url).then((data_from_server) => {
         checkout_btn.setAttribute('disabled', '');
         checkout_btn.textContent = "Выберите время";
 
-        get_data_from_server(url_addresses.free_order_time_url).then((data_from_server) => {
+        get_data_from_server(free_order_time_url).then((data_from_server) => {
             let free_time_array = [];
             for (let free_time of data_from_server["times"]) {
                 free_time_array.push(free_time);
