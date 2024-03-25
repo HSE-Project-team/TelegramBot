@@ -12,7 +12,6 @@ body {
     font-size: 18px;
     font-family: "Cyntho Pro", sans-serif;
     color: #2d2d2d;
-
 }
 
 .container {
@@ -59,19 +58,13 @@ body {
     margin-left: 5px;
     border-radius: 50px;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    /*margin-left: 5px;*/
-    /*margin-right: 5px;*/
     margin-bottom: 10px;
     height: 60px;
     background-color: #ffdaae;
 }
 
-.menu_div:first-child {
-    display: flex;
-    align-self: center;
-    left: 0;
-}
-
-.menu_div:last-child {
-    right: 0;
+@media screen and (width > 400px) {
+    .menu_div:first-child {
+        margin-right: 0;
+    }
 }

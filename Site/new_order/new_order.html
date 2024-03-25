@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../page_header_style.css">
     <link rel="stylesheet" href="new_order_style.css">
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <title>TelegramWebApp</title>
@@ -10,6 +11,18 @@
 <body>
 
 <div class="container">
+    <div class="page_header page_header_catalog">
+        <a class="back_btn_to_menu" href="../index.html">
+            <svg class="back_btn_to_menu_svg" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+                <line x1="17" y1="6" x2="7" y2="16" stroke-linecap="round" stroke-width="1.5"/>
+                <line x1="7" y1="16" x2="17" y2="26" stroke-linecap="round" stroke-width="1.5"/>
+            </svg>
+        </a>
+        <div class="header_label_wrapper">
+            <div class="header_label">Каталог</div>
+        </div>
+    </div>
+
     <div class="error_404_label hidden">Ошибка загрузки</div>
 
     <div class="items" id="items">
@@ -17,8 +30,17 @@
 
     <div class="shopping_cart" id="shopping_cart">
         <div class="header_and_shopping_cart_items" id="">
-            <div class="shopping_cart_label">Корзина</div>
-            <button class="back_btn">Back</button>
+            <div class="page_header page_header_shopping_cart">
+                <div class="back_btn">
+                    <svg class="back_btn_to_menu_svg" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="17" y1="6" x2="7" y2="16" stroke-linecap="round" stroke-width="1.5"/>
+                        <line x1="7" y1="16" x2="17" y2="26" stroke-linecap="round" stroke-width="1.5"/>
+                    </svg>
+                </div>
+                <div class="header_label_wrapper">
+                    <div class="header_label">Корзина</div>
+                </div>
+            </div>
             <div class="empty_shopping_cart_label hidden">Пусто :(</div>
             <div class="shopping_cart_items" id="shopping_cart_items"></div>
         </div>
@@ -36,6 +58,7 @@
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-<script src="new_order_script.js"></script>
+<script type="module" src="../animated_page_scroll.js"></script>
+<script type="module" src="new_order_script.js"></script>
 </body>
 </html>

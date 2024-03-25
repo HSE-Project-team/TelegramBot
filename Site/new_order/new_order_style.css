@@ -13,7 +13,7 @@ body {
     font-family: "Cyntho Pro", sans-serif;
 }
 
-button {
+button, div {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
@@ -28,6 +28,7 @@ button {
 }
 
 .items {
+    margin-top: 54px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 }
@@ -204,7 +205,7 @@ button {
     border: 1px solid #ddd;
     margin-right: 5px;
     margin-left: 5px;
-    margin-top: 10px;
+    margin-top: 55px;
     border-radius: 25px;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -250,7 +251,7 @@ button {
 }
 
 .empty_shopping_cart_label {
-    margin-top: 30px;
+    margin-top: 75px;
     width: 100%;
     text-align: center;
     color: #939393;
@@ -317,11 +318,6 @@ button {
     text-align: center;
     margin-top: 20px;
 }
-
-/*.back_btn {*/
-/*    width: 50px;*/
-/*    height: 50px;*/
-/*}*/
 
 .order_comment_div {
     display: flex;

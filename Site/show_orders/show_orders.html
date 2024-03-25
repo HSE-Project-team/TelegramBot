@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="show_orders_style.css">
+    <link rel="stylesheet" href="../page_header_style.css">
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <title>TelegramWebApp</title>
 </head>
@@ -16,8 +17,8 @@
                 <line x1="7" y1="16" x2="17" y2="26" stroke-linecap="round" stroke-width="1.5"/>
             </svg>
         </a>
-        <div class="show_orders_label_wrapper">
-            <div class="show_orders_label">Мои заказы</div>
+        <div class="header_label_wrapper">
+            <div class="header_label">Мои заказы</div>
         </div>
     </div>
 
@@ -28,6 +29,8 @@
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-<script src="show_orders_script.js"></script>
+<script type="module" src="../animated_page_scroll.js"></script>
+<script type="module" src="show_orders_script.js"></script>
+
 </body>
 </html>

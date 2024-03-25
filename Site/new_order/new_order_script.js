@@ -1,15 +1,17 @@
+import {animated_page_scroll} from "../animated_page_scroll.js";
+
+animated_page_scroll(0, ".header_label_wrapper");
+
 let url_addresses = {
     catalog_url: "https://api.npoint.io/e8788c3df8ed585a512f",
     free_order_time_url: "https://api.npoint.io/bb051384b63b14a8cdd8"
 };
 
+let page_header_catalog = document.querySelector(".page_header_catalog");
+
+
 let tg = window.Telegram.WebApp;
 tg.expand();
-
-// let back_btn = tg.BackButton;
-// back_btn.show();
-
-// back_btn.hide();
 
 class ItemFromCatalog {
     constructor(item_id, item_name, item_img, item_cost) {
@@ -259,6 +261,8 @@ get_data_from_server(url_addresses.catalog_url).then((data_from_server) => {
     }
 
     choose_time_btn.addEventListener("click", () => {
+        page_header_catalog.classList.add("hidden");
+
         checkout_btn.setAttribute('disabled', '');
         checkout_btn.textContent = "Выберите время";
 
@@ -322,12 +326,10 @@ get_data_from_server(url_addresses.catalog_url).then((data_from_server) => {
             });
         }
 
-        // back_btn.show();
-
         let back_btn = document.querySelector(".back_btn");
 
-        // back_btn.onClick(() => {
         back_btn.addEventListener("click", () => {
+            page_header_catalog.classList.remove("hidden");
             document.querySelector(".container").classList.add("bottom_container_margin");
 
             let shopping_cart = document.querySelector(".shopping_cart");
@@ -356,7 +358,6 @@ get_data_from_server(url_addresses.catalog_url).then((data_from_server) => {
                     }
                 }
             }
-            // back_btn.hide();
         });
         checkout_btn.classList.remove("hidden");
     });
