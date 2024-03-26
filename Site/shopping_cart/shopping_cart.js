@@ -4,8 +4,9 @@ import {free_order_time_url} from "../URL_storage.js";
 import {Catalog, Order} from "../main_classs.js";
 
 let back_btn = document.querySelector(".back_btn");
-
 let checkout_btn = document.querySelector(".checkout_btn");
+let order_comment = document.querySelector(".order_comment");
+
 checkout_btn.textContent = "Выберите время";
 checkout_btn.setAttribute('disabled', '');
 
@@ -74,6 +75,10 @@ let catalog = new Catalog();
 
 catalog.get_data_from_cash();
 order.get_data_from_cash();
+
+if (order.order_comment !== "") {
+    order_comment.value = order.order_comment;
+}
 
 
 function draw_free_time_in_shopping_cart(free_time_array) {
