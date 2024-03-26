@@ -147,7 +147,9 @@ button, div {
     vertical-align: middle;
 }
 
-.choose_time_btn {
+.choose_time_btn_div {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
     z-index: 999;
 
     position: fixed;
@@ -156,13 +158,30 @@ button, div {
     grid-column-end: 3;
     width: 100%;
     height: 2.2em;
-    font-family: "Cyntho Pro", sans-serif;
-
     border: none;
+
     color: #2d2d2d;
     background-color: #ffbf74;
     font-size: 1.3em;
     opacity: 0.9;
+}
+
+.choose_time_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+    height: 100%;
+}
+
+.choose_time_btn:active,
+.choose_time_btn:hover,
+.choose_time_btn {
+    text-decoration: none;
+    color: #2d2d2d;
 }
 
 .checkout_btn {

@@ -1,11 +1,11 @@
-import {animated_page_scroll} from "../animated_page_scroll_tools_tools.js";
+import {animated_page_scroll} from "../tools/animated_page_scroll_tools.js";
 import {user_url} from "../URL_storage.js";
 import {
     get_data_from_server, send_data_to_server
-} from "../networking_tools.js"
+} from "../tools/networking_tools.js"
 import {
     create_element, create_image, seconds_to_time
-} from "../graphical_tools.js";
+} from "../tools/graphical_tools.js";
 
 
 animated_page_scroll(0, ".header_label_wrapper");
@@ -37,7 +37,7 @@ get_data_from_server(user_url).then((data_from_server) => {
 
         for (let item of data_from_server["orders"][i]["items"]) {
             let order_item = create_element("div", "order_item");
-            let order_item_img = create_image("order_item_img", "../Dish1.png", "");
+            let order_item_img = create_image("order_item_img", "../images/Dish1.png", "");
             let order_item_name = create_element("div", "order_item_name", item["item"]["itemName"]);
             let order_item_cost = create_element("div", "order_item_cost", item["item"]["itemCost"] + " ₽/шт.");
             let order_item_number = create_element("div", "order_item_number", item["itemNumber"] + " шт.");
@@ -54,3 +54,4 @@ get_data_from_server(user_url).then((data_from_server) => {
         items_element.appendChild(order_wrapper);
     }
 });
+
