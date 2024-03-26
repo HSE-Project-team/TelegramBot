@@ -16,9 +16,14 @@ let tg = window.Telegram.WebApp;
 tg.expand();
 
 get_data_from_server(user_url).then((data_from_server) => {
+    document.querySelector(".loading_image_wrapper").classList.add("hidden");
+
     let orders_length = data_from_server["orders"].length;
+    let gap_for_animation = 0;
     for (let i = 0; i < orders_length; ++i) {
         let order_wrapper = create_element("div", "order_wrapper");
+        gap_for_animation += 0.02;
+        order_wrapper.style.animationDelay = `${gap_for_animation}s`;
         let order_info = create_element("div", "order_info");
 
         let order_id = create_element("div", "order_id", "ID " + data_from_server["orders"][i]["orderId"]);

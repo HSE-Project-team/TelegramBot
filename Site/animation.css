@@ -1,0 +1,59 @@
+@keyframes rotate {
+    100% {
+        /*border-radius: 15px;*/
+        width: 30px;
+        height: 30px;
+        background-color: #FFE0BC;
+    }
+}
+
+@keyframes element_appearance_animation {
+    0% {
+        opacity: 0.1;
+        scale: 0.95;
+    }
+    100% {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+@keyframes show_orders_appearance_animation {
+    0% {
+        opacity: 0.1;
+        scale: 0.98;
+    }
+    100% {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+.loading_image_wrapper {
+    z-index: 999;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    margin-top: 60px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.loading_image {
+    display: flex;
+    margin: auto;
+
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: #fdb262;
+    animation: rotate;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-duration: 0.4s;
+    animation-direction: alternate;
+}
+
+.hidden {
+    display: none;
+}

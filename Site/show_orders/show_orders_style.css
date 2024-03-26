@@ -34,6 +34,13 @@ button {
 
 
 .order_wrapper {
+    opacity: 0;
+
+    animation: show_orders_appearance_animation forwards;
+    animation-duration: 0.3s;
+    animation-timing-function: cubic-bezier(.68, .92, .69, 1);
+    animation-direction: alternate;
+
     border: 1px solid #ddd;
     margin-right: 5px;
     margin-left: 5px;
@@ -42,6 +49,7 @@ button {
     overflow-x: hidden;
     overflow-y: scroll;
 }
+
 
 .order_item {
     align-items: center;
@@ -122,3 +130,4 @@ button {
     align-items: center;
     flex-direction: column;
 }
+
