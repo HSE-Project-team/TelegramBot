@@ -11,26 +11,11 @@
 <body>
 
 <div class="shopping_cart_container">
-
-    <div class="page_header page_header_catalog">
-
-        <a class="back_btn_to_menu" href="../index.html">
-            <svg class="back_btn_to_menu_svg" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
-                <line x1="17" y1="6" x2="7" y2="16" stroke-linecap="round" stroke-width="1.5"/>
-                <line x1="7" y1="16" x2="17" y2="26" stroke-linecap="round" stroke-width="1.5"/>
-            </svg>
-        </a>
-        <div class="header_label_wrapper">
-            <div class="header_label">Каталог</div>
-        </div>
-    </div>
-
-
     <div class="shopping_cart" id="shopping_cart">
         <div class="header_and_shopping_cart_items" id="">
-            <div class="page_header page_header_shopping_cart">
+            <div class="page_header">
                 <a class="back_btn" href="../new_order/new_order.html">
-                    <svg class="back_btn_to_menu_svg" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="back_btn_to_menu_svg" id="back_btn_to_menu_svg_in_shopping_cart" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
                         <line x1="17" y1="6" x2="7" y2="16" stroke-linecap="round" stroke-width="1.5"/>
                         <line x1="7" y1="16" x2="17" y2="26" stroke-linecap="round" stroke-width="1.5"/>
                     </svg>
@@ -39,7 +24,7 @@
                     <div class="header_label">Корзина</div>
                 </div>
             </div>
-            <div class="empty_shopping_cart_label hidden">Пусто :(</div>
+            <div class="empty_shopping_cart_label empty_shopping_cart_label_appearance_animation_selector hidden">Пусто :(</div>
             <div class="shopping_cart_items light_appearance_animation_selector" id="shopping_cart_items"></div>
         </div>
         <div class="time_selection_and_checkout" id="time_selection_and_checkout">

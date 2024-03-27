@@ -48,6 +48,33 @@
     }
 }
 
+@keyframes empty_shopping_cart_label_appearance_animation {
+    0% {
+        color: #939393;
+    }
+    25% {
+        color: #7c7c7c;
+    }
+    50% {
+        color: #232323;
+    }
+    75% {
+        color: #7c7c7c;
+    }
+    100% {
+        color: #939393;
+    }
+}
+
+@keyframes back_btn_to_menu_svg_appearance_animation {
+    50% {
+        scale: 1.3;
+    }
+    100% {
+        scale: 1;
+    }
+}
+
 .loading_image_wrapper {
     z-index: 999;
     width: 40px;
@@ -100,6 +127,19 @@
     animation: light_appearance_animation forwards;
     animation-duration: 0.5s;
     animation-timing-function: cubic-bezier(.68, .92, .69, 1);
+}
+
+.empty_shopping_cart_label_appearance_animation_selector {
+    animation: empty_shopping_cart_label_appearance_animation forwards;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+}
+
+.back_btn_to_menu_svg_appearance_animation_selector {
+    animation: back_btn_to_menu_svg_appearance_animation forwards;
+    animation-duration: 0.4s;
+    animation-timing-function: linear;
+    animation-delay: 1s;
 }
 
 .hidden {

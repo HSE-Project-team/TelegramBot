@@ -124,9 +124,6 @@ function draw_free_time_in_shopping_cart(free_time_array) {
     }
 }
 
-
-page_header_catalog.classList.add("hidden");
-
 checkout_btn.setAttribute('disabled', '');
 checkout_btn.textContent = "Выберите время";
 
@@ -173,6 +170,7 @@ for (let key of order.user_order.keys()) {
             document.querySelector(".time_selection_and_checkout").classList.add("hidden");
             shopping_cart_items.classList.add("hidden");
             document.querySelector(".empty_shopping_cart_label").classList.remove("hidden");
+            document.getElementById("back_btn_to_menu_svg_in_shopping_cart").classList.add("back_btn_to_menu_svg_appearance_animation_selector");
         }
         if (checkout_btn.textContent !== "Выберите время") {
             checkout_btn.textContent = `Заказать к ${seconds_to_time(order.order_time)} • ${order.order_cost} ₽`;
