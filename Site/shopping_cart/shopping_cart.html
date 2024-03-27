@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../page_header_style.css">
     <link rel="stylesheet" href="shopping_cart.css">
     <link rel="stylesheet" href="../animation.css">
-    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
     <title>TelegramWebApp</title>
 </head>
 <body>
@@ -41,16 +40,21 @@
                 </div>
             </div>
             <div class="empty_shopping_cart_label hidden">Пусто :(</div>
-            <div class="shopping_cart_items" id="shopping_cart_items"></div>
+            <div class="shopping_cart_items light_appearance_animation_selector" id="shopping_cart_items"></div>
         </div>
         <div class="time_selection_and_checkout" id="time_selection_and_checkout">
-            <div class="order_comment_div">
+            <div class="order_comment_div light_appearance_animation_selector">
                 <textarea class="order_comment" rows="3" placeholder="Комментарий к заказу... "></textarea>
                 <button class="order_comment_button">OK</button>
             </div>
 
-            <div class="time_slider_area" id="time_slider_area"></div>
-            <button class="checkout_btn" id="checkout_btn"></button>
+            <div class="time_slider_area light_appearance_animation_selector" id="time_slider_area">
+                <div class="loading_image_wrapper">
+                    <div class="loading_image">
+                    </div>
+                </div>
+            </div>
+            <button class="checkout_btn light_appearance_animation_selector" id="checkout_btn"></button>
         </div>
     </div>
 </div>

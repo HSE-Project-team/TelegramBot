@@ -35,11 +35,14 @@ order.get_data_from_cash();
 
 if (order.user_order.size) {
     document.querySelector(".container").classList.add("bottom_container_margin");
-    choose_time_btn_div.classList.remove("hidden");
-    choose_time_btn.textContent = `Посмотреть заказ • ${order.order_cost} ₽`;
 }
 
 get_data_from_server(catalog_url).then((data_from_server) => {
+    if (order.user_order.size) {
+        choose_time_btn_div.classList.remove("hidden");
+        choose_time_btn.textContent = `Посмотреть заказ • ${order.order_cost} ₽`;
+    }
+
     document.querySelector(".loading_image_wrapper").classList.add("hidden");
 
     catalog.size = data_from_server["size"];
@@ -79,6 +82,7 @@ get_data_from_server(catalog_url).then((data_from_server) => {
     for (let i of catalog.Items.keys()) {
         let is_item_in_order = order.user_order.has(i);
         graphicCatalogItems[i] = create_element("div", "item");
+        graphicCatalogItems[i].classList.add("element_appearance_animation_selector");
         gap_for_animation += 0.02;
         graphicCatalogItems[i].style.animationDelay = `${gap_for_animation}s`;
         graphicCatalogItems[i].item_img = create_image("catalog_image", catalog.Items.get(i).item_img, "");

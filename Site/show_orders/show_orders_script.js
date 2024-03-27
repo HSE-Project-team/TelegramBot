@@ -22,6 +22,7 @@ get_data_from_server(user_url).then((data_from_server) => {
     let gap_for_animation = 0;
     for (let i = 0; i < orders_length; ++i) {
         let order_wrapper = create_element("div", "order_wrapper");
+        order_wrapper.classList.add("show_orders_appearance_animation_selector");
         gap_for_animation += 0.02;
         order_wrapper.style.animationDelay = `${gap_for_animation}s`;
         let order_info = create_element("div", "order_info");

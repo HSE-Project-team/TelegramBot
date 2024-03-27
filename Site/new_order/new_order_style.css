@@ -25,6 +25,9 @@ button, div {
     width: 100%;
 }
 
+.loading_image_wrapper {
+    margin-top: 80px;
+}
 
 .bottom_container_margin {
     margin-bottom: 2.5em;
@@ -37,11 +40,6 @@ button, div {
 }
 
 .item {
-    opacity: 0;
-    animation: element_appearance_animation forwards;
-    animation-duration: 0.3s;
-    animation-timing-function: cubic-bezier(.68, .92, .69, 1);
-    animation-direction: alternate;
     display: grid;
     grid-template-rows: 80px 60px 20px 50px;
     border: 1px solid #ddd;

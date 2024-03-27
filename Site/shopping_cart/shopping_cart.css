@@ -25,12 +25,15 @@ button, div {
     width: 100%;
 }
 
+.loading_image_wrapper {
+    margin-top: 5px;
+}
+
 .shopping_cart_add_remove_figure {
     display: flex;
     justify-content: space-between;
-    width: 80%;
+    width: 100%;
     height: 2em;
-    margin: auto;
     border-radius: 20px;
     border: none;
     background-color: #FFE0BC;
@@ -89,6 +92,8 @@ button, div {
 }
 
 .checkout_btn {
+    animation-delay: 0.4s !important;
+
     width: 100%;
     min-height: 2.2em;
     height: 2.2em;
@@ -101,7 +106,6 @@ button, div {
     backdrop-filter: blur(8px);
 
     font-size: 1.3em;
-    opacity: 0.9;
     align-self: flex-end;
 }
 
@@ -129,8 +133,12 @@ button, div {
 }
 
 .shopping_cart_items {
+    display: grid;
+    @media (min-width: 360px) {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
     padding-top: 10px;
-    max-height: 50vh;
+    max-height: 40vh;
     border: 1px solid #ddd;
     margin-right: 5px;
     margin-left: 5px;
@@ -143,8 +151,8 @@ button, div {
 .shopping_item {
     padding: 0;
     display: grid;
-    grid-template-columns: 20% 35% 30% 20%;
-    height: 60px;
+    grid-template-columns: 15% 50% 35%;
+    height: 70px;
     margin-bottom: 10px;
     border: 1px solid #ddd;
     margin-right: 10px;
@@ -155,24 +163,31 @@ button, div {
 
 .shopping_item_img {
     display: inline-block;
-    margin: auto 10px;
-    width: 50px;
+    margin: auto auto auto 10px;
+    width: 45px;
     height: auto;
 }
 
 .shopping_cart_item_name {
     margin: auto 10px;
     text-align: center;
-    font-size: 0.8em;
 }
 
 .shopping_cart_item_cost {
-    transform: rotate(90deg);
-    font-size: 0.8em;
-    margin-top: auto;
-    margin-bottom: auto;
     width: fit-content;
     height: fit-content;
+    font-size: 0.8em;
+}
+
+.buttons_and_cost_wrapper {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 10px;
+    height: 75%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
 }
 
 .empty_shopping_cart_label {
@@ -183,7 +198,19 @@ button, div {
     font-size: 1.2em;
 }
 
+@media (max-width: 280px) {
+    .shopping_item_img {
+        display: none;
+    }
+
+    .shopping_item {
+        grid-template-columns: 50% 50%;
+    }
+}
+
 .time_slider_area {
+    animation-delay: 0.4s !important;
+
     align-items: center;
     height: 100%;
     border: 1px solid #ddd;
@@ -216,7 +243,6 @@ button, div {
     border-radius: 20px;
     border: none;
     transition: background-color 0.2s linear;
-    font-size: 1em;
     background-color: #FFE0BC;
     font-family: "Cyntho Pro", sans-serif;
 
@@ -246,6 +272,8 @@ button, div {
 }
 
 .order_comment_div {
+    animation-delay: 0.2s !important;
+
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;
@@ -275,7 +303,37 @@ button, div {
     background-color: #FFE0BC;
     border: 0;
     border-radius: 25px;
-    font-size: 0.9em;
     text-align: center;
     vertical-align: middle;
 }
+
+@media (max-height: 500px) {
+    .shopping_cart_items {
+        max-height: 25vh;
+    }
+
+    .shopping_item {
+        height: 60px;
+    }
+
+    .buttons_and_cost_wrapper {
+        height: 85%;
+    }
+
+    .free_time_label {
+        line-height: 25px;
+        font-size: 0.9em;
+    }
+
+    .order_comment {
+        height: 5vh;
+        width: calc(100% - 60px);
+    }
+
+    .order_comment_button {
+        height: 35px;
+        width: 35px;
+        font-size: 0.7em;
+    }
+}
+

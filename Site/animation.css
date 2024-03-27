@@ -1,6 +1,5 @@
-@keyframes rotate {
+@keyframes loading_image_animation {
     100% {
-        /*border-radius: 15px;*/
         width: 30px;
         height: 30px;
         background-color: #FFE0BC;
@@ -29,12 +28,31 @@
     }
 }
 
+@keyframes show_order_items_appearance_animation {
+    0% {
+        opacity: 0.1;
+        scale: 0.98;
+    }
+    100% {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+@keyframes light_appearance_animation {
+    0% {
+        opacity: 0.1;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 .loading_image_wrapper {
     z-index: 999;
-    width: 100px;
-    height: 100px;
+    width: 40px;
+    height: 40px;
     display: flex;
-    margin-top: 60px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -47,11 +65,41 @@
     height: 20px;
     border-radius: 20px;
     background-color: #fdb262;
-    animation: rotate;
+    animation: loading_image_animation;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
     animation-duration: 0.4s;
     animation-direction: alternate;
+}
+
+.element_appearance_animation_selector {
+    opacity: 0;
+    animation: element_appearance_animation forwards;
+    animation-duration: 0.3s;
+    animation-timing-function: cubic-bezier(.68, .92, .69, 1);
+    animation-direction: alternate;
+}
+
+.show_orders_appearance_animation_selector {
+    opacity: 0;
+    animation: show_orders_appearance_animation forwards;
+    animation-duration: 0.3s;
+    animation-timing-function: cubic-bezier(.68, .92, .69, 1);
+    animation-direction: alternate;
+}
+
+.show_order_items_appearance_animation_selector {
+    opacity: 0;
+    animation: show_order_items_appearance_animation forwards;
+    animation-duration: 0.3s;
+    animation-timing-function: cubic-bezier(.68, .92, .69, 1);
+}
+
+.light_appearance_animation_selector {
+    opacity: 0;
+    animation: light_appearance_animation forwards;
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(.68, .92, .69, 1);
 }
 
 .hidden {
