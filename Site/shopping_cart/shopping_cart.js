@@ -2,6 +2,10 @@ import {create_element, create_input, create_image, seconds_to_time} from "../to
 import {get_data_from_server} from "../tools/networking_tools.js";
 import {free_order_time_url} from "../URL_storage.js";
 import {Catalog, Order} from "../main_classs.js";
+import {animated_page_scroll} from "../tools/animated_page_scroll_tools.js";
+
+animated_page_scroll(0, ".header_label_wrapper");
+
 
 let back_btn = document.querySelector(".back_btn");
 let checkout_btn = document.querySelector(".checkout_btn");
@@ -125,9 +129,11 @@ function draw_free_time_in_shopping_cart(free_time_array) {
 }
 
 checkout_btn.setAttribute('disabled', '');
-checkout_btn.textContent = "Выберите время";
+checkout_btn.textContent = "Загрузка времени...";
 
 get_data_from_server(free_order_time_url).then((data_from_server) => {
+    checkout_btn.textContent = "Выберите время";
+
     let free_time_array = [];
     for (let free_time of data_from_server["times"]) {
         free_time_array.push(free_time);
@@ -197,4 +203,16 @@ back_btn.addEventListener("click", () => {
 
     localStorage.clear();
     order.push_data_to_cash();
+});
+
+let now_page_position_y = window.scrollY;
+
+document.querySelector('.shopping_cart').addEventListener('touchstart', (event) => {
+    if (!event.target.closest('.order_comment')) {
+        now_page_position_y = window.scrollY;
+        document.querySelector(".order_comment").tabIndex = -1;
+        document.querySelector(".shopping_cart").tabIndex = 1;
+        document.querySelector(".shopping_cart").focus();
+        window.scrollTo(0, now_page_position_y);
+    }
 });

@@ -9,7 +9,6 @@ import {
 import {Catalog, Order} from "../main_classs.js";
 
 animated_page_scroll(0, ".header_label_wrapper");
-animated_page_scroll(0, ".header_label_wrapper");
 
 let tg = window.Telegram.WebApp;
 tg.expand();

@@ -26,7 +26,8 @@ button, div {
 }
 
 .loading_image_wrapper {
-    margin-top: 5px;
+    margin-top: 3px;
+    margin-bottom: 3px;
 }
 
 .shopping_cart_add_remove_figure {
@@ -138,7 +139,6 @@ button, div {
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     }
     padding-top: 10px;
-    max-height: 40vh;
     border: 1px solid #ddd;
     margin-right: 5px;
     margin-left: 5px;
@@ -212,7 +212,7 @@ button, div {
     animation-delay: 0.4s !important;
 
     align-items: center;
-    height: 100%;
+    height: fit-content;
     border: 1px solid #ddd;
     border-radius: 25px;
     bottom: 2.2em;
@@ -259,10 +259,11 @@ button, div {
 }
 
 .time_selection_and_checkout {
-    min-height: 30vh;
     display: flex;
     flex-direction: column;
     justify-content: end;
+    bottom: 0;
+    width: 100%;
 }
 
 .error_404_label {
@@ -282,58 +283,17 @@ button, div {
 }
 
 .order_comment {
-    width: calc(100% - 70px);
+    width: 100%;
     outline: none;
     resize: none;
     font-family: "Cyntho Pro", sans-serif;
+    font-size: 1.1em;
+    color: #2d2d2d;
     padding: 10px;
     height: auto;
     border: 1px solid #ddd;
     border-radius: 25px;
     margin-top: 10px;
     margin-bottom: 10px;
-}
-
-.order_comment_button {
-    padding: 0;
-    height: 45px;
-    width: 45px;
-    margin-top: auto;
-    margin-bottom: auto;
-    background-color: #FFE0BC;
-    border: 0;
-    border-radius: 25px;
-    text-align: center;
-    vertical-align: middle;
-}
-
-@media (max-height: 500px) {
-    .shopping_cart_items {
-        max-height: 25vh;
-    }
-
-    .shopping_item {
-        height: 60px;
-    }
-
-    .buttons_and_cost_wrapper {
-        height: 85%;
-    }
-
-    .free_time_label {
-        line-height: 25px;
-        font-size: 0.9em;
-    }
-
-    .order_comment {
-        height: 5vh;
-        width: calc(100% - 60px);
-    }
-
-    .order_comment_button {
-        height: 35px;
-        width: 35px;
-        font-size: 0.7em;
-    }
 }
 
