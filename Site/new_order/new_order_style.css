@@ -80,6 +80,7 @@ button, div {
 }
 
 .add_remove_figure {
+    overflow: hidden;
     display: flex;
     justify-content: space-between;
     width: 80%;
@@ -152,7 +153,6 @@ button, div {
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
     box-shadow: 0 0 60px #ddd;
-
 }
 
 .choose_time_btn {

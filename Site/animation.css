@@ -75,6 +75,66 @@
     }
 }
 
+@keyframes show_choose_time_btn_animation {
+    0% {
+        transform: translateY(2.2em);
+    }
+    100% {
+        transform: translateY(0em);
+    }
+}
+
+@keyframes hide_choose_time_btn_animation {
+    0% {
+        transform: translateY(0em);
+    }
+    100% {
+        transform: translateY(2.2em);
+    }
+}
+
+@keyframes show_btn_plus_animation {
+    0% {
+        scale: 0.9;
+        opacity: 0.7;
+    }
+    100% {
+        scale: 1;
+        opacity: 1;
+    }
+}
+
+@keyframes show_btn_minus_animation {
+    0% {
+        scale: 0.9;
+        opacity: 0.7;
+    }
+    100% {
+        scale: 1;
+        opacity: 1;
+    }
+}
+
+@keyframes show_btn_add_animation {
+    0% {
+        scale: 0.97;
+    }
+    100% {
+        scale: 1;
+    }
+}
+
+@keyframes show_order_item_label_animation {
+    0% {
+        scale: 0.95;
+        opacity: 0.8;
+    }
+    100% {
+        scale: 1;
+        opacity: 1;
+    }
+}
+
 .loading_image_wrapper {
     z-index: 999;
     width: 40px;
@@ -140,6 +200,42 @@
     animation-duration: 0.4s;
     animation-timing-function: linear;
     animation-delay: 1s;
+}
+
+.show_choose_time_btn_animation_selector {
+    animation: show_choose_time_btn_animation forwards;
+    animation-timing-function: cubic-bezier(.3,.99,.49,1.01);
+    animation-duration: 0.3s;
+}
+
+.hide_choose_time_btn_animation_selector {
+    animation: hide_choose_time_btn_animation forwards;
+    animation-timing-function: cubic-bezier(.3,.99,.49,1.01);
+    animation-duration: 0.3s;
+}
+
+.show_btn_plus_animation_selector {
+    animation: show_btn_plus_animation forwards;
+    animation-timing-function: cubic-bezier(.61, 1.12, .69, 1);
+    animation-duration: 0.3s;
+}
+
+.show_btn_minus_animation_selector {
+    animation: show_btn_minus_animation forwards;
+    animation-timing-function: cubic-bezier(.61, 1.12, .69, 1);
+    animation-duration: 0.3s;
+}
+
+.show_btn_add_animation_selector {
+    animation: show_btn_add_animation forwards;
+    animation-timing-function: cubic-bezier(.72, 1.1, .83, 1.02);
+    animation-duration: 0.2s;
+}
+
+.show_order_item_label_animation_selector {
+    animation: show_order_item_label_animation forwards;
+    animation-timing-function: cubic-bezier(.61, 1.12, .69, 1);
+    animation-duration: 0.3s;
 }
 
 .hidden {

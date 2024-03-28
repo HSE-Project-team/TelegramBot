@@ -4,7 +4,7 @@ import {
     get_data_from_server, send_data_to_server
 } from "../tools/networking_tools.js"
 import {
-    create_element, create_image
+    create_element, create_image, show_element_with_animation, hide_element_with_animation
 } from "../tools/graphical_tools.js";
 import {Catalog, Order} from "../main_classs.js";
 
@@ -38,7 +38,7 @@ if (order.user_order.size) {
 
 get_data_from_server(catalog_url).then((data_from_server) => {
     if (order.user_order.size) {
-        choose_time_btn_div.classList.remove("hidden");
+        show_element_with_animation(choose_time_btn_div, "show_choose_time_btn_animation_selector", "hide_choose_time_btn_animation_selector")
         choose_time_btn.textContent = `Посмотреть заказ • ${order.order_cost} ₽`;
     }
 
@@ -62,17 +62,20 @@ get_data_from_server(catalog_url).then((data_from_server) => {
         } else {
             order.user_order.delete(i);
             if (order.user_order.size === 0) {
-                choose_time_btn_div.classList.add("hidden");
+                hide_element_with_animation(choose_time_btn_div, "show_choose_time_btn_animation_selector", "hide_choose_time_btn_animation_selector")
                 document.querySelector(".container").classList.remove("bottom_container_margin");
             }
             graphicCatalogItems[i].item_btn.classList.remove("hidden");
+            graphicCatalogItems[i].item_btn.classList.add("show_btn_add_animation_selector");
             graphicCatalogItems[i].minus_btn.classList.add("hidden");
             graphicCatalogItems[i].plus_btn.classList.add("hidden");
             textField.classList.add("hidden");
             textField.textContent = "0";
         }
         order.order_cost -= +catalog.Items.get(i).item_cost;
-        choose_time_btn.textContent = `Посмотреть заказ • ${order.order_cost} ₽`;
+        if (order.order_cost !== 0) {
+            choose_time_btn.textContent = `Посмотреть заказ • ${order.order_cost} ₽`;
+        }
     }
 
     let graphicCatalogItems = new Map();
@@ -92,14 +95,17 @@ get_data_from_server(catalog_url).then((data_from_server) => {
 
 
         graphicCatalogItems[i].minus_btn = create_element("button", "btn_minus", "-", !is_item_in_order);
+        graphicCatalogItems[i].minus_btn.classList.add("show_btn_minus_animation_selector");
 
         graphicCatalogItemCounter[i] = create_element("label", "order_item_label", "", !is_item_in_order);
+        graphicCatalogItemCounter[i].classList.add("show_order_item_label_animation_selector");
 
         if (is_item_in_order) {
             graphicCatalogItemCounter[i].textContent = order.user_order.get(i);
         }
 
         graphicCatalogItems[i].plus_btn = create_element("button", "btn_plus", "+", !is_item_in_order);
+        graphicCatalogItems[i].plus_btn.classList.add("show_btn_plus_animation_selector");
 
         graphicCatalogItems[i].plus_btn.addEventListener("click", () => {
             increase_item_counter(i, graphicCatalogItemCounter[i]);
@@ -129,7 +135,7 @@ get_data_from_server(catalog_url).then((data_from_server) => {
     for (let i of catalog.Items.keys()) {
         graphicCatalogItems[i].item_btn.addEventListener("click", () => {
             order.user_order.set(i, 1);
-            choose_time_btn_div.classList.remove("hidden");
+            show_element_with_animation(choose_time_btn_div, "show_choose_time_btn_animation_selector", "hide_choose_time_btn_animation_selector")
             document.querySelector(".container").classList.add("bottom_container_margin");
 
             order.order_cost += +catalog.Items.get(i).item_cost;

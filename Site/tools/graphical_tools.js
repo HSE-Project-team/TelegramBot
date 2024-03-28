@@ -42,3 +42,14 @@ export function seconds_to_time(seconds) {
 
     return hours + ":" + minutes;
 }
+
+export function show_element_with_animation(element_name, animation_class_show, animation_class_hide) {
+    element_name.classList.remove("hidden");
+    element_name.classList.remove(animation_class_hide);
+    element_name.classList.add(animation_class_show);
+}
+
+export function hide_element_with_animation(element_name, animation_class_show, animation_class_hide) {
+    element_name.classList.add(animation_class_hide);
+    element_name.classList.remove(animation_class_show);
+}
