@@ -3,6 +3,7 @@ import {get_data_from_server} from "../tools/networking_tools.js";
 import {free_order_time_url} from "../URL_storage.js";
 import {Catalog, Order} from "../main_classs.js";
 import {animated_page_scroll} from "../tools/animated_page_scroll_tools.js";
+import {show_error} from "../errors_handler/errors_handler.js";
 
 animated_page_scroll(0, ".header_label_wrapper");
 
@@ -132,14 +133,23 @@ checkout_btn.setAttribute('disabled', '');
 checkout_btn.textContent = "Загрузка времени...";
 
 get_data_from_server(free_order_time_url).then((data_from_server) => {
-    checkout_btn.textContent = "Выберите время";
+    let response_status = data_from_server[0];
+    data_from_server = data_from_server[1];
 
-    let free_time_array = [];
-    for (let free_time of data_from_server["times"]) {
-        free_time_array.push(free_time);
+    document.querySelector(".loading_image_wrapper").classList.add("hidden");
+    if (response_status === 200) {
+        checkout_btn.textContent = "Выберите время";
+
+        let free_time_array = [];
+        for (let free_time of data_from_server["times"]) {
+            free_time_array.push(free_time);
+        }
+
+        draw_free_time_in_shopping_cart(free_time_array);
+    } else {
+        checkout_btn.textContent = "Не удалось загрузить";
+        show_error(response_status);
     }
-
-    draw_free_time_in_shopping_cart(free_time_array);
 });
 
 let shopping_cart_items = document.querySelector(".shopping_cart_items");
@@ -178,14 +188,18 @@ for (let key of order.user_order.keys()) {
             document.querySelector(".empty_shopping_cart_label").classList.remove("hidden");
             document.getElementById("back_btn_to_menu_svg_in_shopping_cart").classList.add("back_btn_to_menu_svg_appearance_animation_selector");
         }
-        if (checkout_btn.textContent !== "Выберите время") {
+        if (checkout_btn.textContent !== "Выберите время" &&
+            checkout_btn.textContent !== "Загрузка времени..." &&
+            checkout_btn.textContent !== "Не удалось загрузить") {
             checkout_btn.textContent = `Заказать к ${seconds_to_time(order.order_time)} • ${order.order_cost} ₽`;
         }
     });
 
     shopping_cart_plus_btn.addEventListener("click", () => {
         increase_item_counter(key, shopping_cart_item_label);
-        if (checkout_btn.textContent !== "Выберите время") {
+        if (checkout_btn.textContent !== "Выберите время" &&
+            checkout_btn.textContent !== "Загрузка времени..." &&
+            checkout_btn.textContent !== "Не удалось загрузить") {
             checkout_btn.textContent = `Заказать к ${seconds_to_time(order.order_time)} • ${order.order_cost} ₽`;
         }
     });

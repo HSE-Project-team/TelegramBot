@@ -53,3 +53,12 @@ export function hide_element_with_animation(element_name, animation_class_show, 
     element_name.classList.add(animation_class_hide);
     element_name.classList.remove(animation_class_show);
 }
+
+export function create_error_label(error_number, error_text) {
+    let error_labels_wrapper = document.querySelector(".error_labels_wrapper");
+    let error_number_label = document.querySelector(".error_number_label");
+    let error_text_label = document.querySelector(".error_text_label");
+    error_number_label.textContent = `Ошибка ${error_number}`;
+    error_text_label.textContent = error_text;
+    error_labels_wrapper.classList.remove("hidden");
+}

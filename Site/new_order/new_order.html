@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../page_header_style.css">
     <link rel="stylesheet" href="new_order_style.css">
     <link rel="stylesheet" href="../animation.css">
+    <link rel="stylesheet" href="../errors_handler/error_labels_style.css">
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <title>TelegramWebApp</title>
 </head>
@@ -24,7 +25,17 @@
         </div>
     </div>
 
-    <div class="error_404_label hidden">Ошибка загрузки</div>
+    <div class="error_labels_wrapper hidden">
+        <div class="error_number_label"></div>
+        <div class="error_text_label"></div>
+
+        <a class="refresh_svg_element" href="new_order.html">
+            <svg width="24px" height="24px" class="refresh_svg_element_img" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10,21a9,9,0,1,1,9-9v3" fill="none"/>
+                <polyline points="23 11 19 15 15 11" fill="none"/>
+            </svg>
+        </a>
+    </div>
 
     <div class="loading_image_wrapper">
         <div class="loading_image">

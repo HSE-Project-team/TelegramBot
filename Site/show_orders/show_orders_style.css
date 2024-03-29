@@ -29,6 +29,12 @@ button {
     margin-top: 80px;
 }
 
+.error_500_label, .undefined_error_label {
+    margin-top: 60px;
+    width: 100%;
+    text-align: center;
+}
+
 .orders {
     margin-top: 35px;
     margin-bottom: 10px;

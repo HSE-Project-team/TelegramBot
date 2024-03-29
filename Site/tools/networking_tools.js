@@ -1,8 +1,17 @@
 export async function get_data_from_server(url) {
-    const response = await fetch(url, {
-        method: "GET",
-    });
-    return await response.json();
+    try {
+        const response = await fetch(url, {
+            method: "GET",
+        });
+        if (response.ok) {
+            return [response.status, await response.json()];
+        } else {
+            return [response.status, ""]
+        }
+    } catch (error) {
+        console.log(error);
+        return [error, ""];
+    }
 }
 
 export async function send_data_to_server(url, data_for_send) {

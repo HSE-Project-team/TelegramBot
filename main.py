@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from math import floor
 import os
 import requests
+from requests.exceptions import RequestException
 import json
 import copy
 
@@ -96,15 +97,23 @@ async def buy_process(message: types.Message):
     json_from_bot = json.loads(message.web_app_data.data)
     json_for_server = make_json_for_server(json_from_bot, user_id)
 
-    r = requests.post('http://httpbin.org/post', json=json_for_server)
-    print(r.json()["json"])
+    request_value = 0
 
-    # print(r.status_code)
+    try:
+        request_value = requests.post("http://httpbin.org/post", json=json_for_server)
+        print(request_value.json()["json"])
 
-    string_for_user = make_string_for_user(json_from_bot, first_name, user_id)
-    string_for_user += f"\n\njson_from_bot: {json_from_bot}\n\njson_for_server: {json_for_server}"
+        print(request_value.status_code)
 
-    await message.answer(string_for_user)
+        string_for_user = make_string_for_user(json_from_bot, first_name, user_id)
+        string_for_user += f"\n\njson_from_bot: {json_from_bot}\n\njson_for_server: {json_for_server}"
+
+        await message.answer(string_for_user)
+    except RequestException as err:
+        print(f"Ошибка: {err}")
+        string_for_user = f"Ошибка {request_value.status_code}.\nПовторите попытку позже."
+        print(string_for_user)
+        await message.answer(string_for_user)
 
 
 executor.start_polling(dp)
