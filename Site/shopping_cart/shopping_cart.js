@@ -27,9 +27,9 @@ function decrease_item_counter(i, object_to_delete, textField) {
     } else {
         order.user_order.delete(i);
         if (order.user_order.size === 0) {
-            object_to_delete.classList.add("hidden");
+            object_to_delete.remove();
         }
-        object_to_delete.classList.add("hidden");
+        object_to_delete.remove();
     }
     order.order_cost -= +catalog.Items.get(i).item_cost;
 }
@@ -180,13 +180,22 @@ for (let key of order.user_order.keys()) {
     buttons_and_cost_wrapper.appendChild(shopping_cart_item_cost);
     shopping_item.appendChild(buttons_and_cost_wrapper);
 
+    if (order.user_order.size === 1) {
+        document.querySelector(".shopping_item").classList.add("shopping_item_only_one");
+    }
+
     shopping_cart_minus_btn.addEventListener("click", () => {
         decrease_item_counter(key, shopping_item, shopping_cart_item_label);
         if (order.user_order.size === 0) {
             document.querySelector(".time_selection_and_checkout").classList.add("hidden");
+            document.querySelector(".checkout_btn").classList.add("hidden");
             shopping_cart_items.classList.add("hidden");
             document.querySelector(".empty_shopping_cart_label").classList.remove("hidden");
             document.getElementById("back_btn_to_menu_svg_in_shopping_cart").classList.add("back_btn_to_menu_svg_appearance_animation_selector");
+        } else if (order.user_order.size === 1) {
+            document.querySelector(".shopping_item").classList.add("shopping_item_only_one");
+            console.log(document.querySelector(".shopping_item"));
+
         }
         if (checkout_btn.textContent !== "Выберите время" &&
             checkout_btn.textContent !== "Загрузка времени..." &&

@@ -155,8 +155,9 @@ button, div {
     height: 70px;
     margin-bottom: 10px;
     border: 1px solid #ddd;
-    margin-right: 10px;
-    margin-left: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 80%;
     border-radius: 17px;
     box-shadow: 5px 5px 10px #ddd;
 }
