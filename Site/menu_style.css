@@ -37,8 +37,9 @@ body {
 .menu {
     display: grid;
     align-items: center;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .menu_link {
@@ -82,10 +83,4 @@ body {
     opacity: 0;
     animation-fill-mode: forwards;
     animation-delay: 0.9s;
-}
-
-@media screen and (width > 400px) {
-    .menu_div:first-child {
-        margin-right: 0;
-    }
 }
