@@ -4,7 +4,11 @@ import {
     get_data_from_server, send_data_to_server
 } from "../tools/networking_tools.js"
 import {
-    create_element, create_image, show_element_with_animation, hide_element_with_animation
+    create_element,
+    create_image,
+    show_element_with_animation,
+    hide_element_with_animation,
+    push_plus_minus_button_animation
 } from "../tools/graphical_tools.js";
 import {show_error} from "../errors_handler/errors_handler.js";
 import {Catalog, Order} from "../main_classs.js";
@@ -93,10 +97,11 @@ get_data_from_server(catalog_url).then((data_from_server) => {
             graphicCatalogItems[i].style.animationDelay = `${gap_for_animation}s`;
             graphicCatalogItems[i].item_img = create_image("catalog_image", catalog.Items.get(i).item_img, "");
             graphicCatalogItems[i].item_name = create_element("div", "item_name", catalog.Items.get(i).item_name);
+            graphicCatalogItems[i].item_name.classList.add("ellipsis_3_lines");
+
             graphicCatalogItems[i].item_cost = create_element("div", "item_cost", catalog.Items.get(i).item_cost + " ₽");
             graphicCatalogItems[i].item_btn = create_element("button", "btn_add", "Добавить", is_item_in_order);
             graphicCatalogItems[i].add_remove_figures = create_element("div", "add_remove_figure");
-
 
             graphicCatalogItems[i].minus_btn = create_element("button", "btn_minus", "-", !is_item_in_order);
             graphicCatalogItems[i].minus_btn.classList.add("show_btn_minus_animation_selector");
@@ -112,10 +117,12 @@ get_data_from_server(catalog_url).then((data_from_server) => {
             graphicCatalogItems[i].plus_btn.classList.add("show_btn_plus_animation_selector");
 
             graphicCatalogItems[i].plus_btn.addEventListener("click", () => {
+                push_plus_minus_button_animation(graphicCatalogItems[i].plus_btn, "plus_minus_buttons_animation_selector", "show_btn_plus_animation_selector");
                 increase_item_counter(i, graphicCatalogItemCounter[i]);
             });
 
             graphicCatalogItems[i].minus_btn.addEventListener("click", () => {
+                push_plus_minus_button_animation(graphicCatalogItems[i].minus_btn, "plus_minus_buttons_animation_selector", "show_btn_minus_animation_selector");
                 decrease_item_counter(i, graphicCatalogItemCounter[i]);
             });
 
@@ -156,4 +163,3 @@ get_data_from_server(catalog_url).then((data_from_server) => {
         show_error(response_status);
     }
 });
-

@@ -1,4 +1,10 @@
-import {create_element, create_input, create_image, seconds_to_time} from "../tools/graphical_tools.js";
+import {
+    create_element,
+    create_input,
+    create_image,
+    seconds_to_time,
+    hide_element_with_animation, push_plus_minus_button_animation
+} from "../tools/graphical_tools.js";
 import {get_data_from_server} from "../tools/networking_tools.js";
 import {free_order_time_url} from "../URL_storage.js";
 import {Catalog, Order} from "../main_classs.js";
@@ -6,7 +12,6 @@ import {animated_page_scroll} from "../tools/animated_page_scroll_tools.js";
 import {show_error} from "../errors_handler/errors_handler.js";
 
 animated_page_scroll(0, ".header_label_wrapper");
-
 
 let back_btn = document.querySelector(".back_btn");
 let checkout_btn = document.querySelector(".checkout_btn");
@@ -26,10 +31,12 @@ function decrease_item_counter(i, object_to_delete, textField) {
         textField.textContent = new_number;
     } else {
         order.user_order.delete(i);
-        if (order.user_order.size === 0) {
+        object_to_delete.style.animationDelay = "0s";
+        hide_element_with_animation(object_to_delete, "show_order_items_appearance_animation_selector", "hide_order_item_animation_selector");
+
+        object_to_delete.addEventListener('animationend', function () {
             object_to_delete.remove();
-        }
-        object_to_delete.remove();
+        });
     }
     order.order_cost -= +catalog.Items.get(i).item_cost;
 }
@@ -71,9 +78,6 @@ function generate_data_for_send() {
 
     return data_for_send;
 }
-
-
-let page_header_catalog = document.querySelector(".page_header_catalog");
 
 let order = new Order();
 let catalog = new Catalog();
@@ -119,12 +123,14 @@ function draw_free_time_in_shopping_cart(free_time_array) {
             let time_buttons = buttons_wrapper.children;
             for (let time_button of time_buttons) {
                 if (time_button.className.includes("free_time_label")) {
-                    time_button.classList.remove("selected_time");
-                    time_button.classList.add("not_selected_time");
+                    time_button.style.animationDelay = "0s";
+                    time_button.classList.remove("show_free_time_label_animation_selector");
+                    time_button.classList.add("hide_free_time_label_animation_selector");
                 }
             }
-            free_time_label.classList.add("selected_time");
-            free_time_label.classList.remove("not_selected_time");
+            free_time_label.style.animationDelay = "0s";
+            free_time_label.classList.add("show_free_time_label_animation_selector");
+            free_time_label.classList.remove("hide_free_time_label_animation_selector");
         });
     }
 }
@@ -163,6 +169,7 @@ for (let key of order.user_order.keys()) {
 
     let shopping_cart_item_img = create_image("shopping_item_img", catalog.Items.get(key).item_img, "");
     let shopping_cart_item_name = create_element("div", "shopping_cart_item_name", catalog.Items.get(key).item_name);
+    shopping_cart_item_name.classList.add("ellipsis_3_lines");
     let shopping_cart_item_cost = create_element("div", "shopping_cart_item_cost", catalog.Items.get(key).item_cost + " ₽/шт.");
     let shopping_cart_add_remove_figure = create_element("div", "shopping_cart_add_remove_figure");
     let buttons_and_cost_wrapper = create_element("div", "buttons_and_cost_wrapper");
@@ -185,6 +192,7 @@ for (let key of order.user_order.keys()) {
     }
 
     shopping_cart_minus_btn.addEventListener("click", () => {
+        push_plus_minus_button_animation(shopping_cart_minus_btn, "plus_minus_buttons_animation_selector");
         decrease_item_counter(key, shopping_item, shopping_cart_item_label);
         if (order.user_order.size === 0) {
             document.querySelector(".time_selection_and_checkout").classList.add("hidden");
@@ -193,9 +201,9 @@ for (let key of order.user_order.keys()) {
             document.querySelector(".empty_shopping_cart_label").classList.remove("hidden");
             document.getElementById("back_btn_to_menu_svg_in_shopping_cart").classList.add("back_btn_to_menu_svg_appearance_animation_selector");
         } else if (order.user_order.size === 1) {
-            document.querySelector(".shopping_item").classList.add("shopping_item_only_one");
-            console.log(document.querySelector(".shopping_item"));
-
+            for (let item of document.querySelector(".shopping_cart_items").querySelectorAll(".shopping_item")) {
+                item.classList.add("shopping_item_only_one");
+            }
         }
         if (checkout_btn.textContent !== "Выберите время" &&
             checkout_btn.textContent !== "Загрузка времени..." &&
@@ -205,6 +213,7 @@ for (let key of order.user_order.keys()) {
     });
 
     shopping_cart_plus_btn.addEventListener("click", () => {
+        push_plus_minus_button_animation(shopping_cart_plus_btn, "plus_minus_buttons_animation_selector");
         increase_item_counter(key, shopping_cart_item_label);
         if (checkout_btn.textContent !== "Выберите время" &&
             checkout_btn.textContent !== "Загрузка времени..." &&

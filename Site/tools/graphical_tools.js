@@ -54,6 +54,16 @@ export function hide_element_with_animation(element_name, animation_class_show, 
     element_name.classList.remove(animation_class_show);
 }
 
+export function push_plus_minus_button_animation(element_name, animation_class, animation_class_to_delete = "") {
+    if (animation_class_to_delete !== "") {
+        element_name.classList.remove(animation_class_to_delete);
+    }
+    element_name.classList.add(animation_class);
+    element_name.addEventListener('animationend', function () {
+        element_name.classList.remove(animation_class);
+    });
+}
+
 export function create_error_label(error_number, error_text) {
     let error_labels_wrapper = document.querySelector(".error_labels_wrapper");
     let error_number_label = document.querySelector(".error_number_label");

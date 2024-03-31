@@ -40,24 +40,14 @@ button, div {
     background-color: #FFE0BC;
 }
 
-.shopping_cart_minus_btn {
+.shopping_cart_minus_btn, .shopping_cart_plus_btn {
     background-color: #FFE0BC;
-    height: 100%;
-    width: 35%;
-    border: 0;
-    border-radius: 20px;
     font-size: 1.2em;
-    text-align: center;
-    vertical-align: middle;
-}
-
-.shopping_cart_plus_btn {
-    background-color: #FFE0BC;
-    height: 100%;
+    padding: 0;
     width: 35%;
-    border: 0;
+    height: 100%;
     border-radius: 20px;
-    font-size: 1.2em;
+    border: 0;
     text-align: center;
     vertical-align: middle;
 }
@@ -66,12 +56,11 @@ button, div {
     font-size: 1.2em;
     padding: 0;
     width: 30%;
-    height: auto;
-    margin-top: auto;
-    margin-bottom: auto;
+    height: 100%;
     border: 0;
     text-align: center;
     vertical-align: middle;
+    line-height: 1.9em;
 }
 
 .choose_time_btn {
@@ -105,7 +94,7 @@ button, div {
 
     border: none;
 
-    background-color: rgba(255, 165, 54, 0.6);
+    background-color: rgba(255, 165, 54, 0.5);
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
 
@@ -232,20 +221,10 @@ button, div {
 
     border-radius: 20px;
     border: none;
-    transition: background-color 0.2s linear;
     background-color: #FFE0BC;
     font-family: "Cyntho Pro", sans-serif;
 
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-
-.selected_time {
-    background-color: #FFE0BC;
-    box-shadow: 5px 5px 10px #ddd;
-}
-
-.not_selected_time {
-    background-color: #FFF2E0;
 }
 
 .time_selection_and_checkout {

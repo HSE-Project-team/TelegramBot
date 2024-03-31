@@ -46,10 +46,14 @@
     .shopping_cart_item_name {
         margin-left: 20px;
         margin-right: 20px;
-    }
-
-    .shopping_cart_item_name {
         font-size: 0.9em;
+    }
+}
+
+@media (max-width: 300px) {
+    .shopping_cart_item_name {
+        margin-left: 5px;
+        margin-right: 5px;
     }
 }
 
