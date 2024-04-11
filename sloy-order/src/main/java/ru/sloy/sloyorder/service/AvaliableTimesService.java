@@ -2,7 +2,7 @@ package ru.sloy.sloyorder.service;
 
 import org.springframework.stereotype.Service;
 import ru.sloy.sloyorder.model.AvaliableTimes;
-import ru.sloy.sloyorder.repoostiory.DataRepository;
+import ru.sloy.sloyorder.repository.DataRepository;
 
 
 @Service

@@ -1,9 +1,8 @@
 package ru.sloy.sloyorder.service;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.sloy.sloyorder.model.User;
-import ru.sloy.sloyorder.repoostiory.DataRepository;
+import ru.sloy.sloyorder.repository.DataRepository;
 
 @Service
 public class UserService {

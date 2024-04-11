@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.sloy.sloyorder.model.Catalog;
 import ru.sloy.sloyorder.model.Item;
 import ru.sloy.sloyorder.model.RawItem;
-import ru.sloy.sloyorder.repoostiory.DataRepository;
+import ru.sloy.sloyorder.repository.DataRepository;
 
 import java.util.List;
 

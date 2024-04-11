@@ -2,9 +2,9 @@ package ru.sloy.sloyorder.service;
 
 import org.springframework.stereotype.Service;
 import ru.sloy.sloyorder.model.*;
-import ru.sloy.sloyorder.repoostiory.DataRepository;
+import ru.sloy.sloyorder.repository.DataRepository;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import static ru.sloy.sloyorder.model.FullOrder.StatusEnum.WAITING_FOR_PAYMENT;
@@ -15,7 +15,7 @@ public class OrderService {
         FullOrder fullOrder = new FullOrder();
         fullOrder.setOrderCost(rawOrder.getOrderCost());
         fullOrder.setComment(rawOrder.getComment());
-        List<FullOrderItemsInner> itemList = new LinkedList<>();
+        List<FullOrderItemsInner> itemList = new ArrayList<>();
 
         for (RawOrderItemsInner itemIdWithNumber : rawOrder.getItems()) {
             FullOrderItemsInner itemWithNumber = new FullOrderItemsInner();

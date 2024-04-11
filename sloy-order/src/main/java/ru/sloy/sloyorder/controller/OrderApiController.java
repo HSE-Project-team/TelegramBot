@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.sloy.sloyorder.endpoint.OrderApi;
 import ru.sloy.sloyorder.model.FullOrder;
 import ru.sloy.sloyorder.model.RawOrder;
-import ru.sloy.sloyorder.repoostiory.DataRepository;
+import ru.sloy.sloyorder.repository.DataRepository;
 import ru.sloy.sloyorder.service.OrderService;
 
 @RestController
