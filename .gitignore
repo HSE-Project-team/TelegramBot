@@ -1,2 +1,4 @@
 .DS_Store
 Site/.idea/
+sloy-order/build/*
+sloy-order/.idea/

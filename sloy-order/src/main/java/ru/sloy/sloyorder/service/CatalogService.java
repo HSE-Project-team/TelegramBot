@@ -1,16 +1,21 @@
 package ru.sloy.sloyorder.service;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.sloy.sloyorder.model.Catalog;
 import ru.sloy.sloyorder.model.Item;
 import ru.sloy.sloyorder.model.RawItem;
 import ru.sloy.sloyorder.repoostiory.DataRepository;
 
+import java.util.List;
+
 @Service
 public class CatalogService {
     public Catalog getCatalog() {
-        return new Catalog();
+        Catalog catalog = new Catalog();
+        List<Item> items = DataRepository.getCatalog();
+        catalog.setItems(items);
+        catalog.setSize(items.size());
+        return catalog;
     }
 
     Item createItemFromRawItem (RawItem rawItem) {

@@ -5,8 +5,6 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.util.ArrayList;
-import java.util.List;
 import ru.sloy.sloyorder.model.Item;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
@@ -29,22 +27,13 @@ public class FullOrderItemsInner implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @JsonProperty("item")
-  @Valid
-  private List<Item> item = null;
+  private Item item;
 
   @JsonProperty("itemNumber")
   private Integer itemNumber;
 
-  public FullOrderItemsInner item(List<Item> item) {
+  public FullOrderItemsInner item(Item item) {
     this.item = item;
-    return this;
-  }
-
-  public FullOrderItemsInner addItemItem(Item itemItem) {
-    if (this.item == null) {
-      this.item = new ArrayList<>();
-    }
-    this.item.add(itemItem);
     return this;
   }
 
@@ -54,11 +43,11 @@ public class FullOrderItemsInner implements Serializable {
   */
   @Valid 
   @Schema(name = "item", required = false)
-  public List<Item> getItem() {
+  public Item getItem() {
     return item;
   }
 
-  public void setItem(List<Item> item) {
+  public void setItem(Item item) {
     this.item = item;
   }
 
