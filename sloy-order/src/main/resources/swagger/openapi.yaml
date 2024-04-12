@@ -199,6 +199,7 @@ components:
         - itemName
         - itemId
         - itemCost
+        - itemCategory
       properties:
         itemName:
           type: string
@@ -206,6 +207,9 @@ components:
           type: integer
         itemCost:
           type: integer
+        itemCategory:
+          type: string
+
 
     RawItem:
       type: object
@@ -214,11 +218,14 @@ components:
       required:
         - itemName
         - itemCost
+        - itemCategory
       properties:
         itemName:
           type: string
         itemCost:
           type: integer
+        itemCategory:
+          type: string
 
     Catalog:
       type: object
@@ -266,7 +273,7 @@ components:
     FullOrder:
       type: object
       title: FullOrder
-      description: Заказ для хранения заказа c Массивом пар <item, itemNumber>
+      description: Заказ для хранения заказа c Массивом пар <itemId, itemNumber>
       required:
         - time
         - userId
@@ -286,8 +293,8 @@ components:
           type: array
           items:
             properties:
-              item:
-                $ref: '#/components/schemas/Item'
+              itemId:
+                type: integer
               itemNumber:
                 type: integer
         orderCost:
