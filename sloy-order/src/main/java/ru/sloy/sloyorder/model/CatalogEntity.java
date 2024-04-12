@@ -4,15 +4,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Entity;
+import java.util.HashMap;
+import java.util.Map;
 
+@Entity
 @Getter
 @Setter
 public class CatalogEntity {
 
     private Integer size;
-
-    private List<ItemEntity> items = new ArrayList<>();
+    private Map<Integer, ItemEntity> items = new HashMap<>();
 
 }

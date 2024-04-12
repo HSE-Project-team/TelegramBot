@@ -4,9 +4,11 @@ package ru.sloy.sloyorder.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 @Getter
 @Setter
 public class OrderEntity {
@@ -14,23 +16,18 @@ public class OrderEntity {
     private Integer userId;
     private Integer orderId;
 
+    @Getter
+    @Setter
     static class Entry {
-        Integer itemId;
-        Integer itemNumber;
+        private Integer itemId;
+        private Integer itemNumber;
     }
 
     private List<Entry> items = new ArrayList<>();
     private Integer orderCost;
     private String comment;
 
-    public enum StatusEnum {
-        WAITING_FOR_PAYMENT,
-        PAID_AND_PREPARING,
-        READY,
-        RECEIVED,
-        CANCELLED;
-    }
 
-    private String value;
+    private FullOrder.StatusEnum status;
 
 }

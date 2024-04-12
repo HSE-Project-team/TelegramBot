@@ -16,7 +16,7 @@ public class DataRepository {
 
     static Map<Integer, FullOrder> mapIdToOrder = new HashMap<>();
 
-    static Set<Integer> avaliableTimes = new HashSet<>();
+    static Set<Integer> availableTimes = new HashSet<>();
 
 
     public static List<Item> getCatalog() {
@@ -65,16 +65,4 @@ public class DataRepository {
         return mapIdToOrder.get(orderId);
     }
 
-    public static List<Integer> getAvaliableTimes() {
-        return new ArrayList<>(avaliableTimes);
-    }
-
-    public static void setAvaliableTimes(AvaliableTimes newAvaliableTimes) {
-        avaliableTimes = new HashSet<>(newAvaliableTimes.getTimes());
-    }
-
-
-    public static void deleteAvaliableTime(Integer time) {
-        avaliableTimes.remove(time);
-    }
 }

@@ -8,7 +8,7 @@ tags:
   - name: Order
   - name: Catalog
   - name: User
-  - name: AvaliableTimes
+  - name: AvailableTimes
 paths:
   /сatalog:
     get:
@@ -75,18 +75,18 @@ paths:
                 type: string
 
 
-  /avaliableTimes:
+  /availableTimes:
     get:
-      operationId: getAvaliableTimes
+      operationId: getAvailableTimes
       tags:
-        - AvaliableTimes
+        - AvailableTimes
       responses:
         '200':
           description: Успех
           content:
             application/json;charset=UTF-8:
               schema:
-                $ref: "#/components/schemas/AvaliableTimes"
+                $ref: "#/components/schemas/AvailableTimes"
         '400':
           description: Чё то пошло не так
           content:
@@ -95,15 +95,15 @@ paths:
                 type: string
 
     post:
-      operationId: postAvaliableTimes
+      operationId: postAvailableTimes
       tags:
-        - AvaliableTimes
+        - AvailableTimes
       requestBody:
         required: true
         content:
           application/json;charset=UTF-8:
             schema:
-              $ref: "#/components/schemas/AvaliableTimes"
+              $ref: "#/components/schemas/AvailableTimes"
       responses:
         '200':
           description: Успех
@@ -317,9 +317,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/FullOrder'
-    AvaliableTimes:
+    AvailableTimes:
       type: object
-      title: AvaliableTimes
+      title: AvailableTimes
       description: Доступные для заказа времена в секундах от начала дня
       required:
         - times
