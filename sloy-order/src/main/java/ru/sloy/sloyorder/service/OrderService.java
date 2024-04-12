@@ -16,20 +16,13 @@ public class OrderService {
 
     @Autowired
     private AvailableTimesRepository availableTimesRepository;
+
     public Integer addOrder(RawOrder rawOrder) {
         FullOrder fullOrder = new FullOrder();
         fullOrder.setOrderCost(rawOrder.getOrderCost());
         fullOrder.setComment(rawOrder.getComment());
-        List<FullOrderItemsInner> itemList = new ArrayList<>();
 
-        for (RawOrderItemsInner itemIdWithNumber : rawOrder.getItems()) {
-            FullOrderItemsInner itemWithNumber = new FullOrderItemsInner();
-            itemWithNumber.setItem(DataRepository.getItemById(itemIdWithNumber.getItemId()));
-            itemWithNumber.setItemNumber(itemWithNumber.getItemNumber());
-            itemList.add(itemWithNumber);
-        }
-
-        fullOrder.setItems(itemList);
+        fullOrder.setItems(rawOrder.getItems());
 
         fullOrder.setTime(rawOrder.getTime());
         availableTimesRepository.delete(rawOrder.getTime()); //TODO

@@ -18,21 +18,26 @@ public class CatalogService {
         return catalog;
     }
 
-    Item createItemFromRawItem (RawItem rawItem) {
+    Item createItemFromRawItem(RawItem rawItem) {
         Item item = new Item();
         item.setItemCost(rawItem.getItemCost());
         item.setItemName(rawItem.getItemName());
+        item.setItemCategory(rawItem.getItemCategory());
+
         item.setItemId(DataRepository.getIdForNewItem());
+        item.setIsAvailable(true);
+
         return item;
     }
+
     public Integer addItem(RawItem rawItem) {
         Item item = createItemFromRawItem(rawItem);
         DataRepository.addItem(item);
         return item.getItemId();
     }
 
-    public void deleteItemById(Integer id){
-       DataRepository.deleteItemById(id);
+    public void deleteItemById(Integer id) {
+        DataRepository.deleteItemById(id);
     }
 
 }

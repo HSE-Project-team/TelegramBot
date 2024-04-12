@@ -11,6 +11,7 @@ public class ItemMapper {
         entity.setItemId(object.getItemId());
         entity.setItemName(object.getItemName());
         entity.setItemCost(object.getItemCost());
+        entity.setIsAvailable(object.getIsAvailable());
         return entity;
     }
 
@@ -18,7 +19,9 @@ public class ItemMapper {
         Item object = new Item();
         object.setItemId(entity.getItemId());
         object.setItemName(entity.getItemName());
-        entity.setItemCost(entity.getItemCost());
+        object.setItemCost(entity.getItemCost());
+        object.setItemCategory(entity.getItemCategory());
+        object.setIsAvailable(entity.getIsAvailable());
         return object;
     }
 

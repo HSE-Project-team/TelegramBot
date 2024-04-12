@@ -15,4 +15,6 @@ public class ItemEntity {
 
     private String itemName;
     private Integer itemCost;
+    private String itemCategory;
+    private Boolean isAvailable;
 }
