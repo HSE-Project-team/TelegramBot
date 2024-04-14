@@ -119,11 +119,13 @@ get_data_from_server(catalog_url).then((data_from_server) => {
             graphicCatalogItems[i].plus_btn.addEventListener("click", () => {
                 push_plus_minus_button_animation(graphicCatalogItems[i].plus_btn, "plus_minus_buttons_animation_selector", "show_btn_plus_animation_selector");
                 increase_item_counter(i, graphicCatalogItemCounter[i]);
+                order.push_data_to_cash();
             });
 
             graphicCatalogItems[i].minus_btn.addEventListener("click", () => {
                 push_plus_minus_button_animation(graphicCatalogItems[i].minus_btn, "plus_minus_buttons_animation_selector", "show_btn_minus_animation_selector");
                 decrease_item_counter(i, graphicCatalogItemCounter[i]);
+                order.push_data_to_cash();
             });
 
             document.querySelector(".items").appendChild(graphicCatalogItems[i]);
@@ -138,7 +140,6 @@ get_data_from_server(catalog_url).then((data_from_server) => {
         }
 
         choose_time_btn_div.addEventListener("click", () => {
-            localStorage.clear();
             catalog.push_data_to_cash();
             order.push_data_to_cash();
         });
@@ -151,6 +152,8 @@ get_data_from_server(catalog_url).then((data_from_server) => {
 
                 order.order_cost += +catalog.Items.get(i).item_cost;
                 choose_time_btn.textContent = `Посмотреть заказ • ${order.order_cost} ₽`;
+
+                order.push_data_to_cash();
 
                 graphicCatalogItems[i].item_btn.classList.add("hidden");
                 graphicCatalogItems[i].minus_btn.classList.remove("hidden");
