@@ -1,7 +1,6 @@
 package ru.sloy.sloyorder.mapping;
 
 import ru.sloy.sloyorder.model.FullOrder;
-import ru.sloy.sloyorder.model.FullOrderItemsInner;
 import ru.sloy.sloyorder.model.OrderEntity;
 
 import javax.swing.text.html.parser.Entity;

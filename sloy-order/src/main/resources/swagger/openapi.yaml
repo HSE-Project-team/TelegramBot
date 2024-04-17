@@ -10,9 +10,55 @@ tags:
   - name: User
   - name: AvailableTimes
 paths:
+
+  /catalog/categories/{category}:
+    get:
+      operationId: getCatalogByCategory
+      tags:
+        - Catalog
+      parameters:
+        - name: category
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Успех
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: "#/components/schemas/Catalog"
+        '400':
+          description: Чё то пошло не так
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: string
+
+  /catalog/categories:
+    get:
+      operationId: getCategories
+      tags:
+        - Catalog
+      responses:
+        '200':
+          description: Успех
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: array
+                items:
+                  type: string
+        '400':
+          description: Чё то пошло не так
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: string
   /сatalog:
     get:
-      operationId: getCatalog
+      operationId: getFullCatalog
       tags:
         - Catalog
       responses:
@@ -53,6 +99,7 @@ paths:
             application/json;charset=UTF-8:
               schema:
                 type: string
+
   /catalog/{id}:
     delete:
       operationId: deleteItemById

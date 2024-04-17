@@ -7,6 +7,8 @@ import ru.sloy.sloyorder.model.Catalog;
 import ru.sloy.sloyorder.model.RawItem;
 import ru.sloy.sloyorder.service.CatalogService;
 
+import java.util.List;
+
 @RestController
 public class CatalogApiController implements CatalogApi {
 
@@ -15,6 +17,7 @@ public class CatalogApiController implements CatalogApi {
     public CatalogApiController(CatalogService catalogService) {
         this.catalogService = catalogService;
     }
+
     @Override
     public ResponseEntity<Integer> addItem(RawItem rawItem) {
         return ResponseEntity.ok(catalogService.addItem(rawItem));
@@ -27,7 +30,17 @@ public class CatalogApiController implements CatalogApi {
     }
 
     @Override
-    public ResponseEntity<Catalog> getCatalog() {
-        return ResponseEntity.ok(catalogService.getCatalog());
+    public ResponseEntity<Catalog> getCatalogByCategory(String category) {
+        return ResponseEntity.ok(catalogService.getCatalogByCategory(category));
+    }
+
+    @Override
+    public ResponseEntity<List<String>> getCategories() {
+        return ResponseEntity.ok(catalogService.getCategories());
+    }
+
+    @Override
+    public ResponseEntity<Catalog> getFullCatalog() {
+        return ResponseEntity.ok(catalogService.getFullCatalog());
     }
 }
