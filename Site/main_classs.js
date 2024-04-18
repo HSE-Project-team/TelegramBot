@@ -12,19 +12,29 @@ export class Catalog {
     size = 0;
 
     addItem(item_id, item_name, item_img, item_cost) {
-        this.Items.set(item_id, new ItemFromCatalog(item_id, item_name, item_img, item_cost))
+        this.Items.set(item_id, new ItemFromCatalog(item_id, item_name, item_img, item_cost));
     }
 
     get_data_from_cash() {
-        let catalog_from_catalog_page = JSON.parse(localStorage.getItem("user_catalog"));
+        let catalog_from_catalog_page = JSON.parse(localStorage.getItem("catalog_part"));
         for (let item of catalog_from_catalog_page) {
             this.addItem(item[1]["item_id"], item[1]["item_name"], item[1]["item_img"], item[1]["item_cost"]);
         }
     }
 
     push_data_to_cash() {
-        let json_catalog = JSON.stringify(Array.from(this.Items));
-        localStorage.setItem("user_catalog", json_catalog);
+        let catalog_map = new Map();
+        let json_catalog = Array.from(this.Items);
+        for (let item of json_catalog) {
+            catalog_map.set(item[0], item[1]);
+        }
+        let catalog_part_history = JSON.parse(localStorage.getItem("catalog_part"));
+        if (catalog_part_history) {
+            for (let item of catalog_part_history) {
+                catalog_map.set(item[0], item[1]);
+            }
+        }
+        localStorage.setItem("catalog_part", JSON.stringify(Array.from(catalog_map)));
     }
 }
 

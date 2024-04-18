@@ -225,16 +225,15 @@ for (let key of order.user_order.keys()) {
     });
 }
 
-order_comment.addEventListener("input", () => {
-    order.order_comment = order_comment.value;
-    order.push_data_to_cash();
-});
-
 checkout_btn.addEventListener("click", () => {
+    let order_comment = document.querySelector(".order_comment");
+    order.order_comment = order_comment.value;
     tg.sendData(generate_data_for_send());
 });
 
 back_btn.addEventListener("click", () => {
+    let order_comment = document.querySelector(".order_comment");
+    order.order_comment = order_comment.value;
     order.push_data_to_cash();
 });
 

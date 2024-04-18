@@ -1,5 +1,10 @@
 import {animated_page_scroll} from "../tools/animated_page_scroll_tools.js";
-import {catalog_url} from "../URL_storage.js";
+import {
+    catalog_url, chocolate_category_test_url,
+    coffee_category_test_url,
+    cold_drinks_category_test_url,
+    cookie_category_test_url
+} from "../URL_storage.js";
 import {
     get_data_from_server, send_data_to_server
 } from "../tools/networking_tools.js"
@@ -26,6 +31,10 @@ function increase_item_counter(i, textField) {
     textField.textContent = new_number;
 }
 
+let category = localStorage.getItem("category");
+let header_label = document.querySelector(".header_label");
+header_label.textContent = category;
+
 let catalog = new Catalog();
 
 let order = new Order();
@@ -41,16 +50,30 @@ if (order.user_order.size) {
     document.querySelector(".container").classList.add("bottom_container_margin");
 }
 
-get_data_from_server(catalog_url).then((data_from_server) => {
+let now_category_url = "";
+
+if (category === "Печенье") {
+    now_category_url = cookie_category_test_url;
+} else if (category === "Кофе") {
+    now_category_url = coffee_category_test_url;
+} else if (category === "Холодные напитки") {
+    now_category_url = cold_drinks_category_test_url;
+} else if (category === "Шоколад") {
+    now_category_url = chocolate_category_test_url;
+} else {
+    now_category_url = catalog_url;
+}
+
+get_data_from_server(now_category_url).then((data_from_server) => {
     let response_status = data_from_server[0];
     data_from_server = data_from_server[1];
+
     document.querySelector(".loading_image_wrapper").classList.add("hidden");
     if (response_status === 200) {
         if (order.user_order.size) {
             show_element_with_animation(choose_time_btn_div, "show_choose_time_btn_animation_selector", "hide_choose_time_btn_animation_selector")
             choose_time_btn.textContent = `Посмотреть заказ • ${order.order_cost} ₽`;
         }
-
 
         catalog.size = data_from_server["size"];
 
@@ -60,6 +83,8 @@ get_data_from_server(catalog_url).then((data_from_server) => {
                 "../images/Dish1.png",
                 catalog_item["itemCost"]);
         }
+
+        catalog.push_data_to_cash();
 
         function decrease_item_counter(i, textField) {
             let new_number = order.user_order.get(i);
@@ -140,7 +165,6 @@ get_data_from_server(catalog_url).then((data_from_server) => {
         }
 
         choose_time_btn_div.addEventListener("click", () => {
-            catalog.push_data_to_cash();
             order.push_data_to_cash();
         });
 
@@ -153,16 +177,17 @@ get_data_from_server(catalog_url).then((data_from_server) => {
                 order.order_cost += +catalog.Items.get(i).item_cost;
                 choose_time_btn.textContent = `Посмотреть заказ • ${order.order_cost} ₽`;
 
-                order.push_data_to_cash();
-
                 graphicCatalogItems[i].item_btn.classList.add("hidden");
                 graphicCatalogItems[i].minus_btn.classList.remove("hidden");
                 graphicCatalogItemCounter[i].classList.remove("hidden");
                 graphicCatalogItemCounter[i].textContent = "1";
                 graphicCatalogItems[i].plus_btn.classList.remove("hidden");
+
+                order.push_data_to_cash();
             });
         }
     } else {
         show_error(response_status);
     }
 });
+

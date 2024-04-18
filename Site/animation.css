@@ -241,9 +241,8 @@
 .hide_choose_time_btn_animation_selector {
     animation: hide_choose_time_btn_animation forwards;
     animation-timing-function: cubic-bezier(.3, .99, .49, 1.01);
-    animation-duration: 0.5s;
+    animation-duration: 0.35s;
 }
-
 
 .show_btn_plus_animation_selector {
     animation: show_btn_plus_animation forwards;
