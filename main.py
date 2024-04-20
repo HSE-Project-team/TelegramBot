@@ -25,11 +25,12 @@ class Order:
 
 
 @dp.message_handler(commands=['orders'])
-async def start(message: types.Message):
-    orders_button = types.ReplyKeyboardMarkup()
-    orders_button.add(
-        types.KeyboardButton("Посмотреть все заказы", web_app=WebAppInfo(url="https://github.com")))
-    await message.answer("Привет!", reply_markup=orders_button)
+async def orders(message: types.Message):
+    markup = types.InlineKeyboardMarkup()
+    markup.add(
+        types.InlineKeyboardButton("Посмотреть мои заказы",
+                                   web_app=WebAppInfo(url="https://show-orders-sloy-bot.vercel.app")))
+    await message.answer("Мои заказы", reply_markup=markup)
 
 
 @dp.message_handler(commands=['start'])
@@ -51,7 +52,8 @@ async def start(message: types.Message):
 
     new_order_button = types.ReplyKeyboardMarkup()
     new_order_button.add(
-        types.KeyboardButton("Сделать новый заказ", web_app=WebAppInfo(url="https://i2l1a1.github.io/")))
+        types.KeyboardButton("Сделать новый заказ",
+                             web_app=WebAppInfo(url="https://new-order-sloy-bot.vercel.app")))
 
     await message.answer("Привет!", reply_markup=new_order_button)
 

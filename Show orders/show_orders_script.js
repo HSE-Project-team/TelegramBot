@@ -1,12 +1,12 @@
-import {animated_page_scroll} from "../tools/animated_page_scroll_tools.js";
-import {user_url} from "../URL_storage.js";
+import {animated_page_scroll} from "./tools/animated_page_scroll_tools.js";
+import {user_url} from "./URL_storage.js";
 import {
     get_data_from_server, send_data_to_server
-} from "../tools/networking_tools.js"
+} from "./tools/networking_tools.js"
 import {
     create_element, create_error_label, create_image, seconds_to_time
-} from "../tools/graphical_tools.js";
-import {show_error} from "../errors_handler/errors_handler.js";
+} from "./tools/graphical_tools.js";
+import {show_error} from "./errors_handler/errors_handler.js";
 
 
 animated_page_scroll(0, ".header_label_wrapper");
@@ -15,6 +15,12 @@ let items_element = document.querySelector(".orders");
 
 let tg = window.Telegram.WebApp;
 tg.expand();
+
+try {
+    document.querySelector(".header_label_wrapper").textContent = window.Telegram.WebApp.initDataUnsafe.user.id.toString();
+} catch (e) {
+    console.log("We are not in Telegram, can't give you user.id")
+}
 
 get_data_from_server(user_url).then((data_from_server) => {
     let response_status = data_from_server[0];
