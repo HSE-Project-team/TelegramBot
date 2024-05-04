@@ -69,6 +69,7 @@ get_data_from_server(now_category_url).then((data_from_server) => {
     data_from_server = data_from_server[1];
 
     document.querySelector(".loading_image_wrapper").classList.add("hidden");
+
     if (response_status === 200) {
         if (order.user_order.size) {
             show_element_with_animation(choose_time_btn_div, "show_choose_time_btn_animation_selector", "hide_choose_time_btn_animation_selector")
@@ -78,10 +79,12 @@ get_data_from_server(now_category_url).then((data_from_server) => {
         catalog.size = data_from_server["size"];
 
         for (let catalog_item of data_from_server["items"]) {
-            catalog.addItem(catalog_item["itemId"],
-                catalog_item["itemName"],
-                "../images/Dish1.png",
-                catalog_item["itemCost"]);
+            if (catalog_item["isAvailable"]) {
+                catalog.addItem(catalog_item["itemId"],
+                    catalog_item["itemName"],
+                    "../images/Dish1.png",
+                    catalog_item["itemCost"]);
+            }
         }
 
         catalog.push_data_to_cash();
@@ -188,6 +191,13 @@ get_data_from_server(now_category_url).then((data_from_server) => {
         }
     } else {
         show_error(response_status);
+    }
+    for (let item of document.querySelectorAll(".item")) {
+        item.addEventListener("click", (event) => {
+            if (!event.target.closest('.add_remove_figure')) {
+                console.log(item.querySelector(".item_name").textContent);
+            }
+        });
     }
 });
 
