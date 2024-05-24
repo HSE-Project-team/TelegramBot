@@ -8,13 +8,9 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-public class ItemEntity {
+public class TimeEntity { //TODO maybe use Time and rewrite methods and specs
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    private String itemName;
-    private Integer itemCost;
-    private String itemCategory;
-    private Boolean isAvailable;
+    private Integer time;
 }

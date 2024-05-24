@@ -1,37 +1,39 @@
 package ru.sloy.sloyorder.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.sloy.sloyorder.mapping.ItemMapper;
+import ru.sloy.sloyorder.mapping.OrderMapper;
 import ru.sloy.sloyorder.model.*;
-import ru.sloy.sloyorder.repository.AvailableTimesRepository;
-import ru.sloy.sloyorder.repository.DataRepository;
-
-import java.util.ArrayList;
-import java.util.List;
+import ru.sloy.sloyorder.repository.ItemRepository;
+import ru.sloy.sloyorder.repository.TimeRepository;
+import ru.sloy.sloyorder.repository.UserRepository;
 
 import static ru.sloy.sloyorder.model.FullOrder.StatusEnum.WAITING_FOR_PAYMENT;
 
 @Service
+@RequiredArgsConstructor
 public class OrderService {
 
-    @Autowired
-    private AvailableTimesRepository availableTimesRepository;
-
+    private final TimeRepository timeRepository;
+    private final UserRepository userRepository;
+    private final ItemRepository itemRepository;
     public Integer addOrder(RawOrder rawOrder) {
-        FullOrder fullOrder = new FullOrder();
-        fullOrder.setOrderCost(rawOrder.getOrderCost());
-        fullOrder.setComment(rawOrder.getComment());
 
-        fullOrder.setItems(rawOrder.getItems());
 
-        fullOrder.setTime(rawOrder.getTime());
-        availableTimesRepository.delete(rawOrder.getTime()); //TODO
 
-        fullOrder.setOrderId(DataRepository.getIdForNewOrder());
-        fullOrder.setStatus(WAITING_FOR_PAYMENT);
+        TimeEntity time = timeRepository.findByTime(rawOrder.getTime());
+        timeRepository.delete(time);
 
-        DataRepository.addOrder(fullOrder);
-        return fullOrder.getOrderId();
+        UserEntity user = userRepository.findById(rawOrder.getUserId()).get();
+
+        OrderEntity order = OrderMapper.toEntity(rawOrder, userRepository, itemRepository);
+
+        user.getOrders().add(order);
+
+        userRepository.save(user);
+
+        return order.getId();
     }
 
 

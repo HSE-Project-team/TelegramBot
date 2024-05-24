@@ -4,7 +4,7 @@ package ru.sloy.sloyorder.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,17 +12,26 @@ import java.util.List;
 @Getter
 @Setter
 public class OrderEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
     private Integer time;
-    private Integer userId;
-    private Integer orderId;
+
+    @ManyToOne
+    @JoinColumn(name="user_entity_id")
+    private UserEntity user;
 
     @Getter
     @Setter
-    static class Entry {
-        private Integer itemId;
+    @Embeddable
+    public static class Entry {
+        //TODO анотации чтобы работало
+        private ItemEntity item;
         private Integer itemNumber;
     }
 
+    @Embedded
     private List<Entry> items = new ArrayList<>();
     private Integer orderCost;
     private String comment;
