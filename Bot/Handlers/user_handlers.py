@@ -57,7 +57,21 @@ async def buy_process(message: types.Message):
     first_name = message.from_user.first_name
     json_from_bot = json.loads(message.web_app_data.data)
 
-    await message.answer(new_order_message_generate(json_from_bot,
-                                                    user_id,
-                                                    first_name,
-                                                    config.ready_order_url))
+    data_for_user = new_order_message_generate(json_from_bot,
+                                               user_id,
+                                               first_name,
+                                               config.ready_order_url)
+
+    pay_for_order_button = InlineKeyboardButton(
+        text=Lexicon.pay_for_order_button,
+        url="google.com"
+    )
+    pay_for_order_keyboard = InlineKeyboardMarkup(inline_keyboard=[[pay_for_order_button]])
+
+    if data_for_user.order_id and data_for_user.link_for_payment:
+        await message.answer(data_for_user.string_for_user, reply_markup=pay_for_order_keyboard)
+    else:
+        await message.answer(data_for_user.string_for_user)
+
+    print(f"link_for_payment: {data_for_user.link_for_payment}")
+    print(f"order_id: {data_for_user.order_id}")
