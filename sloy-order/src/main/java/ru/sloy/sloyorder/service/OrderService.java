@@ -36,5 +36,9 @@ public class OrderService {
         return order.getId();
     }
 
+    public String getPaymentLink(Integer orderId){
+        return null; //Todo after payment impl
+    }
+
 
 }

@@ -20,4 +20,9 @@ public class OrderApiController implements OrderApi {
         return ResponseEntity.ok(orderService.addOrder(rawOrder));
     }
 
+    @Override
+    public ResponseEntity<String> getPaymentLinkByOrderId(Integer id) {
+        return ResponseEntity.ok(orderService.getPaymentLink(id));
+    }
+
 }

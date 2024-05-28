@@ -185,6 +185,31 @@ paths:
               schema:
                 type: string
 
+  /payment/{id}:
+    get:
+      operationId: getPaymentLinkByOrderId
+      tags:
+        - Order
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успех
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: string
+        '400':
+          description: Чё то пошло не так
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: string
+
   /user/{id}:
     get:
       operationId: getUserById

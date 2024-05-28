@@ -7,6 +7,7 @@ import ru.sloy.sloyorder.model.OrderEntity;
 import ru.sloy.sloyorder.model.RawOrder;
 import ru.sloy.sloyorder.repository.ItemRepository;
 import ru.sloy.sloyorder.repository.UserRepository;
+import ru.sloy.sloyorder.service.IikoServiceInterface;
 
 import static ru.sloy.sloyorder.model.FullOrder.StatusEnum.WAITING_FOR_PAYMENT;
 
@@ -31,7 +32,6 @@ public class OrderMapper {
             return  inner;
         }).toList());
 
-
         return object;
     }
 
@@ -53,6 +53,8 @@ public class OrderMapper {
         entity.setTime(rawOrder.getTime());
         entity.setStatus(WAITING_FOR_PAYMENT);
 
+        // entity.setIikotId(iikoService.createOrder(entity)); //Todo after iiko and payment impl
+        // entity.setPaymentId(...)
         return entity;
     }
 }

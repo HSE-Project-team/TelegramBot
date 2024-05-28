@@ -19,14 +19,13 @@ public class OrderEntity {
     private Integer time;
 
     @ManyToOne
-    @JoinColumn(name="user_entity_id")
+    @JoinColumn(name = "user_entity_id")
     private UserEntity user;
 
     @Getter
     @Setter
     @Embeddable
     public static class Entry {
-        //TODO анотации чтобы работало
         private ItemEntity item;
         private Integer itemNumber;
     }
@@ -38,5 +37,7 @@ public class OrderEntity {
 
 
     private FullOrder.StatusEnum status;
+    private Integer iikoId;
+    private Integer paymentId;
 
 }
