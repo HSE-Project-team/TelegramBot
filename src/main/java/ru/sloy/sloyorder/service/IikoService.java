@@ -1,6 +1,7 @@
 package ru.sloy.sloyorder.service;
 
 import com.google.gson.*;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -17,21 +18,16 @@ public class IikoService {
     @Value("${iiko.api.url}")
     private String apiUrl;
 
+    @Getter
+    @Value("${api.login}")
+    private String apiLogin;
+
     private final RestTemplate restTemplate;
     private final Gson gson;
 
     public IikoService() {
         this.restTemplate = new RestTemplate();
         this.gson = new Gson();
-    }
-
-    private String getApiLogin() {
-        try {
-            return new String(Files.readAllBytes(Paths.get("api_login"))).trim();
-        } catch (IOException e) {
-            System.out.println("Файл 'api_login' не найден");
-            return null;
-        }
     }
 
     private String getToken(String apiLogin) {
@@ -170,20 +166,20 @@ public class IikoService {
         }
     }
 
-    public void createOrder(Map<String, Integer> orderItems) {
+    public String createOrder(Map<String, Integer> orderItems) {
         String apiLogin = getApiLogin();
         if (apiLogin == null) {
-            return;
+            return null;
         }
 
         String organizationId = getOrganisationId(apiLogin);
         if (organizationId == null) {
-            return;
+            return null;
         }
 
         String terminalGroupId = getTerminalGroup();
         if (terminalGroupId == null) {
-            return;
+            return null;
         }
 
         String url = apiUrl + "/order/create";
@@ -216,9 +212,23 @@ public class IikoService {
 
         ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
         if (response.getStatusCode() == HttpStatus.OK) {
-            System.out.println("Заказ успешно создан");
+            String orderId = parseOrderId(response.getBody());
+            System.out.println("Заказ создан. ID заказа: " + orderId);
+            return orderId;
         } else {
             System.out.println("Ошибка при создании заказа: " + response.getStatusCode());
+            return null;
+        }
+    }
+
+    private String parseOrderId(String responseBody) {
+        JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
+        JsonObject orderInfo = jsonObject.getAsJsonObject("orderInfo");
+        if (orderInfo != null) {
+            return orderInfo.get("id").getAsString();
+        } else {
+            System.out.println("Ошибка: не удалось получить ID заказа из ответа.");
+            return null;
         }
     }
 
