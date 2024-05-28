@@ -1,0 +1,79 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.7'
+	id 'io.spring.dependency-management' version '1.1.0'
+	id "org.openapi.generator" version '6.2.1'
+}
+
+group = 'ru.sloy'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation("com.google.code.gson:gson:2.8.6")
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation('org.springframework.boot:spring-boot-starter-web') {
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+	}
+	implementation 'org.springframework.boot:spring-boot-starter-undertow'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'org.postgresql:postgresql'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation "io.swagger.core.v3:swagger-annotations:2.2.7"
+}
+
+openApiGenerate {
+	generatorName = "spring"
+	inputSpec = "$rootDir/src/main/resources/swagger/openapi.yaml".toString()
+	outputDir = "$buildDir/generated".toString()
+	apiPackage = "ru.sloy.sloyorder.endpoint"
+	modelPackage = "ru.sloy.sloyorder.model"
+	configOptions = [
+			skipDefaultInterface   : "true",
+			dateLibrary            : "java8-localdatetime",
+			serializableModel      : "true",
+			interfaceOnly          : "true",
+			hideGenerationTimestamp: "true",
+			useBeanValidation      : "true",
+			generateSupportingFiles: "false",
+			swaggerDocketConfig    : "false",
+			useTags                : "true",
+			openApiNullable		   : "false"
+	]
+	globalProperties = [
+			apis  : '',
+			models: '',
+	]
+	typeMappings = [
+			Double: "java.math.BigDecimal",
+			Long: "java.math.BigInteger"
+	]
+}
+compileJava.dependsOn("openApiGenerate")
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+sourceSets {
+	main {
+		java {
+			srcDir "$buildDir/generated/src/main/java"
+		}
+	}
+}
