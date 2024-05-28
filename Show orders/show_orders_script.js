@@ -41,9 +41,16 @@ get_data_from_server(user_url).then((data_from_server) => {
             let order_time = create_element("div", "order_time", "Заказ на " + seconds_to_time(data_from_server["orders"][i]["time"]));
             let order_status = create_element("div", "order_status");
             if (data_from_server["orders"][i]["status"] === "waiting for payment") {
-                order_status.textContent = "Не оплачено ❌";
-            } else {
-                order_status.textContent = "Оплачено ✅";
+                order_status.textContent = "Ожидает оплаты ⌛️";
+            } else if (data_from_server["orders"][i]["status"] === "paid and preparing") {
+                order_status.textContent = "Оплачен и уже готовится 💫";
+            } else if (data_from_server["orders"][i]["status"] === "ready") {
+                order_status.textContent = "Можно забирать ✅";
+            } else if (data_from_server["orders"][i]["status"] === "received") {
+                order_status.textContent = "Получен 👌";
+            }
+            else {
+                order_status.textContent = "Отменён ❌";
             }
 
             order_info.appendChild(order_id);

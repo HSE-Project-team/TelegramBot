@@ -32,7 +32,7 @@ class GetConfigMiddleware(BaseMiddleware):
 async def start(message: types.Message):
     new_order_button = KeyboardButton(text=Lexicon.new_order_button,
                                       web_app=WebAppInfo(url=config.new_order_url))
-    new_order_keyboard = ReplyKeyboardMarkup(keyboard=[[new_order_button]])
+    new_order_keyboard = ReplyKeyboardMarkup(keyboard=[[new_order_button]], resize_keyboard=True)
 
     await message.answer(Lexicon.start_message, reply_markup=new_order_keyboard)
 
@@ -62,13 +62,12 @@ async def buy_process(message: types.Message):
                                                first_name,
                                                config.ready_order_url)
 
-    pay_for_order_button = InlineKeyboardButton(
-        text=Lexicon.pay_for_order_button,
-        url="google.com"
-    )
-    pay_for_order_keyboard = InlineKeyboardMarkup(inline_keyboard=[[pay_for_order_button]])
-
     if data_for_user.order_id and data_for_user.link_for_payment:
+        pay_for_order_button = InlineKeyboardButton(
+            text=f"{Lexicon.pay_for_order_button} • {str(json_from_bot['orderCost'])} ₽",
+            url="google.com"
+        )
+        pay_for_order_keyboard = InlineKeyboardMarkup(inline_keyboard=[[pay_for_order_button]])
         await message.answer(data_for_user.string_for_user, reply_markup=pay_for_order_keyboard)
     else:
         await message.answer(data_for_user.string_for_user)
