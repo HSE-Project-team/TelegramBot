@@ -5,7 +5,7 @@ from yookassa import Configuration
 import random
 import string
 
-random.seed(43)
+random.seed(44)
 
 
 def read_shop_auth_credentials():
@@ -54,6 +54,7 @@ def create_payment(value, shop_id, api_key):
     while response is None:
         idempotence_key = generate_idempotence_key()
         response = create_payment_response(value, idempotence_key, shop_id, api_key)
+        print(response)
     print(idempotence_key, "idempotence_key")
     return response
 
