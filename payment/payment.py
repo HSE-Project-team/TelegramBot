@@ -5,8 +5,6 @@ from yookassa import Configuration
 import random
 import string
 
-random.seed(44)
-
 
 def read_shop_auth_credentials():
     credentials = {}
@@ -40,7 +38,6 @@ def create_payment_response(value, idempotence_key, shop_id, api_key):
     response = requests.post(url, json=data, headers=headers, auth=auth)
 
     if response.status_code == 200:
-        print("Платеж успешно создан")
         return response.json()
     else:
         print("Ошибка при создании платежа:", response.text)
@@ -51,10 +48,12 @@ def create_payment_response(value, idempotence_key, shop_id, api_key):
 def create_payment(value, shop_id, api_key):
     response = None
     idempotence_key = -1
-    while response is None:
+    while response is None or response['status'] != 'pending':
         idempotence_key = generate_idempotence_key()
+        print(idempotence_key, "Idempotence Key")
         response = create_payment_response(value, idempotence_key, shop_id, api_key)
-        print(response)
+        print(response, "response")
+    print("Платеж успешно создан")
     print(idempotence_key, "idempotence_key")
     return response
 
