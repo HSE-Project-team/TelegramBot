@@ -1,6 +1,6 @@
 import {animated_page_scroll} from "../tools/animated_page_scroll_tools.js";
 import {
-    catalog_url, chocolate_category_test_url,
+    main_url, catalog_url, chocolate_category_test_url,
     coffee_category_test_url,
     cold_drinks_category_test_url,
     cookie_category_test_url
@@ -51,6 +51,7 @@ if (order.user_order.size) {
 }
 
 let now_category_url = "";
+// for delete (start)
 
 if (category === "Печенье") {
     now_category_url = cookie_category_test_url;
@@ -63,6 +64,10 @@ if (category === "Печенье") {
 } else {
     now_category_url = catalog_url;
 }
+
+// for delete (end)
+
+// now_category_url = `${main_url}/catalog/categories/${category}`
 
 get_data_from_server(now_category_url).then((data_from_server) => {
     let response_status = data_from_server[0];

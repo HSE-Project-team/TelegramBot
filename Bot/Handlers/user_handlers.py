@@ -31,7 +31,7 @@ class GetConfigMiddleware(BaseMiddleware):
 @user_handlers_router.message(Command(commands=['start']))
 async def start(message: types.Message):
     new_order_button = KeyboardButton(text=Lexicon.new_order_button,
-                                      web_app=WebAppInfo(url=config.new_order_url))
+                                      web_app=WebAppInfo(url=config.new_order_web_app_url))
     new_order_keyboard = ReplyKeyboardMarkup(keyboard=[[new_order_button]], resize_keyboard=True)
 
     await message.answer(Lexicon.start_message, reply_markup=new_order_keyboard)
@@ -43,11 +43,13 @@ async def orders(message: types.Message):
 
     user_orders_button = InlineKeyboardButton(
         text=Lexicon.show_all_orders,
-        web_app=WebAppInfo(url=config.user_orders_url)
+        web_app=WebAppInfo(url=config.user_orders_web_app_url)
     )
     user_orders_keyboard = InlineKeyboardMarkup(inline_keyboard=[[user_orders_button]])
 
-    await message.answer(active_orders_message_generate(config.user_active_orders_url),
+    print(f"{config.user_url}/{user_id}")
+
+    await message.answer(active_orders_message_generate(config.user_url),
                          reply_markup=user_orders_keyboard)
 
 
@@ -60,7 +62,7 @@ async def buy_process(message: types.Message):
     data_for_user = new_order_message_generate(json_from_bot,
                                                user_id,
                                                first_name,
-                                               config.ready_order_url)
+                                               config.ready_order_for_server_url)
 
     if data_for_user.order_id and data_for_user.link_for_payment:
         pay_for_order_button = InlineKeyboardButton(

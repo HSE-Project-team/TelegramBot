@@ -23,6 +23,7 @@ try {
 }
 
 get_data_from_server(user_url).then((data_from_server) => {
+    // console.log(`${user_url}/${window.Telegram.WebApp.initDataUnsafe.user.id.toString()}`)
     let response_status = data_from_server[0];
     data_from_server = data_from_server[1];
     document.querySelector(".loading_image_wrapper").classList.add("hidden");
@@ -48,8 +49,7 @@ get_data_from_server(user_url).then((data_from_server) => {
                 order_status.textContent = "Можно забирать ✅";
             } else if (data_from_server["orders"][i]["status"] === "received") {
                 order_status.textContent = "Получен 👌";
-            }
-            else {
+            } else {
                 order_status.textContent = "Отменён ❌";
             }
 

@@ -16,11 +16,10 @@ def seconds_to_time(seconds):
 
 def make_json_for_server(json_data, user_id):
     json_for_server = copy.deepcopy(json_data)
-    items_for_server = dict()
+    items_for_server = list()
     for item in json_for_server.pop("items"):
-        items_for_server[item["itemId"]] = item["itemNumber"]
+        items_for_server.append([item["itemId"], item["itemNumber"]])
 
     json_for_server["items"] = items_for_server
     json_for_server["userId"] = user_id
     return json_for_server
-

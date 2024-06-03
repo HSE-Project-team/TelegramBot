@@ -14,11 +14,11 @@ class UserOrder:
 
 
 def active_orders_message_generate(user_active_orders_url):
-    user_orders_json = requests.get(user_active_orders_url).json()["orders"]
+    user_orders = requests.get(user_active_orders_url).json()["orders"]
     string_for_user = Lexicon.active_orders_heading + "\n\n\n"
     no_active_orders = True
     have_ready_orders = False
-    for order in user_orders_json:
+    for order in user_orders:
         if order['status'] in ["waiting for payment", "paid and preparing", "ready"]:
             if order['status'] == "ready":
                 have_ready_orders = True
@@ -42,14 +42,17 @@ def new_order_message_generate(json_from_bot, user_id, first_name, ready_order_u
     order_id = None
     try:
         request_value = requests.post(ready_order_url, json=json_for_server)
+        print("json_for_server:")
+        print(json_for_server)
+        print("json on server:")
+        print(request_value.json()["json"])
+        print("status code:")
+        print(request_value.status_code)
         link_for_payment = request_value.json()["json"]
         order_id = 6892
-        print(request_value.json()["json"])
-
-        print(request_value.status_code)
 
         string_for_user = _new_order_message_generate_success(json_from_bot, first_name, user_id, order_id)
-        # string_for_user += f"\n\njson_from_bot: {json_from_bot}\n\njson_for_server: {json_for_server}"
+        string_for_user += f"\n\njson_from_bot: {json_from_bot}\n\njson_for_server: {json_for_server}"
 
     except RequestException as err:
         print(f"Ошибка: {err}")
