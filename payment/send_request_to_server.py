@@ -21,7 +21,7 @@ def get_payment_status(payment_id):
 
 
 def test_payment_flow():
-    payment_id_response = create_payment("1234")
+    payment_id_response = create_payment(1234.86786786)
     print(payment_id_response)
     payment_id = payment_id_response["payment_id"]
 
