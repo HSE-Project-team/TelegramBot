@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class ItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private String id;
 
     private String itemName;
     private Integer itemCost;

@@ -1,0 +1,33 @@
+###
+GET http://localhost:8080/iiko/testOrder
+
+###
+POST http://localhost:8080/iiko/createOrder
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "item": {
+        "id": "d97c066c-0a83-49c8-a79b-cf6ec9a4d366"
+      },
+      "itemNumber": 0
+    },
+    {
+      "item": {
+        "id": "8bd8ace4-9815-4060-b8d3-a3680c1e7d8e"
+      },
+      "itemNumber": 0
+    },
+    {
+      "item": {
+        "id": "978ce1aa-9927-47f0-8ca8-e03cfc04097c"
+      },
+      "itemNumber": 0
+    }
+  ],
+  "orderCost": 0,
+  "comment": "Тестовый заказ, не делать!!!"
+}
+
+<> 2024-06-08T084832.404.json

@@ -2,10 +2,14 @@ package ru.sloy.sloyorder.service;
 
 import com.google.gson.*;
 import lombok.Getter;
+import org.hibernate.internal.CriteriaImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import ru.sloy.sloyorder.model.OrderEntity;
+import ru.sloy.sloyorder.model.*;
+//import ru.sloy.sloyorder.model.OrderEntity.Entry;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -23,11 +27,11 @@ public class IikoService {
     private String apiLogin;
 
     private final RestTemplate restTemplate;
-    private final Gson gson;
+    private static Gson gson;
 
     public IikoService() {
         this.restTemplate = new RestTemplate();
-        this.gson = new Gson();
+        gson = new Gson();
     }
 
     private String getToken(String apiLogin) {
@@ -166,7 +170,16 @@ public class IikoService {
         }
     }
 
-    public String createOrder(Map<String, Integer> orderItems) {
+    public String createOrder(OrderEntity orderEntity) {
+        Map<String, Integer> orderItems = new HashMap<>();
+        for (OrderEntity.Entry entry : orderEntity.getItems()) {
+            ItemEntity item = entry.getItem();
+            if (item != null) {
+                orderItems.put(item.getId(), entry.getItemNumber());
+            }
+        }
+
+
         String apiLogin = getApiLogin();
         if (apiLogin == null) {
             return null;
@@ -184,6 +197,7 @@ public class IikoService {
 
         String url = apiUrl + "/order/create";
         String token = getToken(apiLogin);
+        System.out.println(url);
 
         List<Map<String, Object>> items = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : orderItems.entrySet()) {
@@ -232,6 +246,41 @@ public class IikoService {
         }
     }
 
+    public static OrderEntity generateOrderFromOrderItems(Map<String, Integer> orderItems) {
+        System.out.println(13131313);
+        OrderEntity order = new OrderEntity();
+        order.setComment("Тестовый заказ, не делать!!!");
+        List<OrderEntity.Entry> entries = new ArrayList<>();
+
+        int totalCost = 0;
+
+        for (Map.Entry<String, Integer> entry : orderItems.entrySet()) {
+            String itemId = entry.getKey();
+            Integer itemNumber = entry.getValue();
+
+            ItemEntity item = new ItemEntity();
+            OrderEntity.Entry orderEntry = new OrderEntity.Entry();
+            orderEntry.setItem(item);
+            item.setId(itemId);
+            orderEntry.setItemNumber(itemNumber);
+            entries.add(orderEntry);
+//            totalCost += item.getItemCost() * itemNumber;
+        }
+
+        order.setItems(entries);
+        order.setOrderCost(totalCost);
+        return order;
+    }
+
+    public static String orderToJson(OrderEntity order) {
+        System.out.println(gson.toJson(order));
+        return gson.toJson(order);
+    }
+
+    public static OrderEntity jsonToOrder(String json) {
+        return gson.fromJson(json, OrderEntity.class);
+    }
+
     public void doTestOrder() {
         Map<String, String> menu = getMenu();
         if (menu == null) {
@@ -246,6 +295,8 @@ public class IikoService {
             if (++count == 3) break;
         }
 
-        createOrder(orderItems);
+        System.out.println(gson.toJson(generateOrderFromOrderItems(orderItems)));
+
+        createOrder(generateOrderFromOrderItems(orderItems));
     }
 }

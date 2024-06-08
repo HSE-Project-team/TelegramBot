@@ -9,7 +9,7 @@ public class ItemMapper {
     public static Item fromEntity(ItemEntity entity) {
         Item object = new Item();
 
-        object.setItemId(entity.getId());
+        // object.setItemId(entity.getId());
         object.setItemName(entity.getItemName());
         object.setItemCost(entity.getItemCost());
         object.setItemCategory(entity.getItemCategory());
