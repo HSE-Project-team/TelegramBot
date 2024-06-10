@@ -242,11 +242,13 @@ from uuid import uuid4
 
 
 class Order:
-    def __init__(self, organization_id, terminal_group_id, items, phone, order_type_id=None,
+    def __init__(self, organization_id, terminal_group_id, items, phone, complete_before=None, order_type_id=None,
                  order_service_type="DeliveryByClient", comment=None):
         self.organization_id = organization_id
         self.terminal_group_id = terminal_group_id
         self.items = items
+        self.complete_before = complete_before
+        #"2077-12-31 23:59:59.999"
         self.phone = phone
         self.order_type_id = order_type_id
         self.order_service_type = order_service_type
@@ -261,6 +263,7 @@ class Order:
                 "id": self.id,
                 "phone": self.phone,
                 "items": self.items,
+                "completeBefore" : self.complete_before
             }
         }
         if self.order_type_id:
@@ -273,7 +276,7 @@ class Order:
         return order_dict
 
 
-def create_delivery(order_items):
+def create_delivery(order_items, complete_before=None):
     api_login = get_api_login()
     if not api_login:
         return None
@@ -289,13 +292,14 @@ def create_delivery(order_items):
     items = [{"productId": product_id, "type": "Product", "amount": amount, "comment": "Тестовая доставка. Не делать!"}
              for product_id, amount in order_items.items()]
 
-    order = Order(organization_id, terminal_group_id, items, "+70000000000")
+    order = Order(organization_id, terminal_group_id, items, "+70000000000", complete_before)
 
     url = 'https://api-ru.iiko.services/api/1/deliveries/create'
     headers = {
         'Authorization': f'Bearer {get_token(api_login)}',
         'Content-Type': 'application/json'
     }
+    print(order.to_dict())
     response = requests.post(url, json=order.to_dict(), headers=headers)
     print(response.json())
 
