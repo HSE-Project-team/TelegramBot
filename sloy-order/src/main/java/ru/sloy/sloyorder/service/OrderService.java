@@ -2,12 +2,10 @@ package ru.sloy.sloyorder.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import ru.sloy.sloyorder.mapping.OrderMapper;
-import ru.sloy.sloyorder.model.OrderEntity;
-import ru.sloy.sloyorder.model.RawOrder;
-import ru.sloy.sloyorder.model.TimeEntity;
-import ru.sloy.sloyorder.model.UserEntity;
+import ru.sloy.sloyorder.model.*;
 import ru.sloy.sloyorder.repository.ItemRepository;
 import ru.sloy.sloyorder.repository.OrderRepository;
 import ru.sloy.sloyorder.repository.TimeRepository;
@@ -33,8 +31,6 @@ public class OrderService {
     private final IikoService iikoService;
 
     public Integer addOrder(RawOrder rawOrder) {
-
-
         TimeEntity time = timeRepository.findByTime(rawOrder.getTime());
         timeRepository.delete(time);
 
@@ -64,6 +60,33 @@ public class OrderService {
 
     public String getPaymentLink(Integer orderId) {
         return paymentService.getPaymentLink(orderRepository.findById(orderId).get().getPaymentId());
+    }
+
+    @Scheduled(fixedRate = 5000) // интервал в миллисекундах
+    public void updateOrdersStatus() {
+        orderRepository.findAllByStatus(FullOrder.StatusEnum.WAITING_FOR_PAYMENT).forEach(order -> {
+            FullOrder.StatusEnum newStatus = paymentService.getPaymentStatus(order.getPaymentId());
+            if (newStatus.equals(FullOrder.StatusEnum.WAITING_FOR_PAYMENT)) {
+                order.setStatus(newStatus);
+                orderRepository.save(order);
+            }
+        });
+
+        orderRepository.findAllByStatus(FullOrder.StatusEnum.PAID_AND_PREPARING).forEach(order -> {
+            FullOrder.StatusEnum newStatus = iikoService.getOrderStatus(order.getIikoId());
+            if (newStatus.equals(FullOrder.StatusEnum.PAID_AND_PREPARING)) {
+                order.setStatus(newStatus);
+                orderRepository.save(order);
+            }
+        });
+
+        orderRepository.findAllByStatus(FullOrder.StatusEnum.READY).forEach(order -> {
+            FullOrder.StatusEnum newStatus = iikoService.getOrderStatus(order.getIikoId());
+            if (newStatus.equals(FullOrder.StatusEnum.READY)) {
+                order.setStatus(newStatus);
+                orderRepository.save(order);
+            }
+        });
     }
 
 
