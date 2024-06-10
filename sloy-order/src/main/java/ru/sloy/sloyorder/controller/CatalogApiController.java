@@ -1,6 +1,7 @@
 package ru.sloy.sloyorder.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import ru.sloy.sloyorder.endpoint.CatalogApi;
 import ru.sloy.sloyorder.model.Catalog;
@@ -10,6 +11,7 @@ import ru.sloy.sloyorder.service.CatalogService;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class CatalogApiController implements CatalogApi {
 
     private final CatalogService catalogService;

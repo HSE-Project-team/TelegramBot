@@ -1,12 +1,14 @@
 package ru.sloy.sloyorder.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import ru.sloy.sloyorder.endpoint.OrderApi;
 import ru.sloy.sloyorder.model.RawOrder;
 import ru.sloy.sloyorder.service.OrderService;
 
 @RestController
+@CrossOrigin
 public class OrderApiController implements OrderApi {
 
     private final OrderService orderService;

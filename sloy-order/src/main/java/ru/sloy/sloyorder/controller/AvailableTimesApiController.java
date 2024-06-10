@@ -1,6 +1,7 @@
 package ru.sloy.sloyorder.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import ru.sloy.sloyorder.endpoint.AvailableTimesApi;
 import ru.sloy.sloyorder.model.AvailableTimes;
@@ -8,6 +9,7 @@ import ru.sloy.sloyorder.service.AvailableTimesService;
 
 
 @RestController
+@CrossOrigin
 public class AvailableTimesApiController implements AvailableTimesApi {
 
     private final AvailableTimesService availableTimesService;

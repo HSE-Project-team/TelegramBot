@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 public class OrderEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private Integer time;
@@ -22,16 +22,9 @@ public class OrderEntity {
     @JoinColumn(name = "user_entity_id")
     private UserEntity user;
 
-    @Getter
-    @Setter
-    @Embeddable
-    public static class Entry {
-        private ItemEntity item;
-        private Integer itemNumber;
-    }
 
-    @Embedded
-    private List<Entry> items = new ArrayList<>();
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderEntryEntity> items = new ArrayList<>();
     private Integer orderCost;
     private String comment;
 
@@ -41,3 +34,4 @@ public class OrderEntity {
     private Integer paymentId;
 
 }
+
