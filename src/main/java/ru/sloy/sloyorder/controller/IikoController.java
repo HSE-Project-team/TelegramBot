@@ -17,11 +17,29 @@ public class IikoController {
         iikoService.doTestOrder();
     }
 
+//    @PostMapping("/createOrder")
+//    public ResponseEntity<String> createOrder(@RequestBody String json) {
+//        OrderEntity order = IikoService.jsonToOrder(json);
+//        String orderId = iikoService.createOrder(order);
+//        String jsonResponse = "{\"orderId\": \"" + orderId + "\"}";
+//        return ResponseEntity.ok(jsonResponse);
+//    }
+
     @PostMapping("/createOrder")
+    //TODO пофиксить принятие completeBefore
     public ResponseEntity<String> createOrder(@RequestBody String json) {
         OrderEntity order = IikoService.jsonToOrder(json);
-        String orderId = iikoService.createOrder(order);
+        String orderId = iikoService.createDelivery(order);
         String jsonResponse = "{\"orderId\": \"" + orderId + "\"}";
+        return ResponseEntity.ok(jsonResponse);
+    }
+
+    @PostMapping("/getStatus")
+    public ResponseEntity<String> getStatus(@RequestBody String json) {
+        String orderId = IikoService.jsonToId(json);
+        String orderStatus = iikoService.getDeliveryStatusById(orderId);
+        System.out.println("sjkfiksjfsjfsjfjkfjsjfswkjfsfjks");
+        String jsonResponse = "{\"status\": \"" + orderStatus + "\"}";
         return ResponseEntity.ok(jsonResponse);
     }
 }

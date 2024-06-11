@@ -30,4 +30,10 @@ Content-Type: application/json
   "comment": "Тестовый заказ, не делать!!!"
 }
 
+###
+POST http://localhost:8080/iiko/getStatus
+Content-Type: application/json
+
+{"id": "a212b947-772b-418c-9201-c51fe9c60c99"}
+
 <> 2024-06-08T084832.404.json

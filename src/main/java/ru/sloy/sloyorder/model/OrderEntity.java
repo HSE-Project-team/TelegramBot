@@ -16,7 +16,7 @@ public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private Integer time;
+    private String time;
 
     @ManyToOne
     @JoinColumn(name = "user_entity_id")
