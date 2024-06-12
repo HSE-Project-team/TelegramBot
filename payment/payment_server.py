@@ -19,6 +19,15 @@ def get_host():
     return host
 
 
+def read_shop_auth_credentials():
+    credentials = {}
+    with open("shop_auth_credentials", "r") as file:
+        for line in file:
+            key, value = line.strip().split(":")
+            credentials[key.strip()] = value.strip()
+    return credentials
+
+
 @app.route('/payment_link/<payment_id>', methods=['GET'])
 def get_payment_link(payment_id):
     payment_link = create_payment_link(payment_id)
@@ -44,13 +53,12 @@ def pay_order(payment_id):
 
 @app.route('/create_payment', methods=['POST'])
 def handle_create_payment():
-    value = request.form.get('value')
+    data = request.json
+    value = data.get('value')
     if not value:
         return jsonify({"error": "Missing value parameter"}), 400
 
     payment_id = process_payment(value)
-    # payment_link = create_payment_link(payment_id)
-    # jsonify({"payment_link": payment_link})
     return jsonify({"payment_id": payment_id})
 
 
@@ -67,15 +75,6 @@ def get_payment_status(payment_id):
         return jsonify({"payment_id": payment_id, "status": status})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
-
-def read_shop_auth_credentials():
-    credentials = {}
-    with open("shop_auth_credentials", "r") as file:
-        for line in file:
-            key, value = line.strip().split(":")
-            credentials[key.strip()] = value.strip()
-    return credentials
 
 
 if __name__ == '__main__':

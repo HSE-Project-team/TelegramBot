@@ -1,10 +1,12 @@
 import requests
-
+import json
 
 def create_payment(value):
     url = "http://localhost:5000/create_payment"
     data = {"value": value}
-    response = requests.post(url, data=data)
+
+    headers = {"Content-Type": "application/json"}
+    response = requests.post(url, data=json.dumps(data), headers=headers)
     return response.json()
 
 
@@ -21,7 +23,7 @@ def get_payment_status(payment_id):
 
 
 def test_payment_flow():
-    payment_id_response = create_payment(1234.86786786)
+    payment_id_response = create_payment("1234")
     print(payment_id_response)
     payment_id = payment_id_response["payment_id"]
 
