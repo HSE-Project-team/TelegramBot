@@ -27,6 +27,7 @@ Content-Type: application/json
     }
   ],
   "orderCost": 0,
+  "time": "2024-06-12 23:59:59.999",
   "comment": "Тестовый заказ, не делать!!!"
 }
 

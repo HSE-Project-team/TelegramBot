@@ -38,7 +38,6 @@ public class IikoController {
     public ResponseEntity<String> getStatus(@RequestBody String json) {
         String orderId = IikoService.jsonToId(json);
         String orderStatus = iikoService.getDeliveryStatusById(orderId);
-        System.out.println("sjkfiksjfsjfsjfjkfjsjfswkjfsfjks");
         String jsonResponse = "{\"status\": \"" + orderStatus + "\"}";
         return ResponseEntity.ok(jsonResponse);
     }

@@ -240,6 +240,8 @@ public class IikoService {
         }
         //TODO переписать на какой-то маппер из обычного order в условный iikoOrder
         String completeBefore = orderEntity.getTime();
+        System.out.println(completeBefore);
+        System.out.println("TIME IN DELIVERY");
         String phone = "+70000000000";
         String orderServiceType = "DeliveryByClient";
         String comment = "Тестовы заказ, не делать!";
@@ -274,7 +276,7 @@ public class IikoService {
         }
 
         Map<String, Object> order = new HashMap<>();
-        order.put("complete_before", completeBefore);
+        order.put("completeBefore", completeBefore);
         order.put("phone", phone);
         order.put("orderServiceType", "DeliveryByClient");
         order.put("comment", comment);
@@ -295,6 +297,7 @@ public class IikoService {
         HttpEntity<String> request = new HttpEntity<>(jsonPayload, headers);
 
         ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
+
         if (response.getStatusCode() == HttpStatus.OK) {
             String orderId = parseOrderId(response.getBody());
             System.out.println("Заказ создан. ID заказа: " + orderId);
@@ -402,6 +405,9 @@ public class IikoService {
     }
 
     public static OrderEntity jsonToOrder(String json) {
+        OrderEntity order = gson.fromJson(json, OrderEntity.class);
+        System.out.println(order.getTime());
+        System.out.println(json);
         return gson.fromJson(json, OrderEntity.class);
     }
 
