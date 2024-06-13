@@ -5,10 +5,10 @@ from aiogram.types import (KeyboardButton, ReplyKeyboardMarkup,
 from aiogram.types.web_app_info import WebAppInfo
 from aiogram.filters import Command
 
-from Bot.Config.config_bot import Config
-from Bot.Lexicon.lexicon import Lexicon
-from Bot.Tools.message_generation import (new_order_message_generate,
-                                          active_orders_message_generate)
+from Config.config_bot import Config
+from Lexicon.lexicon import Lexicon
+from Tools.message_generation import (new_order_message_generate,
+                                      active_orders_message_generate)
 import json
 
 user_handlers_router = Router()
@@ -46,8 +46,6 @@ async def orders(message: types.Message):
         web_app=WebAppInfo(url=config.user_orders_web_app_url)
     )
     user_orders_keyboard = InlineKeyboardMarkup(inline_keyboard=[[user_orders_button]])
-
-    print(f"{config.user_url}/{user_id}")
 
     await message.answer(active_orders_message_generate(config.user_url),
                          reply_markup=user_orders_keyboard)

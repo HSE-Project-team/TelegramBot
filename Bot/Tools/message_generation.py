@@ -1,9 +1,9 @@
 import requests
 from requests import RequestException
 
-from Bot.Tools.auxiliary_functions import seconds_to_time, make_json_for_server
+from Tools.auxiliary_functions import seconds_to_time, make_json_for_server
 from dataclasses import dataclass
-from Bot.Lexicon.lexicon import Lexicon
+from Lexicon.lexicon import Lexicon
 
 
 @dataclass
@@ -24,7 +24,7 @@ def active_orders_message_generate(user_active_orders_url):
                 have_ready_orders = True
             no_active_orders = False
             string_for_user += (f"☕️ *ID {order['orderId']} (заказ на {seconds_to_time(order['time'])})"
-                                f" — {Lexicon.payment_status[order['status']]}*\n\nВы заказали на сумму {order['orderCost']} ₽:\n")
+                                f" — {Lexicon.payment_status[order['status']]}*\n\nЗаказ на сумму {order['orderCost']} ₽:\n")
             for item in order['items']:
                 string_for_user += f"• {item['item']['itemName']} ({item['itemNumber']} шт.) – {item['item']['itemCost']} ₽\n"
             string_for_user += "\n\n"
@@ -52,7 +52,7 @@ def new_order_message_generate(json_from_bot, user_id, first_name, ready_order_u
         order_id = 6892
 
         string_for_user = _new_order_message_generate_success(json_from_bot, first_name, user_id, order_id)
-        string_for_user += f"\n\njson_from_bot: {json_from_bot}\n\njson_for_server: {json_for_server}"
+        # string_for_user += f"\n\njson_from_bot: {json_from_bot}\n\njson_for_server: {json_for_server}"
 
     except RequestException as err:
         print(f"Ошибка: {err}")
@@ -65,11 +65,11 @@ def new_order_message_generate(json_from_bot, user_id, first_name, ready_order_u
 
 def _new_order_message_generate_success(json_from_bot, first_name, user_id, order_id):
     string_for_user = (
-        f"*{first_name}, бот принял Ваш заказ 😌️️️️️️\n\nТеперь заказ нужно оплатить – нажмите на кнопку, "
-        f"прикреплённую к этому сообщению.*\n\nВы заказали:\n")
+        f"*{first_name}, бот принял твой заказ 😌️️️️️️\n\nТеперь нужно оплатить – нажми на кнопку, "
+        f"прикреплённую к этому сообщению.*\n\nЗаказ:\n")
     for item in json_from_bot["items"]:
         string_for_user += f"• {item['itemName']} ({item['itemNumber']} шт.) – {item['itemCost']} ₽\n"
     string_for_user += f"\n_Заказ будет готов к {seconds_to_time(json_from_bot['time'])}_.\n\n"
-    string_for_user += f"_ID заказа: {order_id} — назовите его при получении._\n\n"
+    string_for_user += f"_ID заказа: {order_id} — назови его при получении._\n\n"
     string_for_user += Lexicon.hint_about_orders_command
     return string_for_user
