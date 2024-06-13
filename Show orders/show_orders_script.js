@@ -4,7 +4,7 @@ import {
     get_data_from_server, send_data_to_server
 } from "./tools/networking_tools.js"
 import {
-    create_element, create_error_label, create_image, seconds_to_time
+    create_element, create_error_label, create_image, normalize_time
 } from "./tools/graphical_tools.js";
 import {show_error} from "./errors_handler/errors_handler.js";
 
@@ -39,7 +39,7 @@ get_data_from_server(user_url).then((data_from_server) => {
             let order_info = create_element("div", "order_info");
 
             let order_id = create_element("div", "order_id", "ID " + data_from_server["orders"][i]["orderId"]);
-            let order_time = create_element("div", "order_time", "Заказ на " + seconds_to_time(data_from_server["orders"][i]["time"]));
+            let order_time = create_element("div", "order_time", "Заказ на " + normalize_time(data_from_server["orders"][i]["time"]));
             let order_status = create_element("div", "order_status");
             if (data_from_server["orders"][i]["status"] === "waiting for payment") {
                 order_status.textContent = "Ожидает оплаты ⌛️";

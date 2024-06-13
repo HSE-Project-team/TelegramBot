@@ -30,17 +30,9 @@ export function create_input(class_name = "", name, type, value, id) {
     return element_variable;
 }
 
-export function seconds_to_time(seconds) {
-    let hours = Math.floor(seconds / 3600);
-    let minutes = Math.floor((seconds % 3600) / 60);
-    if (hours < 10) {
-        hours = "0" + hours;
-    }
-    if (minutes < 10) {
-        minutes = "0" + minutes;
-    }
-
-    return hours + ":" + minutes;
+export function normalize_time(full_time) {
+    let separated_time = full_time.split(" ")[1].split(":");
+    return `${separated_time[0]}:${separated_time[1]}`
 }
 
 export function show_element_with_animation(element_name, animation_class_show, animation_class_hide) {
