@@ -270,12 +270,15 @@ components:
         - itemName
         - itemCost
         - itemCategory
+        - iikoId
       properties:
         itemName:
           type: string
         itemCost:
           type: integer
         itemCategory:
+          type: string
+        iikoId:
           type: string
 
 
@@ -305,7 +308,7 @@ components:
         - comment
       properties:
         time:
-          type: integer
+          type: string
         userId:
           type: integer
         items:
@@ -334,7 +337,7 @@ components:
         - status
       properties:
         time:
-          type: integer
+          type: string
         userId:
           type: integer
         orderId:
@@ -384,4 +387,4 @@ components:
         times:
           type: array
           items:
-            type: integer
+            type: string

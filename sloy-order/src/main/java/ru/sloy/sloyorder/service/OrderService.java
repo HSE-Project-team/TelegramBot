@@ -62,7 +62,7 @@ public class OrderService {
         return paymentService.getPaymentLink(orderRepository.findById(orderId).get().getPaymentId());
     }
 
-    @Scheduled(fixedRate = 5000) // интервал в миллисекундах
+    @Scheduled(fixedRate = 5000) // interval in milliseconds
     public void updateOrdersStatus() {
         orderRepository.findAllByStatus(FullOrder.StatusEnum.WAITING_FOR_PAYMENT).forEach(order -> {
             FullOrder.StatusEnum newStatus = paymentService.getPaymentStatus(order.getPaymentId());

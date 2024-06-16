@@ -3,6 +3,7 @@ package ru.sloy.sloyorder.mapping;
 
 import ru.sloy.sloyorder.model.Item;
 import ru.sloy.sloyorder.model.ItemEntity;
+import ru.sloy.sloyorder.model.RawItem;
 
 public class ItemMapper {
 
@@ -18,7 +19,7 @@ public class ItemMapper {
         return object;
     }
 
-    public static ItemEntity toEntity(Item object) {
+    public static ItemEntity toEntity(RawItem object) {
         ItemEntity entity = new ItemEntity();
 
 //        entity.setId(object.getItemId()); // auto generated id
@@ -26,7 +27,8 @@ public class ItemMapper {
         entity.setItemName(object.getItemName());
         entity.setItemCost(object.getItemCost());
         entity.setItemCategory(object.getItemCategory());
-        entity.setIsAvailable(object.getIsAvailable());
+        entity.setIsAvailable(true);
+        entity.setIikoId(object.getIikoId());
 
         return entity;
     }

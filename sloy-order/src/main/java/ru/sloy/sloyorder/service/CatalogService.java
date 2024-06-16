@@ -46,21 +46,12 @@ public class CatalogService {
         return setCategories.stream().toList();
     }
 
-    Item createItemFromRawItem(RawItem rawItem) {
-        Item item = new Item();
 
-        item.setItemCost(rawItem.getItemCost());
-        item.setItemName(rawItem.getItemName());
-        item.setItemCategory(rawItem.getItemCategory());
-        item.setIsAvailable(true);
-
-        return item;
-    }
 
     public Integer addItem(RawItem rawItem) {
-        Item item = createItemFromRawItem(rawItem);
-        itemRepository.save(ItemMapper.toEntity(item));
-        return item.getItemId();
+        ItemEntity item = ItemMapper.toEntity(rawItem);
+        itemRepository.save(item);
+        return item.getId();
     }
 
     public void deleteItemById(Integer id) {

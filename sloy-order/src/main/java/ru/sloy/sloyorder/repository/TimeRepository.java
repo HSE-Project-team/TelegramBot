@@ -7,5 +7,5 @@ import ru.sloy.sloyorder.model.TimeEntity;
 
 @Repository
 public interface TimeRepository extends JpaRepository<TimeEntity, Integer> {
-    TimeEntity findByTime(Integer time);
+    TimeEntity findByTime(String time);
 }
