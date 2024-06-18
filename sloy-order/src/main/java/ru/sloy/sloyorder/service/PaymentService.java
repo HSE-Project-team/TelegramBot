@@ -12,12 +12,12 @@ public class PaymentService {
     WebClient webClient = WebClient.create(paymentServiceUrl);
 
     public Integer createPayment(OrderEntity order) {
-//        return 0;
-        return webClient.post()
-                .uri("/create_payment")
-                .bodyValue(new PaymentData(order.getOrderCost()))
-                .retrieve()
-                .bodyToMono(Integer.class).block();
+        return 0;
+//        return webClient.post()
+//                .uri("/create_payment")
+//                .bodyValue(new PaymentData(order.getOrderCost()))
+//                .retrieve()
+//                .bodyToMono(Integer.class).block();
     }
 
     private record PaymentData(double value) {
@@ -25,11 +25,11 @@ public class PaymentService {
 
 
     public String getPaymentLink(Integer id) {
-//        return "Not implemented";
-        return webClient.get()
-                .uri("/payment_link/" + id)
-                .retrieve()
-                .bodyToMono(String.class).block();
+        return "Not implemented";
+//        return webClient.get()
+//                .uri("/payment_link/" + id)
+//                .retrieve()
+//                .bodyToMono(String.class).block();
     }
 
     public FullOrder.StatusEnum getPaymentStatus(Integer id) {
