@@ -5,7 +5,7 @@ plugins {
 	id "org.openapi.generator" version '6.2.1'
 }
 
-group = 'ru.sloy'
+group = 'ru'
 version = '0.0.1-SNAPSHOT'
 
 java {
@@ -41,8 +41,8 @@ openApiGenerate {
 	generatorName = "spring"
 	inputSpec = "$rootDir/src/main/resources/swagger/openapi.yaml".toString()
 	outputDir = "$buildDir/generated".toString()
-	apiPackage = "ru.sloy.sloyorder.endpoint"
-	modelPackage = "ru.sloy.sloyorder.model"
+	apiPackage = "ru.iiko.endpoint"
+	modelPackage = "ru.iiko.model"
 	configOptions = [
 			skipDefaultInterface   : "true",
 			dateLibrary            : "java8-localdatetime",
