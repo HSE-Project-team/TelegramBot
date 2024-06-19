@@ -28,16 +28,16 @@ public class IikoController {
 //        return ResponseEntity.ok(jsonResponse);
 //    }
 
+//    @PostMapping("/createOrder")
+//    public ResponseEntity<String> createOrder(@RequestBody String json) {
+//        OrderEntity order = IikoService.jsonToOrder(json);
+//        String orderId = iikoService.createDelivery(order);
+//        String jsonResponse = "{\"orderId\": \"" + orderId + "\"}";
+//        return ResponseEntity.ok(jsonResponse);
+//    }
+
     @PostMapping("/createOrder")
     public ResponseEntity<String> createOrder(@RequestBody String json) {
-        OrderEntity order = IikoService.jsonToOrder(json);
-        String orderId = iikoService.createDelivery(order);
-        String jsonResponse = "{\"orderId\": \"" + orderId + "\"}";
-        return ResponseEntity.ok(jsonResponse);
-    }
-
-    @PostMapping("/createIikoOrder")
-    public ResponseEntity<String> createIikoOrder(@RequestBody String json) {
         IikoOrder iikoOrder = IikoService.jsonToIikoOrder(json);
         DeliveryOrder deliveryOrder = IIkoOrderMapper.toDeliveryOrder(iikoOrder);
         String orderId = iikoService.createIikoDelivery(deliveryOrder);
