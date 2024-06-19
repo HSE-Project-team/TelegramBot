@@ -1,0 +1,300 @@
+@keyframes loading_image_animation {
+    100% {
+        width: 30px;
+        height: 30px;
+        background-color: #FFE0BC;
+    }
+}
+
+@keyframes element_appearance_animation {
+    0% {
+        opacity: 0.1;
+        scale: 0.95;
+    }
+    100% {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+@keyframes show_orders_appearance_animation {
+    0% {
+        opacity: 0.1;
+        scale: 0.98;
+    }
+    100% {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+@keyframes show_order_items_appearance_animation {
+    0% {
+        opacity: 0.1;
+        scale: 0.98;
+    }
+    100% {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+@keyframes light_appearance_animation {
+    0% {
+        opacity: 0.1;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes empty_shopping_cart_label_appearance_animation {
+    0% {
+        color: #939393;
+    }
+    25% {
+        color: #7c7c7c;
+    }
+    50% {
+        color: #232323;
+    }
+    75% {
+        color: #7c7c7c;
+    }
+    100% {
+        color: #939393;
+    }
+}
+
+@keyframes back_btn_to_menu_svg_appearance_animation {
+    50% {
+        scale: 1.3;
+    }
+    100% {
+        scale: 1;
+    }
+}
+
+@keyframes show_choose_time_btn_animation {
+    0% {
+        transform: translateY(4em);
+    }
+    100% {
+        transform: translateY(0em);
+    }
+}
+
+@keyframes hide_choose_time_btn_animation {
+    0% {
+        transform: translateY(0em);
+    }
+    100% {
+        transform: translateY(4em);
+        box-shadow: none;
+        display: none;
+    }
+}
+
+@keyframes show_btn_plus_animation {
+    0% {
+        scale: 0.9;
+        opacity: 0.7;
+    }
+    100% {
+        scale: 1;
+        opacity: 1;
+    }
+}
+
+@keyframes show_btn_minus_animation {
+    0% {
+        scale: 0.9;
+        opacity: 0.7;
+    }
+    100% {
+        scale: 1;
+        opacity: 1;
+    }
+}
+
+@keyframes show_btn_add_animation {
+    0% {
+        scale: 0.97;
+    }
+    100% {
+        scale: 1;
+    }
+}
+
+@keyframes show_order_item_label_animation {
+    0% {
+        scale: 0.95;
+        opacity: 0.8;
+    }
+    100% {
+        scale: 1;
+        opacity: 1;
+    }
+}
+
+@keyframes hide_order_item_animation {
+    100% {
+        scale: 0.6;
+        opacity: 0;
+    }
+}
+
+@keyframes show_free_time_label_animation {
+    0% {
+        box-shadow: 5px 5px 10px #ddd;
+    }
+    100% {
+        box-shadow: 5px 5px 10px #ddd;
+        background-color: #FFE0BC;
+    }
+}
+
+@keyframes hide_free_time_label_animation {
+    100% {
+        background-color: #FFF2E0;
+    }
+}
+
+@keyframes plus_minus_buttons_animation {
+    50% {
+        background-color: #ffe7cc;
+    }
+}
+
+.loading_image_wrapper {
+    z-index: 999;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.loading_image {
+    display: flex;
+    margin: auto;
+
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: #fdb262;
+    animation: loading_image_animation;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-duration: 0.4s;
+    animation-direction: alternate;
+}
+
+.element_appearance_animation_selector {
+    opacity: 0;
+    animation: element_appearance_animation forwards;
+    animation-duration: 0.3s;
+    animation-timing-function: cubic-bezier(.68, .92, .69, 1);
+    animation-direction: alternate;
+}
+
+.show_orders_appearance_animation_selector {
+    opacity: 0;
+    animation: show_orders_appearance_animation forwards;
+    animation-duration: 0.3s;
+    animation-timing-function: cubic-bezier(.68, .92, .69, 1);
+    animation-direction: alternate;
+}
+
+.show_order_items_appearance_animation_selector {
+    opacity: 0;
+    animation: show_order_items_appearance_animation forwards;
+    animation-duration: 0.3s;
+    animation-timing-function: cubic-bezier(.68, .92, .69, 1);
+}
+
+.light_appearance_animation_selector {
+    animation: light_appearance_animation forwards;
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(.68, .92, .69, 1);
+}
+
+.empty_shopping_cart_label_appearance_animation_selector {
+    animation: empty_shopping_cart_label_appearance_animation forwards;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+}
+
+.back_btn_to_menu_svg_appearance_animation_selector {
+    animation: back_btn_to_menu_svg_appearance_animation forwards;
+    animation-duration: 0.4s;
+    animation-timing-function: linear;
+    animation-delay: 1s;
+}
+
+.show_choose_time_btn_animation_selector {
+    animation: show_choose_time_btn_animation forwards;
+    animation-timing-function: cubic-bezier(.3, .99, .49, 1.01);
+    animation-duration: 0.35s;
+}
+
+.hide_choose_time_btn_animation_selector {
+    animation: hide_choose_time_btn_animation forwards;
+    animation-timing-function: cubic-bezier(.3, .99, .49, 1.01);
+    animation-duration: 0.35s;
+}
+
+.show_btn_plus_animation_selector {
+    animation: show_btn_plus_animation forwards;
+    animation-timing-function: cubic-bezier(.61, 1.12, .69, 1);
+    animation-duration: 0.3s;
+}
+
+.show_btn_minus_animation_selector {
+    animation: show_btn_minus_animation forwards;
+    animation-timing-function: cubic-bezier(.61, 1.12, .69, 1);
+    animation-duration: 0.3s;
+}
+
+.show_btn_add_animation_selector {
+    animation: show_btn_add_animation forwards;
+    animation-timing-function: cubic-bezier(.72, 1.1, .83, 1.02);
+    animation-duration: 0.2s;
+}
+
+.show_order_item_label_animation_selector {
+    animation: show_order_item_label_animation forwards;
+    animation-timing-function: cubic-bezier(.61, 1.12, .69, 1);
+    animation-duration: 0.3s;
+}
+
+.hide_order_item_animation_selector {
+    animation: hide_order_item_animation forwards;
+    animation-timing-function: linear;
+    animation-duration: 0.25s;
+}
+
+.show_free_time_label_animation_selector {
+    opacity: 1;
+    animation: show_free_time_label_animation forwards;
+    animation-timing-function: linear;
+    animation-duration: 0.5s;
+}
+
+.hide_free_time_label_animation_selector {
+    opacity: 1;
+    animation: hide_free_time_label_animation forwards;
+    animation-timing-function: linear;
+    animation-duration: 0.7s;
+}
+
+.plus_minus_buttons_animation_selector {
+    opacity: 1;
+    animation: plus_minus_buttons_animation forwards;
+    animation-timing-function: linear;
+    animation-duration: 0.3s;
+}
+
+.hidden {
+    display: none;
+}

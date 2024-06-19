@@ -2,3 +2,15 @@
 Site/.idea/
 sloy-order/build/*
 sloy-order/.idea/
+New\ order/.idea
+Show\ orders/.idea
+Show\ orders/.DS_Store
+New\ order/.DS_Store
+Bot/.env
+Bot/.idea
+Bot/.DS_Store
+Bot/__pycache__
+Bot/Config/__pycache__
+Bot/Handlers/__pycache__
+Bot/Tools/__pycache__
+Bot/Lexicon/__pycache__
