@@ -40,7 +40,7 @@ Content-Type: application/json
 <> 2024-06-08T084832.404.json
 
 ###
-POST http://localhost:8080/iiko/createIikoOrder
+POST http://localhost:8081/iiko/createIikoOrder
 Content-Type: application/json
 
 {
