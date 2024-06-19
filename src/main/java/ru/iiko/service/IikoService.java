@@ -2,15 +2,15 @@ package ru.iiko.service;
 
 import com.google.gson.*;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import ru.iiko.model.DeliveryOrder;
-import ru.iiko.model.IikoOrder;
-import ru.iiko.model.ItemEntity;
-import ru.iiko.model.OrderEntity;
-//import ru.sloy.sloyorder.model.OrderEntity.Entry;
+import ru.iiko.mapping.IIkoOrderMapper;
+import ru.iiko.model.*;
 
 import java.util.*;
 
@@ -44,7 +44,7 @@ public class IikoService {
 
         ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
         if (response.getStatusCode() == HttpStatus.OK) {
-            JsonObject jsonObject = JsonParser.parseString(response.getBody()).getAsJsonObject();
+            JsonObject jsonObject = JsonParser.parseString(Objects.requireNonNull(response.getBody())).getAsJsonObject();
             return jsonObject.get("token").getAsString();
         } else {
             System.out.println("Error: " + response.getStatusCode());
@@ -67,7 +67,7 @@ public class IikoService {
 
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, request, String.class);
         if (response.getStatusCode() == HttpStatus.OK) {
-            JsonObject jsonObject = JsonParser.parseString(response.getBody()).getAsJsonObject();
+            JsonObject jsonObject = JsonParser.parseString(Objects.requireNonNull(response.getBody())).getAsJsonObject();
             JsonArray organizations = jsonObject.getAsJsonArray("organizations");
             if (organizations.size() > 0) {
                 return organizations.get(0).getAsJsonObject().get("id").getAsString();
@@ -98,17 +98,9 @@ public class IikoService {
         Map<String, String> payload = new HashMap<>();
         payload.put("organizationId", organizationId);
         payload.put("startRevision", "0");
-        String jsonPayload = gson.toJson(payload);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(token);
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        HttpEntity<String> request = new HttpEntity<>(jsonPayload, headers);
-
-        ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
+        ResponseEntity<String> response = sendJson(url, token, gson.toJson(payload), payload);
         if (response.getStatusCode() == HttpStatus.OK) {
-            JsonObject jsonObject = JsonParser.parseString(response.getBody()).getAsJsonObject();
+            JsonObject jsonObject = JsonParser.parseString(Objects.requireNonNull(response.getBody())).getAsJsonObject();
             JsonArray products = jsonObject.getAsJsonArray("products");
             if (products.size() > 0) {
                 Map<String, String> menu = new HashMap<>();
@@ -127,6 +119,18 @@ public class IikoService {
         }
     }
 
+    private ResponseEntity<String> sendJson(String url, String token, String json, Object payload) {
+
+        HttpHeaders headers = new HttpHeaders();
+        assert token != null;
+        headers.setBearerAuth(token);
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> request = new HttpEntity<>(json, headers);
+
+        return restTemplate.postForEntity(url, request, String.class);
+    }
+
     private String getTerminalGroup() {
         String apiLogin = getApiLogin();
         if (apiLogin == null) {
@@ -143,17 +147,9 @@ public class IikoService {
 
         Map<String, List<String>> payload = new HashMap<>();
         payload.put("organizationIds", Collections.singletonList(organizationId));
-        String jsonPayload = gson.toJson(payload);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(token);
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        HttpEntity<String> request = new HttpEntity<>(jsonPayload, headers);
-
-        ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
+        ResponseEntity<String> response = sendJson(url, token, gson.toJson(payload), payload);
         if (response.getStatusCode() == HttpStatus.OK) {
-            JsonObject jsonObject = JsonParser.parseString(response.getBody()).getAsJsonObject();
+            JsonObject jsonObject = JsonParser.parseString(Objects.requireNonNull(response.getBody())).getAsJsonObject();
             JsonArray terminalGroups = jsonObject.getAsJsonArray("terminalGroups");
             if (terminalGroups.size() > 0) {
                 return terminalGroups.get(0).getAsJsonObject().getAsJsonArray("items")
@@ -168,85 +164,7 @@ public class IikoService {
         }
     }
 
-    public String createOrder(OrderEntity orderEntity) {
-        Map<String, Integer> orderItems = new HashMap<>();
-        for (OrderEntity.Entry entry : orderEntity.getItems()) {
-            ItemEntity item = entry.getItem();
-            if (item != null) {
-                orderItems.put(item.getId(), entry.getItemNumber());
-            }
-        }
-
-        String apiLogin = getApiLogin();
-        if (apiLogin == null) {
-            return null;
-        }
-
-        String organizationId = getOrganisationId(apiLogin);
-        if (organizationId == null) {
-            return null;
-        }
-
-        String terminalGroupId = getTerminalGroup();
-        if (terminalGroupId == null) {
-            return null;
-        }
-
-        String url = apiUrl + "/order/create";
-        String token = getToken(apiLogin);
-        System.out.println(url);
-
-        List<Map<String, Object>> items = new ArrayList<>();
-        for (Map.Entry<String, Integer> entry : orderItems.entrySet()) {
-            Map<String, Object> item = new HashMap<>();
-            item.put("productId", entry.getKey());
-            item.put("type", "Product");
-            item.put("amount", entry.getValue());
-            item.put("comment", "Тестовый заказ. Не делать!");
-            items.add(item);
-        }
-
-        Map<String, Object> payload = new HashMap<>();
-        payload.put("organizationId", organizationId);
-        payload.put("terminalGroupId", terminalGroupId);
-        Map<String, Object> order = new HashMap<>();
-        order.put("items", items);
-        payload.put("order", order);
-
-        String jsonPayload = gson.toJson(payload);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(token);
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        HttpEntity<String> request = new HttpEntity<>(jsonPayload, headers);
-
-        ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
-        if (response.getStatusCode() == HttpStatus.OK) {
-            String orderId = parseOrderId(response.getBody());
-            System.out.println("Заказ создан. ID заказа: " + orderId);
-            return orderId;
-        } else {
-            System.out.println("Ошибка при создании заказа: " + response.getStatusCode());
-            return null;
-        }
-    }
-
-    public String createDelivery(OrderEntity orderEntity) {
-        Map<String, Integer> orderItems = new HashMap<>();
-        for (OrderEntity.Entry entry : orderEntity.getItems()) {
-            ItemEntity item = entry.getItem();
-            if (item != null) {
-                orderItems.put(item.getId(), entry.getItemNumber());
-            }
-        }
-        //TODO переписать на какой-то маппер из обычного order в условный iikoOrder
-        String completeBefore = orderEntity.getTime();
-        System.out.println(completeBefore);
-        System.out.println("TIME IN DELIVERY");
-        String phone = "+70000000000";
-        String orderServiceType = "DeliveryByClient";
-        String comment = "Тестовы заказ, не делать!";
+    public String createIikoDelivery(DeliveryOrder deliveryOrderEntity) {
 
         String apiLogin = getApiLogin();
         if (apiLogin == null) {
@@ -267,43 +185,20 @@ public class IikoService {
         String token = getToken(apiLogin);
         System.out.println(url);
 
-        List<Map<String, Object>> items = new ArrayList<>();
-        for (Map.Entry<String, Integer> entry : orderItems.entrySet()) {
-            Map<String, Object> item = new HashMap<>();
-            item.put("productId", entry.getKey());
-            item.put("type", "Product");
-            item.put("amount", entry.getValue());
-            //item.put("comment", "Тестовый заказ. Не делать!");
-            items.add(item);
-        }
-
-        Map<String, Object> order = new HashMap<>();
-        order.put("completeBefore", completeBefore);
-        order.put("phone", phone);
-        order.put("orderServiceType", "DeliveryByClient");
-        order.put("comment", comment);
-        order.put("items", items);
-
-
-        Map<String, Object> payload = new HashMap<>();
-        payload.put("organizationId", organizationId);
-        payload.put("terminalGroupId", terminalGroupId);
-        payload.put("order", order);
-
-        String jsonPayload = gson.toJson(payload);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(token);
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        HttpEntity<String> request = new HttpEntity<>(jsonPayload, headers);
-
-        ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
+        Map<String, Object> payload = getPayload(deliveryOrderEntity, organizationId, terminalGroupId);
+        ResponseEntity<String> response = sendJson(url, token, gson.toJson(payload), payload);
 
         if (response.getStatusCode() == HttpStatus.OK) {
-            String orderId = parseOrderId(response.getBody());
-            System.out.println("Заказ создан. ID заказа: " + orderId);
-            return orderId;
+            if (Objects.equals(parseOrderId(response.getBody()), "00000000-0000-0000-0000-000000000000")) {
+                System.out.println("Ошибка при создании заказа: указано слишком раннее время");
+                return null;
+            } else {
+                System.out.println(response.getBody());
+                System.out.println(response.getStatusCode());
+                String orderId = parseOrderId(response.getBody());
+                System.out.println("Заказ создан. ID заказа: " + orderId);
+                return orderId;
+            }
         } else {
             System.out.println("Ошибка при создании заказа: " + response.getStatusCode());
             return null;
@@ -321,30 +216,21 @@ public class IikoService {
         }
     }
 
-    public static OrderEntity generateTestOrderFromOrderItems(Map<String, Integer> orderItems) {
-        System.out.println(13131313);
-        OrderEntity order = new OrderEntity();
-        order.setComment("Тестовый заказ, не делать!!!");
-        List<OrderEntity.Entry> entries = new ArrayList<>();
-
-        int totalCost = 0;
-
+    public static IikoOrder generateTestOrderFromOrderItems(Map<String, Integer> orderItems) {
+        List<IikoOrderItem> items = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : orderItems.entrySet()) {
             String itemId = entry.getKey();
             Integer itemNumber = entry.getValue();
-
-            ItemEntity item = new ItemEntity();
-            OrderEntity.Entry orderEntry = new OrderEntity.Entry();
-            orderEntry.setItem(item);
-            item.setId(itemId);
-            orderEntry.setItemNumber(itemNumber);
-            entries.add(orderEntry);
-//            totalCost += item.getItemCost() * itemNumber;
+            IikoOrderItem item = new IikoOrderItem(itemId, itemNumber);
+            items.add(item);
         }
+        String comment = "Тестовый заказ, не делать!!!";
+        IikoOrder order = new IikoOrder(items, 0, comment);
 
-        order.setItems(entries);
-        order.setOrderCost(totalCost);
-        order.setTime(null);
+        System.out.println("Order ID: " + order.getId());
+        System.out.println("Comment: " + order.getComment());
+        System.out.println("Time: " + order.getTime());
+        System.out.println("Items:");
         return order;
     }
 
@@ -381,12 +267,11 @@ public class IikoService {
         ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
         if (response.getStatusCode() == HttpStatus.OK) {
             try {
-                JsonObject responseBody = JsonParser.parseString(response.getBody()).getAsJsonObject();
+                JsonObject responseBody = JsonParser.parseString(Objects.requireNonNull(response.getBody())).getAsJsonObject();
                 JsonArray orders = responseBody.getAsJsonArray("orders");
                 if (orders.size() > 0) {
                     JsonObject order = orders.get(0).getAsJsonObject();
-                    String status = order.get("creationStatus").getAsString();
-                    return status;
+                    return order.get("creationStatus").getAsString();
                 } else {
                     System.out.println("No orders found in the response.");
                     return null;
@@ -401,69 +286,20 @@ public class IikoService {
         }
     }
 
-    public String createIikoDelivery(DeliveryOrder deliveryOrderEntity) {
-        Map<String, Integer> orderItems = deliveryOrderEntity.getItems();
-
-        String apiLogin = getApiLogin();
-        if (apiLogin == null) {
-            return null;
-        }
-
-        String organizationId = getOrganisationId(apiLogin);
-        if (organizationId == null) {
-            return null;
-        }
-
-        String terminalGroupId = getTerminalGroup();
-        if (terminalGroupId == null) {
-            return null;
-        }
-
-        String url = apiUrl + "/deliveries/create";
-        String token = getToken(apiLogin);
-        System.out.println(url);
-
-        List<Map<String, Object>> items = new ArrayList<>();
-        for (Map.Entry<String, Integer> entry : orderItems.entrySet()) {
-            Map<String, Object> item = new HashMap<>();
-            item.put("productId", entry.getKey());
-            item.put("type", "Product");
-            item.put("amount", entry.getValue());
-            items.add(item);
-        }
-
-//        String order = deliveryOrderToJson(deliveryOrderEntity);
+    private static Map<String, Object> getPayload(DeliveryOrder deliveryOrderEntity, String organizationId, String terminalGroupId) {
+        List<DeliveryOrderItem> items = deliveryOrderEntity.getItems();
         Map<String, Object> order = new HashMap<>();
-        order.put("completeBefore", deliveryOrderEntity.getTime());
+        order.put("completeBefore", deliveryOrderEntity.getCompleteBefore());
         order.put("phone", deliveryOrderEntity.getPhone());
         order.put("orderServiceType", deliveryOrderEntity.getOrderServiceType());
         order.put("comment", deliveryOrderEntity.getComment());
         order.put("items", items);
 
-
         Map<String, Object> payload = new HashMap<>();
         payload.put("organizationId", organizationId);
         payload.put("terminalGroupId", terminalGroupId);
         payload.put("order", order);
-
-        String jsonPayload = gson.toJson(payload);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(token);
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        HttpEntity<String> request = new HttpEntity<>(jsonPayload, headers);
-
-        ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
-
-        if (response.getStatusCode() == HttpStatus.OK) {
-            String orderId = parseOrderId(response.getBody());
-            System.out.println("Заказ создан. ID заказа: " + orderId);
-            return orderId;
-        } else {
-            System.out.println("Ошибка при создании заказа: " + response.getStatusCode());
-            return null;
-        }
+        return payload;
     }
 
     public static String orderToJson(OrderEntity order) {
@@ -516,8 +352,8 @@ public class IikoService {
 
         System.out.println(gson.toJson(generateTestOrderFromOrderItems(orderItems)));
 
-        //createOrder(generateTestOrderFromOrderItems(orderItems));
-        String id = createDelivery(generateTestOrderFromOrderItems(orderItems));
+        IikoOrder iikoOrder= generateTestOrderFromOrderItems(orderItems);
+        String id = createIikoDelivery(IIkoOrderMapper.toDeliveryOrder(iikoOrder));
         System.out.println(getDeliveryStatusById(id));
     }
 }

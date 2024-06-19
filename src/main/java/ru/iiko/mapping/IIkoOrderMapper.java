@@ -1,29 +1,18 @@
 package ru.iiko.mapping;
 
-import com.google.gson.Gson;
-import ru.iiko.model.IikoOrder;
-import ru.iiko.model.DeliveryOrder;
+import ru.iiko.model.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import com.google.gson.*;
+import java.util.List;
 
 public class IIkoOrderMapper {
 
     public static DeliveryOrder toDeliveryOrder(IikoOrder iikoOrder) {
-        DeliveryOrder deliveryOrder = new DeliveryOrder();
+        Integer id = iikoOrder.getId();
+        String time = iikoOrder.getTime();
+        String comment = iikoOrder.getComment();
+        List<IikoOrderItem> items = iikoOrder.getItems();
 
-        deliveryOrder.setId(iikoOrder.getId());
-        deliveryOrder.setTime(iikoOrder.getTime());
-        deliveryOrder.setComment(iikoOrder.getComment());
-
-        Map<String, Integer> itemsMap = new HashMap<>();
-        for (IikoOrder.itemsInner item : iikoOrder.getItems()) {
-            itemsMap.put(item.getItemId(), item.getItemNumber());
-        }
-        deliveryOrder.setItems(itemsMap);
-
-        return deliveryOrder;
+        return new DeliveryOrder(id, time, comment, items);
     }
 }
 

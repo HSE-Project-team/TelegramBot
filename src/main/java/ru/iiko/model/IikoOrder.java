@@ -8,21 +8,21 @@ import java.util.List;
 @Setter
 @Getter
 public class IikoOrder {
-    private List<itemsInner> items;
-    private Integer id; //не обязательно
+    private List<IikoOrderItem> items;
+    private Integer id;
     private String comment;
-    private String time;
+    private String time; //не обязательно
 
-    @Setter
-    @Getter
-    public static class itemsInner {
-        private String itemId;
-        private Integer itemNumber;
+    public IikoOrder(List<IikoOrderItem> items, Integer id, String comment, String time) {
+        this.id = id;
+        this.comment = comment;
+        this.time = time;
+        this.items = items;
+    }
 
-        public itemsInner(String itemId, Integer itemNumber) {
-            this.itemId = itemId;
-            this.itemNumber = itemNumber;
-        }
-
+    public IikoOrder(List<IikoOrderItem> items, Integer id, String comment) {
+        this.id = id;
+        this.comment = comment;
+        this.items = items;
     }
 }

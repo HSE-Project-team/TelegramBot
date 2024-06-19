@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.iiko.mapping.IIkoOrderMapper;
 import ru.iiko.model.DeliveryOrder;
 import ru.iiko.model.IikoOrder;
-import ru.iiko.model.OrderEntity;
 import ru.iiko.service.IikoService;
 import org.springframework.http.ResponseEntity;
 
@@ -19,22 +18,6 @@ public class IikoController {
     public void doTestOrder() {
         iikoService.doTestOrder();
     }
-
-//    @PostMapping("/createOrder")
-//    public ResponseEntity<String> createOrder(@RequestBody String json) {
-//        OrderEntity order = IikoService.jsonToOrder(json);
-//        String orderId = iikoService.createOrder(order);
-//        String jsonResponse = "{\"orderId\": \"" + orderId + "\"}";
-//        return ResponseEntity.ok(jsonResponse);
-//    }
-
-//    @PostMapping("/createOrder")
-//    public ResponseEntity<String> createOrder(@RequestBody String json) {
-//        OrderEntity order = IikoService.jsonToOrder(json);
-//        String orderId = iikoService.createDelivery(order);
-//        String jsonResponse = "{\"orderId\": \"" + orderId + "\"}";
-//        return ResponseEntity.ok(jsonResponse);
-//    }
 
     @PostMapping("/createOrder")
     public ResponseEntity<String> createOrder(@RequestBody String json) {
