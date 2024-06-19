@@ -1,8 +1,8 @@
 ###
-GET http://localhost:8080/iiko/testOrder
+GET http://localhost:8081/iiko/testOrder
 
 ###
-POST http://localhost:8080/iiko/createOrder
+POST http://localhost:8081/iiko/createOrder
 Content-Type: application/json
 
 {
@@ -32,7 +32,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/iiko/getStatus
+POST http://localhost:8081/iiko/getStatus
 Content-Type: application/json
 
 {"id": "a212b947-772b-418c-9201-c51fe9c60c99"}
