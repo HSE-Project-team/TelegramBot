@@ -26,6 +26,7 @@ get_data_from_server(user_url).then((data_from_server) => {
     // console.log(`${user_url}/${window.Telegram.WebApp.initDataUnsafe.user.id.toString()}`)
     let response_status = data_from_server[0];
     data_from_server = data_from_server[1];
+    console.log(data_from_server);
     document.querySelector(".loading_image_wrapper").classList.add("hidden");
 
     if (response_status === 200) {
