@@ -1,0 +1,390 @@
+openapi: "3.0.0"
+info:
+  title: webSloy
+  version: "0.0.1"
+servers:
+  - url: http://185.154.194.124:8090
+tags:
+  - name: Order
+  - name: Catalog
+  - name: User
+  - name: AvailableTimes
+
+paths:
+  /catalog:
+    get:
+      operationId: getFullCatalog
+      tags:
+        - Catalog
+      responses:
+        '200':
+          description: Успех
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: "#/components/schemas/Catalog"
+        '400':
+          description: Чё то пошло не так
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: string
+
+    post:
+      operationId: addItem
+      tags:
+        - Catalog
+      requestBody:
+        required: true
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: "#/components/schemas/RawItem"
+      responses:
+        '200':
+          description: Успех, возвращаем присвоенный itemId
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: integer
+        '400':
+          description: Чё то пошло не так
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: string
+
+  /catalog/categories:
+    get:
+      operationId: getCategories
+      tags:
+        - Catalog
+      responses:
+        '200':
+          description: Успех
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: array
+                items:
+                  type: string
+        '400':
+          description: Чё то пошло не так
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: string
+
+  /catalog/categories/{category}:
+    get:
+      operationId: getCatalogByCategory
+      tags:
+        - Catalog
+      parameters:
+        - name: category
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Успех
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: "#/components/schemas/Catalog"
+        '400':
+          description: Чё то пошло не так
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: string
+
+  /catalog/{id}:
+    delete:
+      operationId: deleteItemById
+      tags:
+        - Catalog
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успех
+        '400':
+          description: Чё то пошло не так
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: string
+
+
+  /availableTimes:
+    get:
+      operationId: getAvailableTimes
+      tags:
+        - AvailableTimes
+      responses:
+        '200':
+          description: Успех
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: "#/components/schemas/AvailableTimes"
+        '400':
+          description: Чё то пошло не так
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: string
+
+    post:
+      operationId: postAvailableTimes
+      tags:
+        - AvailableTimes
+      requestBody:
+        required: true
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: "#/components/schemas/AvailableTimes"
+      responses:
+        '200':
+          description: Успех
+        '400':
+          description: Чё то пошло не так
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: string
+  /order:
+    post:
+      operationId: addOrder
+      tags:
+        - Order
+      requestBody:
+        required: true
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: "#/components/schemas/RawOrder"
+      responses:
+        '200':
+          description: Успех, возвращаем orderId
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: integer
+        '400':
+          description: Чё то пошло не так
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: string
+
+  /payment/{id}:
+    get:
+      operationId: getPaymentLinkByOrderId
+      tags:
+        - Order
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успех
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: string
+        '400':
+          description: Чё то пошло не так
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: string
+
+  /user/{id}:
+    get:
+      operationId: getUserById
+      tags:
+        - User
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успех
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: "#/components/schemas/User"
+        '400':
+          description: Чё то пошло не так
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: string
+
+
+
+components:
+  schemas:
+    Item:
+      type: object
+      title: Item
+      description: Позиция меню
+      required:
+        - itemName
+        - itemId
+        - itemCost
+        - itemCategory
+        - isAvailable
+      properties:
+        itemName:
+          type: string
+        itemId:
+          type: integer
+        itemCost:
+          type: integer
+        itemCategory:
+          type: string
+        isAvailable:
+          type: boolean
+
+
+    RawItem:
+      type: object
+      title: RawItem
+      description: Позиция меню для её добавление в меню
+      required:
+        - itemName
+        - itemCost
+        - itemCategory
+        - iikoId
+      properties:
+        itemName:
+          type: string
+        itemCost:
+          type: integer
+        itemCategory:
+          type: string
+        iikoId:
+          type: string
+
+
+    Catalog:
+      type: object
+      title: Catalog
+      description: Меню
+      required:
+        - size
+        - items
+      properties:
+        size:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+
+    RawOrder:
+      type: object
+      title: RawOrder
+      required:
+        - time
+        - userId
+        - items
+        - orderCost
+        - comment
+      properties:
+        time:
+          type: string
+        userId:
+          type: integer
+        items:
+          type: array
+          items:
+            properties:
+              itemId:
+                type: integer
+              itemNumber:
+                type: integer
+        orderCost:
+          type: integer
+        comment:
+          type: string
+
+    FullOrder:
+      type: object
+      title: FullOrder
+      required:
+        - time
+        - userId
+        - orderId
+        - items
+        - orderCost
+        - comment
+        - status
+      properties:
+        time:
+          type: string
+        userId:
+          type: integer
+        orderId:
+          type: integer
+        items:
+          type: array
+          items:
+            properties:
+              item:
+                $ref: '#/components/schemas/Item'
+              itemNumber:
+                type: integer
+        orderCost:
+          type: integer
+        comment:
+          type: string
+        status:
+          type: string
+          enum:
+            - waiting for payment
+            - paid and preparing
+            - ready
+            - received
+            - cancelled
+
+    User:
+      type: object
+      title: User
+      description: Пользователь
+      required:
+        - userId
+        - orders
+      properties:
+        user_id:
+          type: integer
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/FullOrder'
+    AvailableTimes:
+      type: object
+      title: AvailableTimes
+      description: Доступные для заказа времена в секундах от начала дня
+      required:
+        - times
+      properties:
+        times:
+          type: array
+          items:
+            type: string
