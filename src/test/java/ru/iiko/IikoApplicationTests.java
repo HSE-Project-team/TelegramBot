@@ -62,7 +62,6 @@ class IikoApplicationTests {
 		String orderId = JsonMapper.jsonToId(createOrderResponse.getBody());
 
 		ResponseEntity<String> getStatusResponse = restTemplate.getForEntity("/iiko/getStatus?id={orderId}", String.class, orderId);
-		System.out.println(getStatusResponse + "qqqqqqqqqqqqqqqqqqq");
 		assertThat(getStatusResponse.getStatusCodeValue()).isEqualTo(200);
 	}
 
