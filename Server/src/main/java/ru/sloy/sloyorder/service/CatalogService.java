@@ -2,6 +2,7 @@ package ru.sloy.sloyorder.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.sloy.sloyorder.mapping.ItemMapper;
 import ru.sloy.sloyorder.model.Catalog;
@@ -12,6 +13,7 @@ import ru.sloy.sloyorder.repository.ItemRepository;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -47,17 +49,23 @@ public class CatalogService {
     }
 
 
-
     public Integer addItem(RawItem rawItem) {
         ItemEntity item = ItemMapper.toEntity(rawItem);
         itemRepository.save(item);
         return item.getId();
     }
 
-    public void deleteItemById(Integer id) {
-        ItemEntity item = itemRepository.findById(id).get();
+    public void deleteItemById(Integer id) throws IllegalArgumentException {
+
+        Optional<ItemEntity> optionalItem = itemRepository.findById(id);
+        if (optionalItem.isEmpty()) {
+            throw new IllegalArgumentException("An item with this id " + id + " was not found");
+        }
+
+        ItemEntity item = optionalItem.get();
         item.setIsAvailable(Boolean.FALSE);
         itemRepository.save(item);
+
     }
 
 }

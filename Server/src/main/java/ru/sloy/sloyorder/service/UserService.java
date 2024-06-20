@@ -10,6 +10,8 @@ import ru.sloy.sloyorder.model.UserEntity;
 import ru.sloy.sloyorder.repository.OrderRepository;
 import ru.sloy.sloyorder.repository.UserRepository;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -23,8 +25,12 @@ public class UserService {
     @Autowired
     private OrderRepository orderRepository;
 
-    public User getUserById(Integer id) {
-        UserEntity user = userRepository.findById(id).get();
+    public User getUserById(Integer id) throws IllegalArgumentException {
+        Optional<UserEntity> optionalUser = userRepository.findById(id);
+        if (optionalUser.isEmpty()){
+            throw  new IllegalArgumentException("The user with this id was not found");
+        }
+        UserEntity user = optionalUser.get();
         user.getOrders().forEach(order -> {
             FullOrder.StatusEnum status = order.getStatus();
             FullOrder.StatusEnum newStatus = null;

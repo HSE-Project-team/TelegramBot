@@ -1,5 +1,6 @@
 package ru.sloy.sloyorder.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import ru.sloy.sloyorder.endpoint.CatalogApi;
@@ -25,8 +26,14 @@ public class CatalogApiController implements CatalogApi {
 
     @Override
     public ResponseEntity<Void> deleteItemById(Integer id) {
-        catalogService.deleteItemById(id);
-        return ResponseEntity.noContent().build();
+        try {
+            catalogService.deleteItemById(id);
+            return ResponseEntity.ok().build();
+        } catch (Throwable exception) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+
     }
 
     @Override

@@ -30,9 +30,8 @@ public class OrderService {
     @Autowired
     private final IikoService iikoService;
 
-    public Integer addOrder(RawOrder rawOrder) {
+    public Integer addOrder(RawOrder rawOrder) throws IllegalArgumentException {
         TimeEntity time = timeRepository.findByTime(rawOrder.getTime());
-        timeRepository.delete(time);
 
 
         Optional<UserEntity> userEntityOptional = userRepository.findById(rawOrder.getUserId());
@@ -47,6 +46,7 @@ public class OrderService {
 
         OrderEntity order = OrderMapper.toEntity(rawOrder, userRepository, itemRepository);
 
+        timeRepository.delete(time);
 
         order.setIikoId(iikoService.createOrder(order));
         order.setPaymentId(paymentService.createPayment(order));
@@ -59,7 +59,11 @@ public class OrderService {
     }
 
     public String getPaymentLink(Integer orderId) {
-        return paymentService.getPaymentLink(orderRepository.findById(orderId).get().getPaymentId());
+        Optional<OrderEntity> optionalOrder = orderRepository.findById(orderId);
+        if (optionalOrder.isEmpty()){
+            throw new IllegalArgumentException("An order with this id was not found");
+        }
+        return paymentService.getPaymentLink(optionalOrder.get().getPaymentId());
     }
 
     @Scheduled(fixedRate = 5000) // interval in milliseconds

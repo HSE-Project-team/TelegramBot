@@ -1,5 +1,6 @@
 package ru.sloy.sloyorder.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import ru.sloy.sloyorder.endpoint.AvailableTimesApi;
@@ -23,7 +24,11 @@ public class AvailableTimesApiController implements AvailableTimesApi {
 
     @Override
     public ResponseEntity<Void> postAvailableTimes(AvailableTimes availableTimes) {
-        availableTimesService.postAvailableTimes(availableTimes);
-        return ResponseEntity.noContent().build();
+        try {
+            availableTimesService.postAvailableTimes(availableTimes);
+            return ResponseEntity.ok().build();
+        } catch (Throwable exception) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 }

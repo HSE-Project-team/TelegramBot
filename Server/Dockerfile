@@ -4,7 +4,7 @@ ARG JAR_FILE=build/libs/*SNAPSHOT.jar
 
 WORKDIR /opt/app
 
-EXPOSE 8090
+EXPOSE 443
 
 COPY ${JAR_FILE} sloy-order.jar
 

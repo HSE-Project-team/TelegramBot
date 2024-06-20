@@ -18,17 +18,11 @@ paths:
         - Catalog
       responses:
         '200':
-          description: Успех
+          description: Success
           content:
             application/json;charset=UTF-8:
               schema:
                 $ref: "#/components/schemas/Catalog"
-        '400':
-          description: Чё то пошло не так
-          content:
-            application/json;charset=UTF-8:
-              schema:
-                type: string
 
     post:
       operationId: addItem
@@ -42,17 +36,11 @@ paths:
               $ref: "#/components/schemas/RawItem"
       responses:
         '200':
-          description: Успех, возвращаем присвоенный itemId
+          description: Success, return the assigned ItemId
           content:
             application/json;charset=UTF-8:
               schema:
                 type: integer
-        '400':
-          description: Чё то пошло не так
-          content:
-            application/json;charset=UTF-8:
-              schema:
-                type: string
 
   /catalog/categories:
     get:
@@ -61,19 +49,13 @@ paths:
         - Catalog
       responses:
         '200':
-          description: Успех
+          description: Success
           content:
             application/json;charset=UTF-8:
               schema:
                 type: array
                 items:
                   type: string
-        '400':
-          description: Чё то пошло не так
-          content:
-            application/json;charset=UTF-8:
-              schema:
-                type: string
 
   /catalog/categories/{category}:
     get:
@@ -88,17 +70,11 @@ paths:
             type: string
       responses:
         '200':
-          description: Успех
+          description: Success
           content:
             application/json;charset=UTF-8:
               schema:
                 $ref: "#/components/schemas/Catalog"
-        '400':
-          description: Чё то пошло не так
-          content:
-            application/json;charset=UTF-8:
-              schema:
-                type: string
 
   /catalog/{id}:
     delete:
@@ -113,13 +89,10 @@ paths:
             type: integer
       responses:
         '200':
-          description: Успех
-        '400':
-          description: Чё то пошло не так
-          content:
-            application/json;charset=UTF-8:
-              schema:
-                type: string
+          description: Success
+        '404':
+          description: The item was not found
+
 
 
   /availableTimes:
@@ -129,23 +102,18 @@ paths:
         - AvailableTimes
       responses:
         '200':
-          description: Успех
+          description: Success
           content:
             application/json;charset=UTF-8:
               schema:
                 $ref: "#/components/schemas/AvailableTimes"
-        '400':
-          description: Чё то пошло не так
-          content:
-            application/json;charset=UTF-8:
-              schema:
-                type: string
 
     post:
       operationId: postAvailableTimes
       tags:
         - AvailableTimes
       requestBody:
+        description: Time format '2024-10-10 10:00:00.000'
         required: true
         content:
           application/json;charset=UTF-8:
@@ -153,13 +121,10 @@ paths:
               $ref: "#/components/schemas/AvailableTimes"
       responses:
         '200':
-          description: Успех
+          description: Success
         '400':
-          description: Чё то пошло не так
-          content:
-            application/json;charset=UTF-8:
-              schema:
-                type: string
+          description: Invalid time format
+
   /order:
     post:
       operationId: addOrder
@@ -173,17 +138,15 @@ paths:
               $ref: "#/components/schemas/RawOrder"
       responses:
         '200':
-          description: Успех, возвращаем orderId
+          description: Success, return the assigned orderId
           content:
             application/json;charset=UTF-8:
               schema:
                 type: integer
-        '400':
-          description: Чё то пошло не так
-          content:
-            application/json;charset=UTF-8:
-              schema:
-                type: string
+        '404':
+          description: The item id was not found
+
+
 
   /payment/{id}:
     get:
@@ -198,17 +161,13 @@ paths:
             type: integer
       responses:
         '200':
-          description: Успех
+          description: Success
           content:
             application/json;charset=UTF-8:
               schema:
                 type: string
-        '400':
-          description: Чё то пошло не так
-          content:
-            application/json;charset=UTF-8:
-              schema:
-                type: string
+        '404':
+          description: The order was not found
 
   /user/{id}:
     get:
@@ -223,26 +182,20 @@ paths:
             type: integer
       responses:
         '200':
-          description: Успех
+          description: Success
           content:
             application/json;charset=UTF-8:
               schema:
                 $ref: "#/components/schemas/User"
-        '400':
-          description: Чё то пошло не так
-          content:
-            application/json;charset=UTF-8:
-              schema:
-                type: string
-
-
+        '404':
+          description: The user was not found
 
 components:
   schemas:
     Item:
       type: object
       title: Item
-      description: Позиция меню
+      description: The position of the menu
       required:
         - itemName
         - itemId
@@ -265,7 +218,7 @@ components:
     RawItem:
       type: object
       title: RawItem
-      description: Позиция меню для её добавление в меню
+      description: The position of the menu to add it
       required:
         - itemName
         - itemCost
@@ -366,7 +319,7 @@ components:
     User:
       type: object
       title: User
-      description: Пользователь
+      description: User
       required:
         - userId
         - orders
@@ -380,7 +333,7 @@ components:
     AvailableTimes:
       type: object
       title: AvailableTimes
-      description: Доступные для заказа времена в секундах от начала дня
+      description: Available time for making an order
       required:
         - times
       properties:

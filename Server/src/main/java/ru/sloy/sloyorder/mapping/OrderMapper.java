@@ -4,6 +4,8 @@ import ru.sloy.sloyorder.model.*;
 import ru.sloy.sloyorder.repository.ItemRepository;
 import ru.sloy.sloyorder.repository.UserRepository;
 
+import java.util.Optional;
+
 import static ru.sloy.sloyorder.model.FullOrder.StatusEnum.WAITING_FOR_PAYMENT;
 
 
@@ -31,17 +33,24 @@ public class OrderMapper {
     }
 
 
-    public static OrderEntity toEntity(RawOrder rawOrder, UserRepository userRepository, ItemRepository itemRepository) {
+    public static OrderEntity toEntity(RawOrder rawOrder, UserRepository userRepository, ItemRepository itemRepository) throws IllegalArgumentException {
         OrderEntity entity = new OrderEntity();
 
 //      entity.setOrderId(rawOrder.getOrderId()); //auto generated id
-
-        entity.setUser(userRepository.findById(rawOrder.getUserId()).get());
+        Optional<UserEntity> optionalUser = userRepository.findById(rawOrder.getUserId());
+        if (optionalUser.isEmpty()) {
+            throw new IllegalArgumentException("The user with this id was not found");
+        }
+        entity.setUser(optionalUser.get());
         entity.setOrderCost(rawOrder.getOrderCost());
         entity.setComment(rawOrder.getComment());
         entity.setItems(rawOrder.getItems().stream().map(x -> {
             OrderEntryEntity inner = new OrderEntryEntity();
-            inner.setItem(itemRepository.findById(x.getItemId()).get());
+            Optional<ItemEntity> optionalItem = itemRepository.findById(x.getItemId());
+            if (optionalItem.isEmpty()) {
+                throw new IllegalArgumentException("An item with this id was not found");
+            }
+            inner.setItem(optionalItem.get());
             inner.setOrder(entity);
             inner.setItemNumber(x.getItemNumber());
             return inner;

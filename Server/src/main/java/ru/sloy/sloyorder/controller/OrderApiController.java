@@ -1,5 +1,6 @@
 package ru.sloy.sloyorder.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import ru.sloy.sloyorder.endpoint.OrderApi;
@@ -17,12 +18,21 @@ public class OrderApiController implements OrderApi {
 
     @Override
     public ResponseEntity<Integer> addOrder(RawOrder rawOrder) {
-        return ResponseEntity.ok(orderService.addOrder(rawOrder));
+        try {
+            return ResponseEntity.ok(orderService.addOrder(rawOrder));
+        } catch (Throwable exception) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
     }
 
     @Override
     public ResponseEntity<String> getPaymentLinkByOrderId(Integer id) {
-        return ResponseEntity.ok(orderService.getPaymentLink(id));
+        try {
+            return ResponseEntity.ok(orderService.getPaymentLink(id));
+        } catch (Throwable exception) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
 }

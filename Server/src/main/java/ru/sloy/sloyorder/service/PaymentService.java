@@ -9,7 +9,7 @@ import ru.sloy.sloyorder.model.OrderEntity;
 @Service
 public class PaymentService {
     private final String paymentServiceUrl = "http://localhost:5000";
-    WebClient webClient = WebClient.create(paymentServiceUrl);
+    private final WebClient webClient = WebClient.create(paymentServiceUrl);
 
     public Integer createPayment(OrderEntity order) {
         return 0;

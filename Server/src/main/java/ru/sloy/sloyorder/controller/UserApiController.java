@@ -1,5 +1,6 @@
 package ru.sloy.sloyorder.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import ru.sloy.sloyorder.endpoint.UserApi;
@@ -17,6 +18,10 @@ public class UserApiController implements UserApi {
 
     @Override
     public ResponseEntity<User> getUserById(Integer id) {
-        return ResponseEntity.ok(userService.getUserById(id));
+        try {
+            return ResponseEntity.ok(userService.getUserById(id));
+        } catch (Throwable exception) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }

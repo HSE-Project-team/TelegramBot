@@ -7,9 +7,7 @@ public class IikoOrderMapper {
 
     public static IikoOrder fromEntity(OrderEntity order) {
         var orderBuilder = IikoOrder.builder();
-        orderBuilder.items(order.getItems().stream().map(item -> {
-                    return new IikoOrder.itemsInner(item.getItem().getIikoId(), item.getItemNumber());
-                }
+        orderBuilder.items(order.getItems().stream().map(item -> new IikoOrder.itemsInner(item.getItem().getIikoId(), item.getItemNumber())
         ).toList());
         orderBuilder.id(order.getId());
         orderBuilder.comment(order.getComment());
