@@ -29,7 +29,8 @@ public class CatalogApiController implements CatalogApi {
         try {
             catalogService.deleteItemById(id);
             return ResponseEntity.ok().build();
-        } catch (Throwable exception) {
+        } catch (IllegalArgumentException exception) {
+            System.out.println(exception.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 

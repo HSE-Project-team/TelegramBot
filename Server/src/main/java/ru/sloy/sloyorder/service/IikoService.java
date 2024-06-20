@@ -8,8 +8,8 @@ import ru.sloy.sloyorder.model.OrderEntity;
 @Service
 public class IikoService {
 
-    private final String iikoServiceUrl = "?";
-    WebClient webClient = WebClient.create(iikoServiceUrl);
+//    private final String iikoServiceUrl = "?";
+//    WebClient webClient = WebClient.create(iikoServiceUrl);
 
     public Integer createOrder(OrderEntity order) {
         return 0;

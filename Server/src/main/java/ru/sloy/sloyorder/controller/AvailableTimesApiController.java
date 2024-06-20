@@ -27,7 +27,8 @@ public class AvailableTimesApiController implements AvailableTimesApi {
         try {
             availableTimesService.postAvailableTimes(availableTimes);
             return ResponseEntity.ok().build();
-        } catch (Throwable exception) {
+        } catch (IllegalArgumentException exception) {
+            System.out.println(exception.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }

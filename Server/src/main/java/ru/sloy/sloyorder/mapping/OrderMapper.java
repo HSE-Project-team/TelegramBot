@@ -37,11 +37,7 @@ public class OrderMapper {
         OrderEntity entity = new OrderEntity();
 
 //      entity.setOrderId(rawOrder.getOrderId()); //auto generated id
-        Optional<UserEntity> optionalUser = userRepository.findById(rawOrder.getUserId());
-        if (optionalUser.isEmpty()) {
-            throw new IllegalArgumentException("The user with this id was not found");
-        }
-        entity.setUser(optionalUser.get());
+
         entity.setOrderCost(rawOrder.getOrderCost());
         entity.setComment(rawOrder.getComment());
         entity.setItems(rawOrder.getItems().stream().map(x -> {

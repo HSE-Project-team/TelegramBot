@@ -45,15 +45,19 @@ public class OrderService {
         }
 
         OrderEntity order = OrderMapper.toEntity(rawOrder, userRepository, itemRepository);
+        order.setUser(user);
 
         timeRepository.delete(time);
 
         order.setIikoId(iikoService.createOrder(order));
         order.setPaymentId(paymentService.createPayment(order));
 
-
         user.getOrders().add(order);
-        userRepository.save(user);
+        userRepository.saveAndFlush(user);
+
+        if (order.getId() == null){
+            System.out.println("Something bad");
+        }
 
         return order.getId();
     }
@@ -66,7 +70,7 @@ public class OrderService {
         return paymentService.getPaymentLink(optionalOrder.get().getPaymentId());
     }
 
-    @Scheduled(fixedRate = 5000) // interval in milliseconds
+    // @Scheduled(fixedRate = 5000) // interval in milliseconds
     public void updateOrdersStatus() {
         orderRepository.findAllByStatus(FullOrder.StatusEnum.WAITING_FOR_PAYMENT).forEach(order -> {
             FullOrder.StatusEnum newStatus = paymentService.getPaymentStatus(order.getPaymentId());

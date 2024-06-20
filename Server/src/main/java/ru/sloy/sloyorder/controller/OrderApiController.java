@@ -20,7 +20,7 @@ public class OrderApiController implements OrderApi {
     public ResponseEntity<Integer> addOrder(RawOrder rawOrder) {
         try {
             return ResponseEntity.ok(orderService.addOrder(rawOrder));
-        } catch (Throwable exception) {
+        } catch (IllegalArgumentException exception) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
@@ -30,7 +30,8 @@ public class OrderApiController implements OrderApi {
     public ResponseEntity<String> getPaymentLinkByOrderId(Integer id) {
         try {
             return ResponseEntity.ok(orderService.getPaymentLink(id));
-        } catch (Throwable exception) {
+        } catch (IllegalArgumentException exception) {
+            System.out.println(exception.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }

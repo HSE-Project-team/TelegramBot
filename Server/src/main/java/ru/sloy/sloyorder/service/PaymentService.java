@@ -8,8 +8,8 @@ import ru.sloy.sloyorder.model.OrderEntity;
 
 @Service
 public class PaymentService {
-    private final String paymentServiceUrl = "http://localhost:5000";
-    private final WebClient webClient = WebClient.create(paymentServiceUrl);
+//    private final String paymentServiceUrl = "http://localhost:5000";
+//    private final WebClient webClient = WebClient.create(paymentServiceUrl);
 
     public Integer createPayment(OrderEntity order) {
         return 0;
@@ -33,11 +33,11 @@ public class PaymentService {
     }
 
     public FullOrder.StatusEnum getPaymentStatus(Integer id) {
-//        return FullOrder.StatusEnum.WAITING_FOR_PAYMENT;
-        return webClient.get()
-                .uri("/payment_status/" + id)
-                .retrieve()
-                .bodyToMono(FullOrder.StatusEnum.class).block();
+        return FullOrder.StatusEnum.WAITING_FOR_PAYMENT;
+//        return webClient.get()
+//                .uri("/payment_status/" + id)
+//                .retrieve()
+//                .bodyToMono(FullOrder.StatusEnum.class).block();
     }
 
 }
