@@ -20,7 +20,8 @@ public class UserApiController implements UserApi {
     public ResponseEntity<User> getUserById(Integer id) {
         try {
             return ResponseEntity.ok(userService.getUserById(id));
-        } catch (Throwable exception) {
+        } catch (IllegalArgumentException exception) {
+            System.out.println(exception.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
