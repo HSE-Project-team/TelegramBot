@@ -49,12 +49,10 @@ docker exec -it postgres psql -U postgres
 CREATE DATABASE sloy_db;
 \q
 ```
-5. Transfer the Docker image to your host, for example, using Docker Hub, and run it:
-```
-docker tag sloy-order YOURNAME/sloy-order
-docker push YOURNAME/sloy-order
-docker pull YOURNAME/sloy-order
 
-docker run -t -i -d -p 80:80 YOURNAME/sloy-order
+5. Set up a domain and SSL certificate for the server, so that telegram can send requests to the server, for example, using Certbot. 
+
+6. Tansfer the Docker image of server to your host, for example, using Docker Hub, and run it:
 ```
-6. Set up a domain and SSL certificate for the server, so that telegram can send requests to the server.
+docker run -t -i -d -p 80:80 -v /etc/letsencrypt/live/YOURDOMEN:/etc/letsencrypt/live/YOURDOMEN YOURNAME/sloy-order
+```
