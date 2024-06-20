@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
-import ru.iiko.service.IikoService;
+import ru.iiko.mapping.JsonMapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -59,7 +59,7 @@ class IikoApplicationTests {
 		ResponseEntity<String> createOrderResponse = restTemplate.postForEntity("/iiko/createOrder", createOrderRequest, String.class);
 		assertThat(createOrderResponse.getStatusCodeValue()).isEqualTo(200);
 
-		String orderId = IikoService.jsonToId(createOrderResponse.getBody());
+		String orderId = JsonMapper.jsonToId(createOrderResponse.getBody());
 
 		ResponseEntity<String> getStatusResponse = restTemplate.getForEntity("/iiko/getStatus?id={orderId}", String.class, orderId);
 		System.out.println(getStatusResponse + "qqqqqqqqqqqqqqqqqqq");

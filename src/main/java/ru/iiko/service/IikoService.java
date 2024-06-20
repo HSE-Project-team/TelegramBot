@@ -2,20 +2,22 @@ package ru.iiko.service;
 
 import com.google.gson.*;
 import lombok.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import ru.iiko.mapping.IIkoOrderMapper;
+import ru.iiko.mapping.*;
 import ru.iiko.model.*;
 
 import java.util.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Service
 public class IikoService {
+
+    private static final Logger logger = LoggerFactory.getLogger(IikoService.class);
 
     @Value("${iiko.api.url}")
     private String apiUrl;
@@ -25,7 +27,7 @@ public class IikoService {
     private String apiLogin;
 
     private final RestTemplate restTemplate;
-    private static Gson gson;
+    public static Gson gson;
 
     public IikoService() {
         this.restTemplate = new RestTemplate();
@@ -47,7 +49,7 @@ public class IikoService {
             JsonObject jsonObject = JsonParser.parseString(Objects.requireNonNull(response.getBody())).getAsJsonObject();
             return jsonObject.get("token").getAsString();
         } else {
-            System.out.println("Error: " + response.getStatusCode());
+            logger.error("Error: {}", response.getStatusCode());
             return null;
         }
     }
@@ -72,11 +74,11 @@ public class IikoService {
             if (organizations.size() > 0) {
                 return organizations.get(0).getAsJsonObject().get("id").getAsString();
             } else {
-                System.out.println("No organizations found");
+                logger.info("No organizations found");
                 return null;
             }
         } else {
-            System.out.println("Error: " + response.getStatusCode());
+            logger.error("Error: {}", response.getStatusCode());
             return null;
         }
     }
@@ -110,11 +112,11 @@ public class IikoService {
                 }
                 return menu;
             } else {
-                System.out.println("No products found");
+                logger.info("No products found");
                 return null;
             }
         } else {
-            System.out.println("Error: " + response.getStatusCode());
+            logger.error("Error: {}", response.getStatusCode());
             return null;
         }
     }
@@ -155,11 +157,11 @@ public class IikoService {
                 return terminalGroups.get(0).getAsJsonObject().getAsJsonArray("items")
                         .get(0).getAsJsonObject().get("id").getAsString();
             } else {
-                System.out.println("No terminal groups found");
+                logger.info("No terminal groups found");
                 return null;
             }
         } else {
-            System.out.println("Error: " + response.getStatusCode());
+            logger.error("Error: {}", response.getStatusCode());
             return null;
         }
     }
@@ -183,24 +185,24 @@ public class IikoService {
 
         String url = apiUrl + "/deliveries/create";
         String token = getToken(apiLogin);
-        System.out.println(url);
+        logger.info(url);
 
         Map<String, Object> payload = getPayload(deliveryOrderEntity, organizationId, terminalGroupId);
         ResponseEntity<String> response = sendJson(url, token, gson.toJson(payload), payload);
 
         if (response.getStatusCode() == HttpStatus.OK) {
             if (Objects.equals(parseOrderId(response.getBody()), "00000000-0000-0000-0000-000000000000")) {
-                System.out.println("Ошибка при создании заказа: указано слишком раннее время");
+                logger.info("Ошибка при создании заказа: указано слишком раннее время");
                 return null;
             } else {
-                System.out.println(response.getBody());
-                System.out.println(response.getStatusCode());
+                logger.info(response.getBody());
+                logger.info(String.valueOf(response.getStatusCode()));
                 String orderId = parseOrderId(response.getBody());
-                System.out.println("Заказ создан. ID заказа: " + orderId);
+                logger.info("Заказ создан. ID заказа: {}", orderId);
                 return orderId;
             }
         } else {
-            System.out.println("Ошибка при создании заказа: " + response.getStatusCode());
+            logger.info("Ошибка при создании заказа: {}", response.getStatusCode());
             return null;
         }
     }
@@ -211,7 +213,7 @@ public class IikoService {
         if (orderInfo != null) {
             return orderInfo.get("id").getAsString();
         } else {
-            System.out.println("Ошибка: не удалось получить ID заказа из ответа.");
+            logger.info("Ошибка: не удалось получить ID заказа из ответа.");
             return null;
         }
     }
@@ -227,10 +229,10 @@ public class IikoService {
         String comment = "Тестовый заказ, не делать!!!";
         IikoOrder order = new IikoOrder(items, 0, comment);
 
-        System.out.println("Order ID: " + order.getId());
-        System.out.println("Comment: " + order.getComment());
-        System.out.println("Time: " + order.getTime());
-        System.out.println("Items:");
+        logger.info("Order ID: {}", order.getId());
+        logger.info("Comment: {}", order.getComment());
+        logger.info("Time: {}", order.getTime());
+        logger.info("Items:");
         return order;
     }
 
@@ -273,15 +275,15 @@ public class IikoService {
                     JsonObject order = orders.get(0).getAsJsonObject();
                     return order.get("creationStatus").getAsString();
                 } else {
-                    System.out.println("No orders found in the response.");
+                    logger.info("No orders found in the response.");
                     return null;
                 }
             } catch (JsonSyntaxException | IllegalStateException e) {
-                System.out.println("Error parsing the response JSON: " + e.getMessage());
+                logger.info("Error parsing the response JSON: {}", e.getMessage());
                 return null;
             }
         } else {
-            System.out.println("Error getting delivery by ID: " + response.getStatusCode() + ", " + response.getBody());
+            logger.info("Error getting delivery by ID: {}, {}", response.getStatusCode(), response.getBody());
             return null;
         }
     }
@@ -302,32 +304,10 @@ public class IikoService {
         return payload;
     }
 
-    public static String statusToJson(String status) {
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("status", status);
-        return gson.toJson(jsonObject);
-    }
-
-    public static IikoOrder jsonToIikoOrder(String json) {
-        IikoOrder iikoOrder = gson.fromJson(json, IikoOrder.class);
-        System.out.println(iikoOrder.getTime());
-        System.out.println(json);
-        return iikoOrder;
-    }
-
-    public static String deliveryOrderToJson(DeliveryOrder order) {
-        System.out.println(gson.toJson(order));
-        return gson.toJson(order);
-    }
-
-    public static String jsonToId(String json) {
-        return gson.fromJson(json, JsonObject.class).get("id").getAsString();
-    }
-
     public void doTestOrder() {
         Map<String, String> menu = getMenu();
         if (menu == null) {
-            System.out.println("Не удалось получить меню");
+            logger.info("Не удалось получить меню");
             return;
         }
 
@@ -338,10 +318,10 @@ public class IikoService {
             if (++count == 3) break;
         }
 
-        System.out.println(gson.toJson(generateTestOrderFromOrderItems(orderItems)));
+        logger.info(gson.toJson(generateTestOrderFromOrderItems(orderItems)));
 
         IikoOrder iikoOrder= generateTestOrderFromOrderItems(orderItems);
-        String id = createIikoDelivery(IIkoOrderMapper.toDeliveryOrder(iikoOrder));
-        System.out.println(getDeliveryStatusById(id));
+        String id = createIikoDelivery(OrderMapper.toDeliveryOrder(iikoOrder));
+        logger.info(getDeliveryStatusById(id));
     }
 }

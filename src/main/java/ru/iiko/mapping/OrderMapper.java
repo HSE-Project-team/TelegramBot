@@ -4,7 +4,7 @@ import ru.iiko.model.*;
 
 import java.util.List;
 
-public class IIkoOrderMapper {
+public class OrderMapper {
 
     public static DeliveryOrder toDeliveryOrder(IikoOrder iikoOrder) {
         Integer id = iikoOrder.getId();
