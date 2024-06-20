@@ -30,7 +30,7 @@ public class OrderEntity {
 
 
     private FullOrder.StatusEnum status;
-    private Integer iikoId;
+    private String iikoId;
     private Integer paymentId;
 
 }
