@@ -2,15 +2,12 @@
 Site/.idea/
 sloy-order/build/*
 sloy-order/.idea/
-New\ order/.idea
-Show\ orders/.idea
-Show\ orders/.DS_Store
-New\ order/.DS_Store
-Bot/.env
-Bot/.idea
-Bot/.DS_Store
-Bot/__pycache__
-Bot/Config/__pycache__
-Bot/Handlers/__pycache__
-Bot/Tools/__pycache__
-Bot/Lexicon/__pycache__
+Telegram bot/New order webapp/.idea
+Telegram bot/Show orders webapp/.idea
+Telegram bot/Bot/.env
+Telegram bot/Bot/.idea
+Telegram bot/Bot/.venv
+Telegram bot/Bot/Config/__pycache__/
+Telegram bot/Bot/Handlers/__pycache__/
+Telegram bot/Bot/Lexicon/__pycache__/
+Telegram bot/Bot/Tools/__pycache__/

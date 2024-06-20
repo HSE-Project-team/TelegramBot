@@ -1,9 +1,11 @@
 import {animated_page_scroll} from "../tools/animated_page_scroll_tools.js";
 import {
-    main_url, catalog_url, chocolate_category_test_url,
-    coffee_category_test_url,
-    cold_drinks_category_test_url,
-    cookie_category_test_url
+    main_url,
+    // catalog_url,
+    // chocolate_category_test_url,
+    // coffee_category_test_url,
+    // cold_drinks_category_test_url,
+    // cookie_category_test_url
 } from "../URL_storage.js";
 import {
     get_data_from_server, send_data_to_server
@@ -53,21 +55,21 @@ if (order.user_order.size) {
 let now_category_url = "";
 // for delete (start)
 
-if (category === "Печенье") {
-    now_category_url = cookie_category_test_url;
-} else if (category === "Кофе") {
-    now_category_url = coffee_category_test_url;
-} else if (category === "Холодные напитки") {
-    now_category_url = cold_drinks_category_test_url;
-} else if (category === "Шоколад") {
-    now_category_url = chocolate_category_test_url;
-} else {
-    now_category_url = catalog_url;
-}
+// if (category === "Печенье") {
+//     now_category_url = cookie_category_test_url;
+// } else if (category === "Кофе") {
+//     now_category_url = coffee_category_test_url;
+// } else if (category === "Холодные напитки") {
+//     now_category_url = cold_drinks_category_test_url;
+// } else if (category === "Шоколад") {
+//     now_category_url = chocolate_category_test_url;
+// } else {
+//     now_category_url = catalog_url;
+// }
 
 // for delete (end)
 
-// now_category_url = `${main_url}/catalog/categories/${category}`
+now_category_url = `${main_url}/catalog/categories/${category}`
 
 get_data_from_server(now_category_url).then((data_from_server) => {
     let response_status = data_from_server[0];
@@ -85,10 +87,7 @@ get_data_from_server(now_category_url).then((data_from_server) => {
 
         for (let catalog_item of data_from_server["items"]) {
             if (catalog_item["isAvailable"]) {
-                catalog.addItem(catalog_item["itemId"],
-                    catalog_item["itemName"],
-                    "../images/Dish1.png",
-                    catalog_item["itemCost"]);
+                catalog.addItem(catalog_item["itemId"], catalog_item["itemName"], "../images/Dish1.png", catalog_item["itemCost"]);
             }
         }
 
@@ -125,6 +124,7 @@ get_data_from_server(now_category_url).then((data_from_server) => {
         for (let i of catalog.Items.keys()) {
             let is_item_in_order = order.user_order.has(i);
             graphicCatalogItems[i] = create_element("div", "item");
+            graphicCatalogItems[i].setAttribute("id", i);
             graphicCatalogItems[i].classList.add("element_appearance_animation_selector");
             gap_for_animation += 0.02;
             graphicCatalogItems[i].style.animationDelay = `${gap_for_animation}s`;
@@ -200,7 +200,8 @@ get_data_from_server(now_category_url).then((data_from_server) => {
     for (let item of document.querySelectorAll(".item")) {
         item.addEventListener("click", (event) => {
             if (!event.target.closest('.add_remove_figure')) {
-                console.log(item.querySelector(".item_name").textContent);
+                console.log(catalog.Items.get(+item.getAttribute("id")));
+                console.log(catalog.Items.get(+item.getAttribute("id")).item_id);
             }
         });
     }
