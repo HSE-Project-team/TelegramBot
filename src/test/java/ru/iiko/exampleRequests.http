@@ -2,10 +2,10 @@
 GET http://localhost:8081/iiko/testOrder
 
 ###
-POST http://localhost:8081/iiko/getStatus
+GET http://localhost:8081/iiko/getStatus
 Content-Type: application/json
 
-{"id": "a212b947-772b-418c-9201-c51fe9c60c99"}
+{"id": "021e1ee4-0715-4d9b-b352-e32eeae4f155"}
 
 <> 2024-06-08T084832.404.json
 

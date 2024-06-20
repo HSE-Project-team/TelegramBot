@@ -302,18 +302,6 @@ public class IikoService {
         return payload;
     }
 
-    public static String orderToJson(OrderEntity order) {
-        System.out.println(gson.toJson(order));
-        return gson.toJson(order);
-    }
-
-    public static OrderEntity jsonToOrder(String json) {
-        OrderEntity order = gson.fromJson(json, OrderEntity.class);
-        System.out.println(order.getTime());
-        System.out.println(json);
-        return gson.fromJson(json, OrderEntity.class);
-    }
-
     public static String statusToJson(String status) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("status", status);

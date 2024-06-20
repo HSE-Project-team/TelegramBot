@@ -24,13 +24,12 @@ public class IikoController {
         IikoOrder iikoOrder = IikoService.jsonToIikoOrder(json);
         DeliveryOrder deliveryOrder = IIkoOrderMapper.toDeliveryOrder(iikoOrder);
         String orderId = iikoService.createIikoDelivery(deliveryOrder);
-        String jsonResponse = "{\"orderId\": \"" + orderId + "\"}";
+        String jsonResponse = "{\"id\": \"" + orderId + "\"}";
         return ResponseEntity.ok(jsonResponse);
     }
 
-    @PostMapping("/getStatus")
-    public ResponseEntity<String> getStatus(@RequestBody String json) {
-        String orderId = IikoService.jsonToId(json);
+    @GetMapping("/getStatus")
+    public ResponseEntity<String> getStatus(@RequestParam("id") String orderId) {
         String orderStatus = iikoService.getDeliveryStatusById(orderId);
         String jsonResponse = "{\"status\": \"" + orderStatus + "\"}";
         return ResponseEntity.ok(jsonResponse);
