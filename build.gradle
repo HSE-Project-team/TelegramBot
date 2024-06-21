@@ -34,37 +34,7 @@ dependencies {
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation "io.swagger.core.v3:swagger-annotations:2.2.7"
 }
-
-openApiGenerate {
-	generatorName = "spring"
-	inputSpec = "$rootDir/src/main/resources/swagger/openapi.yaml".toString()
-	outputDir = "$buildDir/generated".toString()
-	apiPackage = "ru.iiko.endpoint"
-	modelPackage = "ru.iiko.model"
-	configOptions = [
-			skipDefaultInterface   : "true",
-			dateLibrary            : "java8-localdatetime",
-			serializableModel      : "true",
-			interfaceOnly          : "true",
-			hideGenerationTimestamp: "true",
-			useBeanValidation      : "true",
-			generateSupportingFiles: "false",
-			swaggerDocketConfig    : "false",
-			useTags                : "true",
-			openApiNullable		   : "false"
-	]
-	globalProperties = [
-			apis  : '',
-			models: '',
-	]
-	typeMappings = [
-			Double: "java.math.BigDecimal",
-			Long: "java.math.BigInteger"
-	]
-}
-compileJava.dependsOn("openApiGenerate")
 
 tasks.named('test') {
 	useJUnitPlatform()
