@@ -25,8 +25,7 @@ public class IikoController {
         IikoOrder iikoOrder = JsonMapper.jsonToIikoOrder(json);
         DeliveryOrder deliveryOrder = OrderMapper.toDeliveryOrder(iikoOrder);
         String orderId = iikoService.createIikoDelivery(deliveryOrder);
-        String jsonResponse = "{\"id\": \"" + orderId + "\"}";
-        return ResponseEntity.ok(jsonResponse);
+        return ResponseEntity.ok(orderId);
     }
 
     @GetMapping("/getStatus")

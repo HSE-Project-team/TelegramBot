@@ -1,0 +1,75 @@
+2024-06-21 03:23:57.785 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.5.Final
+2024-06-21 03:23:57.799 [Test worker] INFO  ru.iiko.IikoApplicationTests - Starting IikoApplicationTests using Java 17.0.11 on DESKTOP-PKMINBF with PID 5868 (started by Jeck5 in C:\Users\Jeck5\IdeaProjects\Iiko)
+2024-06-21 03:23:57.800 [Test worker] INFO  ru.iiko.IikoApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2024-06-21 03:23:58.717 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-06-21 03:23:58.738 [Test worker] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9 ms. Found 0 JPA repository interfaces.
+2024-06-21 03:23:59.639 [Test worker] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2024-06-21 03:23:59.674 [Test worker] INFO  io.undertow.servlet - Initializing Spring embedded WebApplicationContext
+2024-06-21 03:23:59.674 [Test worker] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1849 ms
+2024-06-21 03:24:00.023 [Test worker] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-06-21 03:24:00.107 [Test worker] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.14.Final
+2024-06-21 03:24:00.390 [Test worker] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-06-21 03:24:00.566 [Test worker] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-06-21 03:24:00.826 [Test worker] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-06-21 03:24:00.855 [Test worker] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-06-21 03:24:01.312 [Test worker] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-06-21 03:24:01.324 [Test worker] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-06-21 03:24:01.590 [Test worker] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-06-21 03:24:02.631 [Test worker] INFO  io.undertow - starting server: Undertow - 2.2.22.Final
+2024-06-21 03:24:02.647 [Test worker] INFO  org.xnio - XNIO version 3.8.7.Final
+2024-06-21 03:24:02.663 [Test worker] INFO  org.xnio.nio - XNIO NIO Implementation Version 3.8.7.Final
+2024-06-21 03:24:02.776 [Test worker] INFO  org.jboss.threads - JBoss Threads version 3.1.0.Final
+2024-06-21 03:24:02.843 [Test worker] INFO  o.s.b.w.e.undertow.UndertowWebServer - Undertow started on port(s) 62107 (http)
+2024-06-21 03:24:02.857 [Test worker] INFO  ru.iiko.IikoApplicationTests - Started IikoApplicationTests in 5.418 seconds (JVM running for 6.865)
+2024-06-21 03:24:03.328 [XNIO-1 task-1] INFO  io.undertow.servlet - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-06-21 03:24:03.329 [XNIO-1 task-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-06-21 03:24:03.330 [XNIO-1 task-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2024-06-21 03:24:05.596 [XNIO-1 task-1] INFO  ru.iiko.service.IikoService - Order ID: 0
+2024-06-21 03:24:05.596 [XNIO-1 task-1] INFO  ru.iiko.service.IikoService - Comment: ???????? ?????, ?? ??????!!!
+2024-06-21 03:24:05.597 [XNIO-1 task-1] INFO  ru.iiko.service.IikoService - Time: null
+2024-06-21 03:24:05.597 [XNIO-1 task-1] INFO  ru.iiko.service.IikoService - Items:
+2024-06-21 03:24:05.604 [XNIO-1 task-1] INFO  ru.iiko.service.IikoService - {"items":[{"itemId":"33ed8cd6-6c1f-4779-b812-9fbd7ca7a79d","itemNumber":0},{"itemId":"978ce1aa-9927-47f0-8ca8-e03cfc04097c","itemNumber":0},{"itemId":"fad8d6a0-4ce8-4b7b-b846-c5fa4e84fa96","itemNumber":0}],"id":0,"comment":"???????? ?????, ?? ??????!!!"}
+2024-06-21 03:24:05.605 [XNIO-1 task-1] INFO  ru.iiko.service.IikoService - Order ID: 0
+2024-06-21 03:24:05.605 [XNIO-1 task-1] INFO  ru.iiko.service.IikoService - Comment: ???????? ?????, ?? ??????!!!
+2024-06-21 03:24:05.605 [XNIO-1 task-1] INFO  ru.iiko.service.IikoService - Time: null
+2024-06-21 03:24:05.605 [XNIO-1 task-1] INFO  ru.iiko.service.IikoService - Items:
+2024-06-21 03:24:06.192 [XNIO-1 task-1] INFO  ru.iiko.service.IikoService - https://api-ru.iiko.services/api/1/deliveries/create
+2024-06-21 03:24:06.307 [XNIO-1 task-1] INFO  ru.iiko.service.IikoService - {
+  "correlationId": "8d2c8fa2-4497-47ae-8ba4-de67e472a029",
+  "orderInfo": {
+    "id": "6002385a-d4fa-4b79-ad51-5b23630eab0b",
+    "posId": "427dd6c8-5087-4621-9391-a7df3a8d9dd4",
+    "externalNumber": null,
+    "organizationId": "d7325541-f42c-4d59-81aa-98925e836702",
+    "timestamp": 1718929225146,
+    "creationStatus": "InProgress",
+    "errorInfo": null,
+    "order": null
+  }
+}
+2024-06-21 03:24:06.307 [XNIO-1 task-1] INFO  ru.iiko.service.IikoService - 200 OK
+2024-06-21 03:24:06.307 [XNIO-1 task-1] INFO  ru.iiko.service.IikoService - ????? ??????. ID ??????: 6002385a-d4fa-4b79-ad51-5b23630eab0b
+2024-06-21 03:24:06.724 [XNIO-1 task-1] INFO  ru.iiko.service.IikoService - InProgress
+2024-06-21 03:24:07.383 [XNIO-1 task-1] INFO  ru.iiko.service.IikoService - https://api-ru.iiko.services/api/1/deliveries/create
+2024-06-21 03:24:07.489 [XNIO-1 task-1] INFO  ru.iiko.service.IikoService - ?????? ??? ???????? ??????: ??????? ??????? ?????? ?????
+2024-06-21 03:24:08.085 [XNIO-1 task-1] INFO  ru.iiko.service.IikoService - https://api-ru.iiko.services/api/1/deliveries/create
+2024-06-21 03:24:08.194 [XNIO-1 task-1] INFO  ru.iiko.service.IikoService - {
+  "correlationId": "1ad5e8ce-a4d8-4e5d-bfe1-06ebcafee47f",
+  "orderInfo": {
+    "id": "58e09ef0-d1ae-432c-8d4a-d741434aa5cf",
+    "posId": "c7663b65-8e3a-4aa9-8185-dbc2e301f7fb",
+    "externalNumber": null,
+    "organizationId": "d7325541-f42c-4d59-81aa-98925e836702",
+    "timestamp": 1718929227037,
+    "creationStatus": "InProgress",
+    "errorInfo": null,
+    "order": null
+  }
+}
+2024-06-21 03:24:08.194 [XNIO-1 task-1] INFO  ru.iiko.service.IikoService - 200 OK
+2024-06-21 03:24:08.194 [XNIO-1 task-1] INFO  ru.iiko.service.IikoService - ????? ??????. ID ??????: 58e09ef0-d1ae-432c-8d4a-d741434aa5cf
+2024-06-21 03:24:08.558 [SpringApplicationShutdownHook] INFO  io.undertow - stopping server: Undertow - 2.2.22.Final
+2024-06-21 03:24:08.561 [SpringApplicationShutdownHook] INFO  io.undertow.servlet - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-06-21 03:24:08.564 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-06-21 03:24:08.566 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-06-21 03:24:08.569 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

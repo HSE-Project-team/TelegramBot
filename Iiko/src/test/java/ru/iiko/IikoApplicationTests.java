@@ -52,14 +52,13 @@ class IikoApplicationTests {
 				"    }\n" +
 				"  ],\n" +
 				"  \"id\": 0,\n" +
-				"  \"comment\": \"Тестовый заказ, не делать!!!\",\n" +
-				"  \"time\": \"2024-06-20 23:59:59.999\"\n" +
+				"  \"comment\": \"Тестовый заказ, не делать!!!\"\n" +
 				"}";
 
 		ResponseEntity<String> createOrderResponse = restTemplate.postForEntity("/iiko/createOrder", createOrderRequest, String.class);
 		assertThat(createOrderResponse.getStatusCodeValue()).isEqualTo(200);
 
-		String orderId = JsonMapper.jsonToId(createOrderResponse.getBody());
+		String orderId = createOrderResponse.getBody();
 
 		ResponseEntity<String> getStatusResponse = restTemplate.getForEntity("/iiko/getStatus?id={orderId}", String.class, orderId);
 		assertThat(getStatusResponse.getStatusCodeValue()).isEqualTo(200);

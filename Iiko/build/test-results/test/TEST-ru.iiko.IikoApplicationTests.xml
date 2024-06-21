@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.iiko.IikoApplicationTests" tests="4" skipped="0" failures="0" errors="0" timestamp="2024-06-21T03:24:02" hostname="DESKTOP-PKMINBF" time="5.675">
+  <properties/>
+  <testcase name="testGetOrder()" classname="ru.iiko.IikoApplicationTests" time="3.956"/>
+  <testcase name="testCreateOrder()" classname="ru.iiko.IikoApplicationTests" time="0.667"/>
+  <testcase name="contextLoads()" classname="ru.iiko.IikoApplicationTests" time="0.006"/>
+  <testcase name="testGetStatus()" classname="ru.iiko.IikoApplicationTests" time="1.043"/>
+  <system-out><![CDATA[
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.7.7)
+
+2024-06-20 23:59:59.999
+{
+  "items": [
+    {
+      "itemId": "d97c066c-0a83-49c8-a79b-cf6ec9a4d366",
+      "itemNumber": 0
+    }
+  ],
+  "id": 0,
+  "comment": "???????? ?????, ?? ??????!!!",
+  "time": "2024-06-20 23:59:59.999"
+}
+null
+{
+  "items": [
+    {
+      "itemId": "d97c066c-0a83-49c8-a79b-cf6ec9a4d366",
+      "itemNumber": 0
+    }
+  ],
+  "id": 0,
+  "comment": "???????? ?????, ?? ??????!!!"
+}
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
