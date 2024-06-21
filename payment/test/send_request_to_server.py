@@ -1,6 +1,7 @@
 import requests
 import json
 
+
 def create_payment(value):
     url = "http://localhost:5000/create_payment"
     data = {"value": value}

@@ -3,25 +3,23 @@ from payment import process_payment
 from yookassa import Payment, Configuration
 
 app = Flask(__name__)
-#TODO - сохранять в базу словарь ayment_id confirmation_token, чтоб файлы ссобой не таскать
-#TODO Избавиться от запроса к ayment и сделать через запрос к api
 
 
 def read_confirmation_token():
-    with open("confirmation_token", "r") as file:
+    with open("temporary_data/confirmation_token", "r") as file:
         confirmation_token = file.read().strip()
     return confirmation_token
 
 
 def get_host():
-    with open("host_credentials", "r") as file:
+    with open("credentials/host_credentials", "r") as file:
         host = file.read().strip()
     return host
 
 
 def read_shop_auth_credentials():
     credentials = {}
-    with open("shop_auth_credentials", "r") as file:
+    with open("credentials/shop_auth_credentials", "r") as file:
         for line in file:
             key, value = line.strip().split(":")
             credentials[key.strip()] = value.strip()

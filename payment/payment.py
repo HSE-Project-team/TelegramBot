@@ -8,7 +8,7 @@ import string
 
 def read_shop_auth_credentials():
     credentials = {}
-    with open("shop_auth_credentials", "r") as file:
+    with open("credentials/shop_auth_credentials", "r") as file:
         for line in file:
             key, value = line.strip().split(":")
             credentials[key.strip()] = value.strip()
@@ -73,8 +73,6 @@ def monitor_payment_status(payment_id):
             break
 
         time.sleep(5)
-    # переписать на запрос к апи
-    # https://api.yookassa.ru/v3/payments/2ddb0942-000f-5000-9000-10c68c02511a
 
 
 def generate_idempotence_key(length=32):
@@ -96,10 +94,8 @@ def process_payment(value):
     print(payment_id, 'paymant_id')
     print(payment_data)
     confirmation_token = payment_data["confirmation"]["confirmation_token"]
-    save_in_file(confirmation_token, "confirmation_token")
-    save_in_file(payment_id, "payment_id")
-
-    #monitor_payment_status(payment_id) #TODO надо параллельно запустить с open...  # TODO - статус обрабатывать, вставить итоговую страницу в шаблоне в templates
+    save_in_file(confirmation_token, "temporary_data/confirmation_token")
+    save_in_file(payment_id, "temporary_data/payment_id")
     return payment_id
 
 
