@@ -39,9 +39,8 @@ def get_payment_link(payment_id):
 
 
 def create_payment_link(payment_id):
-    host = get_host()
     port = get_port()
-    payment_link = f"http://{host}:{port}/pay/{payment_id}"
+    payment_link = f"http://sloybot.ru:{port}/pay/{payment_id}"
     return payment_link
 
 
