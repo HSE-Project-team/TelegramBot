@@ -17,6 +17,12 @@ def get_host():
     return host
 
 
+def get_port():
+    with open("credentials/port_credentials", "r") as file:
+        port = int(file.read().strip())
+    return port
+
+
 def read_shop_auth_credentials():
     credentials = {}
     with open("credentials/shop_auth_credentials", "r") as file:
@@ -34,7 +40,8 @@ def get_payment_link(payment_id):
 
 def create_payment_link(payment_id):
     host = get_host()
-    payment_link = f"http://{host}:5000/pay/{payment_id}"
+    port = get_port()
+    payment_link = f"http://{host}:{port}/pay/{payment_id}"
     return payment_link
 
 
@@ -78,4 +85,5 @@ def get_payment_status(payment_id):
 
 if __name__ == '__main__':
     host = get_host()
-    app.run(host=host, port=5000, debug=True, threaded=True)
+    port = get_port()
+    app.run(host=host, port=port, debug=True, threaded=True)
