@@ -4,11 +4,11 @@ FROM python:3.10
 WORKDIR /payment_docker
 
 # Install app dependencies
-COPY payment/payment_requirements.txt ./
+COPY Payment ./
 RUN pip install -r payment_requirements.txt
 
 # Bundle app source
-COPY payment /payment_docker
+COPY Payment /payment_docker
 
 # Устанавливаем переменную окружения для Flask, чтобы он слушал на всех интерфейсах
 ENV FLASK_APP=main.py
