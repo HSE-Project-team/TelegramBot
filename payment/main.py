@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, request
-from payment import process_payment
+from payment import process_payment, map_status_to_backend
 from yookassa import Payment, Configuration
 
 app = Flask(__name__)
@@ -70,6 +70,7 @@ def get_payment_status(payment_id):
     try:
         payment = Payment.find_one(payment_id)
         status = payment.status
+        status = map_status_to_backend(status)
         return str(status), 200
     except Exception as e:
         return "error" + str(e), 500

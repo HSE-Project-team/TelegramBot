@@ -1,3 +1,5 @@
+from enum import Enum
+
 import requests
 import time
 from yookassa import Payment
@@ -79,6 +81,18 @@ def generate_idempotence_key(length=32):
     characters = string.ascii_letters + string.digits
     key = ''.join(random.choice(characters) for _ in range(length))
     return key
+
+
+def map_status_to_backend(status):
+
+    status_mapper = {
+        "pending": "waiting for payment",
+        "waiting_for_capture": "waiting for payment",
+        "succeeded": "paid and preparing",
+        "canceled": "cancelled"
+    }
+
+    return status_mapper[status]
 
 
 def process_payment(value):
