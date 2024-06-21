@@ -29,7 +29,7 @@ def read_shop_auth_credentials():
 @app.route('/payment_link/<payment_id>', methods=['GET'])
 def get_payment_link(payment_id):
     payment_link = create_payment_link(payment_id)
-    return jsonify({"payment_link": payment_link})
+    return str(payment_link), 200
 
 
 def create_payment_link(payment_id):
@@ -54,10 +54,10 @@ def handle_create_payment():
     data = request.json
     value = data.get('value')
     if not value:
-        return jsonify({"error": "Missing value parameter"}), 400
+        return str("error: Missing value parameter"), 400
 
     payment_id = process_payment(value)
-    return jsonify({"payment_id": payment_id})
+    return str(payment_id), 200
 
 
 @app.route('/payment_status/<payment_id>', methods=['GET'])
@@ -70,9 +70,9 @@ def get_payment_status(payment_id):
     try:
         payment = Payment.find_one(payment_id)
         status = payment.status
-        return jsonify({"payment_id": payment_id, "status": status})
+        return str(status), 200
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return "error" + str(e), 500
 
 
 if __name__ == '__main__':

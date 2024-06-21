@@ -8,33 +8,30 @@ def create_payment(value):
 
     headers = {"Content-Type": "application/json"}
     response = requests.post(url, data=json.dumps(data), headers=headers)
-    return response.json()
+    return response
 
 
 def get_payment_link(payment_id):
     url = f"http://localhost:5000/payment_link/{payment_id}"
     response = requests.get(url)
-    return response.json()
+    return response
 
 
 def get_payment_status(payment_id):
     url = f"http://localhost:5000/payment_status/{payment_id}"
     response = requests.get(url)
-    return response.json()
+    return response
 
 
 def test_payment_flow():
     payment_id_response = create_payment("1234")
-    print(payment_id_response)
-    payment_id = payment_id_response["payment_id"]
+    payment_id = payment_id_response.text
 
     payment_link_response = get_payment_link(payment_id)
-    print(payment_link_response)
-    payment_link = payment_link_response["payment_link"]
-    print(payment_link)
+    payment_link = payment_link_response.text
 
     status_response = get_payment_status(payment_id)
-    payment_status = status_response.get("status")
+    payment_status = status_response.text
 
     print("Payment ID:", payment_id)
     print("Payment Link:", payment_link)

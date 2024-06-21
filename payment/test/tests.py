@@ -13,38 +13,38 @@ def create_payment(server_url):
     data = {"value": "1234"}
     headers = {"Content-Type": "application/json"}
     response = requests.post(url, data=json.dumps(data), headers=headers)
-    return response.json()
+    return response
 
 
 def get_payment_link(server_url, payment_id):
     url = f"{server_url}/payment_link/{payment_id}"
     response = requests.get(url)
-    return response.json()
+    return response
 
 
 def get_payment_status(server_url, payment_id):
     url = f"{server_url}/payment_status/{payment_id}"
     response = requests.get(url)
-    return response.json()
+    return response
 
 
 def test_create_payment(server_url):
     response = create_payment(server_url)
-    assert "payment_id" in response
+    assert response.status_code == 200
 
 
 def test_get_payment_link(server_url):
     response = create_payment(server_url)
-    payment_id = response["payment_id"]
+    payment_id = response.text
     link_response = get_payment_link(server_url, payment_id)
-    assert "payment_link" in link_response
+    assert link_response.status_code == 200
 
 
 def test_get_payment_status(server_url):
     response = create_payment(server_url)
-    payment_id = response["payment_id"]
+    payment_id = response.text
     status_response = get_payment_status(server_url, payment_id)
-    assert "status" in status_response
+    assert status_response.status_code == 200
 
 
 if __name__ == "__main__":
