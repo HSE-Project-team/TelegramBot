@@ -11,5 +11,5 @@ RUN pip install -r payment_requirements.txt
 # Bundle app source
 COPY payment /payment_docker
 
-EXPOSE 8080
+EXPOSE 5000
 CMD [ "python", "main.py" ]
