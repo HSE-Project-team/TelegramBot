@@ -50,13 +50,10 @@ def new_order_message_generate(json_from_bot, user_id, first_name, ready_order_u
         print(request_value.json())
         print("status code:")
         print(request_value.status_code)
-        # link_for_payment = request_value.json()["paymentLink"]
-        # order_id = request_value.json()["orderId"]
-        link_for_payment = "google.com"
-        order_id = 6892
+        link_for_payment = request_value.json()["paymentLink"]
+        order_id = request_value.json()["orderId"]
 
         string_for_user = _new_order_message_generate_success(json_from_bot, first_name, user_id, order_id)
-        # string_for_user += f"\n\njson_from_bot: {json_from_bot}\n\njson_for_server: {json_for_server}"
 
     except RequestException as err:
         print(f"Ошибка: {err}")
