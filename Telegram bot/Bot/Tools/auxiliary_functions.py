@@ -1,6 +1,8 @@
 import copy
 from datetime import datetime, timedelta
 
+import requests
+
 
 def normalize_time(full_time):
     separated_time = full_time.split(" ")[1].split(":")
@@ -19,16 +21,34 @@ def make_json_for_server(json_data, user_id):
     return json_for_server
 
 
-async def _generate_message_no_time(bot, user_id, order_id, target_time):
-    await bot.send_message(user_id, f"Заказ с ID {order_id} готов к выдаче. Время: {target_time}")
+async def _generate_message_about_payment_on_time(bot, user_id, order_id, target_time, order_status_url):
+    order_status = requests.get(order_status_url).json()["status"]
+    if order_status == "waiting for payment":
+        await bot.send_message(user_id, f"[payment] Заказ с ID {order_id} отменён из-за неуплаты. Время: {target_time}")
 
 
-def plan_message_about_order_status(scheduler, order_time, bot, user_id, order_id):
+async def _generate_message_about_receiving_on_time(bot, user_id, order_id, target_time, order_status_url):
+    order_status = requests.get(order_status_url).json()["status"]
+    if order_status != "waiting for payment":
+        await bot.send_message(user_id, f"[receiving] Заказ с ID {order_id} готов. Время: {target_time}")
+
+
+def plan_message_about_order_status(scheduler, creating_order_time, order_time, bot, user_id, order_id,
+                                    order_status_url):
     current_date = datetime.now().strftime("%Y-%m-%d")
-    target_time_datetime = datetime.strptime(f"{current_date} {order_time}", "%Y-%m-%d %H:%M") + timedelta(minutes=2)
+    creating_order_time_datetime = datetime.strptime(f"{current_date} {creating_order_time}",
+                                                     "%Y-%m-%d %H:%M") + timedelta(minutes=1)
+    order_time_datetime = datetime.strptime(f"{current_date} {order_time}", "%Y-%m-%d %H:%M") + timedelta(minutes=2)
 
-    scheduler.add_job(_generate_message_no_time, next_run_time=target_time_datetime,
+    scheduler.add_job(_generate_message_about_payment_on_time, next_run_time=creating_order_time_datetime,
                       kwargs={'bot': bot,
                               'user_id': user_id,
                               'order_id': order_id,
-                              "target_time": order_time})
+                              "target_time": order_time,
+                              "order_status_url": order_status_url})
+    scheduler.add_job(_generate_message_about_receiving_on_time, next_run_time=order_time_datetime,
+                      kwargs={'bot': bot,
+                              'user_id': user_id,
+                              'order_id': order_id,
+                              "target_time": order_time,
+                              "order_status_url": order_status_url})

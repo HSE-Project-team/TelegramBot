@@ -14,6 +14,7 @@ class Config:
     user_orders_web_app_url: str
     new_order_web_app_url: str
     ready_order_for_server_url: str
+    order_status_url: str
 
 
 def load_config(path):
@@ -24,4 +25,5 @@ def load_config(path):
         user_url=env("USER_URL"),
         user_orders_web_app_url=env("USER_ORDERS_WEB_APP_URL"),
         new_order_web_app_url=env("NEW_ORDER_WEB_APP_URL"),
-        ready_order_for_server_url=env("READY_ORDER_FOR_SERVER_URL"))
+        ready_order_for_server_url=env("READY_ORDER_FOR_SERVER_URL"),
+        order_status_url=env("ORDER_STATUS_URL"))
