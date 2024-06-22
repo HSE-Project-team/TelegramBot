@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from aiogram import Router, BaseMiddleware
 from aiogram import types, F
 from aiogram.types import (KeyboardButton, ReplyKeyboardMarkup,
@@ -7,12 +9,17 @@ from aiogram.filters import Command
 
 from Config.config_bot import Config
 from Lexicon.lexicon import Lexicon
+from Tools.auxiliary_functions import normalize_time, plan_message_about_order_status
 from Tools.message_generation import (new_order_message_generate,
                                       active_orders_message_generate)
 import json
+from aiogram import Bot
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 user_handlers_router = Router()
 config: Config
+bot: Bot
+scheduler: AsyncIOScheduler
 
 
 class GetConfigMiddleware(BaseMiddleware):
@@ -22,8 +29,10 @@ class GetConfigMiddleware(BaseMiddleware):
             event,
             data
     ):
-        global config
-        config = data.get('_config')
+        global config, bot, scheduler
+        config = data.get('_config')["config"]
+        bot = data.get('_config')["bot"]
+        scheduler = data.get('_config')["scheduler"]
 
         await handler(event, data)
 
@@ -47,7 +56,7 @@ async def orders(message: types.Message):
     )
     user_orders_keyboard = InlineKeyboardMarkup(inline_keyboard=[[user_orders_button]])
 
-    await message.answer(active_orders_message_generate(config.user_url),
+    await message.answer(active_orders_message_generate(f"{config.user_url}/{str(user_id)}"),
                          reply_markup=user_orders_keyboard)
 
 
@@ -61,14 +70,16 @@ async def buy_process(message: types.Message):
                                                user_id,
                                                first_name,
                                                config.ready_order_for_server_url)
-
     if data_for_user.order_id and data_for_user.link_for_payment:
         pay_for_order_button = InlineKeyboardButton(
             text=f"{Lexicon.pay_for_order_button} • {str(json_from_bot['orderCost'])} ₽",
-            url="google.com"
+            url=data_for_user.link_for_payment
         )
         pay_for_order_keyboard = InlineKeyboardMarkup(inline_keyboard=[[pay_for_order_button]])
         await message.answer(data_for_user.string_for_user, reply_markup=pay_for_order_keyboard)
+
+        plan_message_about_order_status(scheduler, normalize_time(json_from_bot["time"]), bot, user_id,
+                                        data_for_user.order_id)
     else:
         await message.answer(data_for_user.string_for_user)
 

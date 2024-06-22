@@ -14,6 +14,7 @@ class UserOrder:
 
 
 def active_orders_message_generate(user_active_orders_url):
+    print("user_active_orders_url", user_active_orders_url)
     user_orders = requests.get(user_active_orders_url).json()["orders"]
     string_for_user = Lexicon.active_orders_heading + "\n\n\n"
     no_active_orders = True
@@ -42,13 +43,16 @@ def new_order_message_generate(json_from_bot, user_id, first_name, ready_order_u
     order_id = None
     try:
         request_value = requests.post(ready_order_url, json=json_for_server)
+        print(ready_order_url)
         print("json_for_server:")
         print(json_for_server)
         print("json on server:")
-        print(request_value.json()["json"])
+        print(request_value.json())
         print("status code:")
         print(request_value.status_code)
-        link_for_payment = request_value.json()["json"]
+        # link_for_payment = request_value.json()["paymentLink"]
+        # order_id = request_value.json()["orderId"]
+        link_for_payment = "google.com"
         order_id = 6892
 
         string_for_user = _new_order_message_generate_success(json_from_bot, first_name, user_id, order_id)

@@ -22,7 +22,7 @@ try {
     console.log("We are not in Telegram, can't give you user.id")
 }
 
-get_data_from_server(user_url).then((data_from_server) => {
+get_data_from_server(`${user_url}/${window.Telegram.WebApp.initDataUnsafe.user.id.toString()}`).then((data_from_server) => {
     // console.log(`${user_url}/${window.Telegram.WebApp.initDataUnsafe.user.id.toString()}`)
     let response_status = data_from_server[0];
     data_from_server = data_from_server[1];
