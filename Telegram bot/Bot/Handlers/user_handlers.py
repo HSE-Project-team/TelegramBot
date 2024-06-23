@@ -78,7 +78,7 @@ async def buy_process(message: types.Message):
         pay_for_order_keyboard = InlineKeyboardMarkup(inline_keyboard=[[pay_for_order_button]])
         await message.answer(data_for_user.string_for_user, reply_markup=pay_for_order_keyboard)
 
-        creating_order_time = f"{datetime.now().hour}:{datetime.now().minute}"
+        creating_order_time = f"{datetime.now().hour}:{datetime.now().minute}:{datetime.now().second}"
         order_time = normalize_time(json_from_bot["time"])
         plan_message_about_order_status(scheduler, creating_order_time, order_time, bot, user_id,
                                         data_for_user.order_id, config.order_status_url)
