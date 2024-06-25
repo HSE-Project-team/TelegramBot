@@ -13,7 +13,7 @@
   //Инициализация виджета. Все параметры обязательные.
   const checkout = new window.YooMoneyCheckoutWidget({
       confirmation_token: '{{ confirmation_token }}',
-      return_url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', //Ссылка на страницу завершения оплаты.
+      return_url: 'https://sloy.pro', //Ссылка на страницу завершения оплаты.
       error_callback: function(error) {
           console.log(error)
       }
