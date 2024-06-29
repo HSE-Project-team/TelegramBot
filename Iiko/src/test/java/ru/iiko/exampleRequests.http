@@ -1,0 +1,39 @@
+###
+GET http://localhost:8081/iiko/testOrder
+
+###
+GET http://localhost:8081/iiko/getStatus?id=97115e07-7148-4ac4-b380-d0adc4372215
+
+
+<> 2024-06-08T084832.404.json
+
+###
+POST http://localhost:8081/iiko/createOrder
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "itemId": "d97c066c-0a83-49c8-a79b-cf6ec9a4d366",
+      "itemNumber": 0
+    }
+  ],
+  "id": 0,
+  "comment": "Тестовый заказ, не делать!!!"
+}
+
+###
+POST http://localhost:8081/iiko/createOrder
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "itemId": "d97c066c-0a83-49c8-a79b-cf6ec9a4d366",
+      "itemNumber": 0
+    }
+  ],
+  "id": 0,
+  "comment": "Тестовый заказ, не делать!!!",
+  "time": "2024-06-21 23:59:59.999"
+}
