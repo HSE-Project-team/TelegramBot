@@ -1,0 +1,29 @@
+@media (min-width: 600px) {
+    .container {
+        margin: 20px 32px;
+    }
+
+    .choose_time_btn_div {
+        width: 360px;
+    }
+}
+
+@media (min-width: 700px) {
+    .container {
+        margin: 32px 32px;
+    }
+
+    .bottom_container_margin {
+        margin-bottom: 116px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .container {
+        margin: 32px 60px;
+    }
+
+    .choose_time_btn_div {
+        width: 400px;
+    }
+}

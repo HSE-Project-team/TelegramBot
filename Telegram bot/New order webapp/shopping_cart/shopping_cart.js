@@ -6,8 +6,8 @@ import {
     hide_element_with_animation, push_plus_minus_button_animation
 } from "../tools/graphical_tools.js";
 import {get_data_from_server} from "../tools/networking_tools.js";
-import {free_order_time_url} from "../URL_storage.js";
-import {Catalog, Order} from "../main_classs.js";
+import {free_order_time_url} from "../URL/URL_storage.js";
+import {Catalog, Order} from "../tools/main_classs.js";
 import {animated_page_scroll} from "../tools/animated_page_scroll_tools.js";
 import {show_error} from "../errors_handler/errors_handler.js";
 

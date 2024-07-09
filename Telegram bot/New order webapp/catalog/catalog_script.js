@@ -1,12 +1,12 @@
 import {animated_page_scroll} from "../tools/animated_page_scroll_tools.js";
 import {
-    main_url,
-    // catalog_url,
-    // chocolate_category_test_url,
-    // coffee_category_test_url,
-    // cold_drinks_category_test_url,
-    // cookie_category_test_url
-} from "../URL_storage.js";
+    // main_url,
+    catalog_url,
+    chocolate_category_test_url,
+    coffee_category_test_url,
+    cold_drinks_category_test_url,
+    cookie_category_test_url
+} from "../URL/URL_storage.js";
 import {
     get_data_from_server, send_data_to_server
 } from "../tools/networking_tools.js"
@@ -18,7 +18,7 @@ import {
     push_plus_minus_button_animation
 } from "../tools/graphical_tools.js";
 import {show_error} from "../errors_handler/errors_handler.js";
-import {Catalog, Order} from "../main_classs.js";
+import {Catalog, Order} from "../tools/main_classs.js";
 
 animated_page_scroll(0, ".header_label_wrapper");
 
@@ -55,21 +55,21 @@ if (order.user_order.size) {
 let now_category_url = "";
 // for delete (start)
 
-// if (category === "Печенье") {
-//     now_category_url = cookie_category_test_url;
-// } else if (category === "Кофе") {
-//     now_category_url = coffee_category_test_url;
-// } else if (category === "Холодные напитки") {
-//     now_category_url = cold_drinks_category_test_url;
-// } else if (category === "Шоколад") {
-//     now_category_url = chocolate_category_test_url;
-// } else {
-//     now_category_url = catalog_url;
-// }
+if (category === "Печенье") {
+    now_category_url = cookie_category_test_url;
+} else if (category === "Кофе") {
+    now_category_url = coffee_category_test_url;
+} else if (category === "Холодные напитки") {
+    now_category_url = cold_drinks_category_test_url;
+} else if (category === "Шоколад") {
+    now_category_url = chocolate_category_test_url;
+} else {
+    now_category_url = catalog_url;
+}
 
 // for delete (end)
 
-now_category_url = `${main_url}/catalog/categories/${category}`
+// now_category_url = `${main_url}/catalog/categories/${category}`
 
 get_data_from_server(now_category_url).then((data_from_server) => {
     let response_status = data_from_server[0];
