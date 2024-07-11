@@ -1,0 +1,43 @@
+.choose_time_btn_div {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    z-index: 999;
+    position: fixed;
+    bottom: 20px;
+    width: 288px;
+    height: 64px;
+    font-size: 18px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 32px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+.choose_time_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+}
+
+.bottom_container_margin {
+    margin-bottom: 104px;
+}
+
+.choose_time_btn:active,
+.choose_time_btn:hover,
+.choose_time_btn {
+    color: #F6F6F6;
+}
+
+.category_link:active,
+.category_link:hover,
+.category_link {
+    cursor: pointer;
+    text-decoration: none;
+    color: #1C1C1C;
+}

@@ -6,8 +6,9 @@
     <link rel="stylesheet" href="catalog_style.css">
     <link rel="stylesheet" href="../general_design/animation.css">
     <link rel="stylesheet" href="../errors_handler/error_labels_style.css">
-    <link rel="stylesheet" href="../general_design/adaptive_styles.css">
     <link rel="stylesheet" href="../general_design/general_styles.css">
+    <link rel="stylesheet" href="../general_design/big_buttons_styles.css">
+    <link rel="stylesheet" href="../general_design/adaptive_styles.css">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
     <title>TelegramWebApp</title>
 </head>
@@ -15,11 +16,8 @@
 
 <div class="container">
     <div class="page_header">
-        <a class="back_btn_to_menu" href="../index.html">
-            <svg class="back_btn_to_menu_svg" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
-                <line x1="17" y1="6" x2="7" y2="16" stroke-linecap="round" stroke-width="1.5"/>
-                <line x1="7" y1="16" x2="17" y2="26" stroke-linecap="round" stroke-width="1.5"/>
-            </svg>
+        <a class="back_button" href="../index.html">
+            <img class="back_button_svg" src="../images/back_arrow.svg" alt="">
         </a>
         <div class="header_label_wrapper">
             <div class="header_label"></div>
@@ -43,11 +41,11 @@
         </div>
     </div>
 
-    <div class="items adaptive_container" id="items">
+    <div class="items" id="items">
 
     </div>
 
-    <div class="choose_time_btn_div adaptive_bottom_button hidden">
+    <div class="choose_time_btn_div hidden">
         <a class="choose_time_btn" href="../shopping_cart/shopping_cart.html">Посмотреть заказ</a>
     </div>
 </div>

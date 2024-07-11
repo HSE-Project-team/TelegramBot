@@ -8,7 +8,7 @@ import {
     cookie_category_test_url
 } from "../URL/URL_storage.js";
 import {
-    get_data_from_server, send_data_to_server
+    get_data_from_server
 } from "../tools/networking_tools.js"
 import {
     create_element,
@@ -20,7 +20,7 @@ import {
 import {show_error} from "../errors_handler/errors_handler.js";
 import {Catalog, Order} from "../tools/main_classs.js";
 
-animated_page_scroll(0, ".header_label_wrapper");
+animated_page_scroll(0, ".page_header");
 
 let tg = window.Telegram.WebApp;
 tg.expand();
@@ -29,7 +29,7 @@ function increase_item_counter(i, textField) {
     let new_number = order.user_order.get(i) + 1;
     order.user_order.set(i, new_number);
     order.order_cost += +catalog.Items.get(i).item_cost;
-    choose_time_btn.textContent = `Посмотреть заказ • ${order.order_cost} ₽`;
+    choose_time_btn.textContent = `Посмотреть заказ на ${order.order_cost} ₽`;
     textField.textContent = new_number;
 }
 
@@ -80,7 +80,7 @@ get_data_from_server(now_category_url).then((data_from_server) => {
     if (response_status === 200) {
         if (order.user_order.size) {
             show_element_with_animation(choose_time_btn_div, "show_choose_time_btn_animation_selector", "hide_choose_time_btn_animation_selector")
-            choose_time_btn.textContent = `Посмотреть заказ • ${order.order_cost} ₽`;
+            choose_time_btn.textContent = `Посмотреть заказ на ${order.order_cost} ₽`;
         }
 
         catalog.size = data_from_server["size"];
@@ -102,7 +102,7 @@ get_data_from_server(now_category_url).then((data_from_server) => {
             } else {
                 order.user_order.delete(i);
                 if (order.user_order.size === 0) {
-                    hide_element_with_animation(choose_time_btn_div, "show_choose_time_btn_animation_selector", "hide_choose_time_btn_animation_selector")
+                    hide_element_with_animation(choose_time_btn_div, "show_choose_time_btn_animation_selector", "hide_choose_time_btn_animation_selector");
                     document.querySelector(".container").classList.remove("bottom_container_margin");
                 }
                 graphicCatalogItems[i].item_btn.classList.remove("hidden");
@@ -114,7 +114,7 @@ get_data_from_server(now_category_url).then((data_from_server) => {
             }
             order.order_cost -= +catalog.Items.get(i).item_cost;
             if (order.order_cost !== 0) {
-                choose_time_btn.textContent = `Посмотреть заказ • ${order.order_cost} ₽`;
+                choose_time_btn.textContent = `Посмотреть заказ на ${order.order_cost} ₽`;
             }
         }
 
@@ -124,20 +124,26 @@ get_data_from_server(now_category_url).then((data_from_server) => {
         for (let i of catalog.Items.keys()) {
             let is_item_in_order = order.user_order.has(i);
             graphicCatalogItems[i] = create_element("div", "item");
+
+            graphicCatalogItems[i].internal_wrapper = create_element("div", "internal_wrapper");
+
+            graphicCatalogItems[i].item_img_name = create_element("div", "item_img_name");
+            graphicCatalogItems[i].item_cost_button = create_element("div", "item_cost_button");
+
             graphicCatalogItems[i].setAttribute("id", i);
             graphicCatalogItems[i].classList.add("element_appearance_animation_selector");
             gap_for_animation += 0.02;
             graphicCatalogItems[i].style.animationDelay = `${gap_for_animation}s`;
-            graphicCatalogItems[i].item_img = create_image("catalog_image", catalog.Items.get(i).item_img, "");
+            graphicCatalogItems[i].item_img = create_image("item_img", "../images/Круассаны.png", "");
             graphicCatalogItems[i].item_name = create_element("div", "item_name", catalog.Items.get(i).item_name);
             graphicCatalogItems[i].item_name.classList.add("ellipsis_3_lines");
 
             graphicCatalogItems[i].item_cost = create_element("div", "item_cost", catalog.Items.get(i).item_cost + " ₽");
             graphicCatalogItems[i].item_btn = create_element("button", "btn_add", "Добавить", is_item_in_order);
-            graphicCatalogItems[i].add_remove_figures = create_element("div", "add_remove_figure");
+            graphicCatalogItems[i].add_remove_figure = create_element("div", "add_remove_figure");
 
             graphicCatalogItems[i].minus_btn = create_element("button", "btn_minus", "-", !is_item_in_order);
-            graphicCatalogItems[i].minus_btn.classList.add("show_btn_minus_animation_selector");
+            // graphicCatalogItems[i].minus_btn.classList.add("show_btn_minus_animation_selector");
 
             graphicCatalogItemCounter[i] = create_element("label", "order_item_label", "", !is_item_in_order);
             graphicCatalogItemCounter[i].classList.add("show_order_item_label_animation_selector");
@@ -147,29 +153,32 @@ get_data_from_server(now_category_url).then((data_from_server) => {
             }
 
             graphicCatalogItems[i].plus_btn = create_element("button", "btn_plus", "+", !is_item_in_order);
-            graphicCatalogItems[i].plus_btn.classList.add("show_btn_plus_animation_selector");
+            // graphicCatalogItems[i].plus_btn.classList.add("show_btn_plus_animation_selector");
 
             graphicCatalogItems[i].plus_btn.addEventListener("click", () => {
-                push_plus_minus_button_animation(graphicCatalogItems[i].plus_btn, "plus_minus_buttons_animation_selector", "show_btn_plus_animation_selector");
+                // push_plus_minus_button_animation(graphicCatalogItems[i].plus_btn, "plus_minus_buttons_animation_selector", "show_btn_plus_animation_selector");
                 increase_item_counter(i, graphicCatalogItemCounter[i]);
                 order.push_data_to_cash();
             });
 
             graphicCatalogItems[i].minus_btn.addEventListener("click", () => {
-                push_plus_minus_button_animation(graphicCatalogItems[i].minus_btn, "plus_minus_buttons_animation_selector", "show_btn_minus_animation_selector");
+                // push_plus_minus_button_animation(graphicCatalogItems[i].minus_btn, "plus_minus_buttons_animation_selector", "show_btn_minus_animation_selector");
                 decrease_item_counter(i, graphicCatalogItemCounter[i]);
                 order.push_data_to_cash();
             });
 
+            graphicCatalogItems[i].item_img_name.appendChild(graphicCatalogItems[i].item_img);
+            graphicCatalogItems[i].item_img_name.appendChild(graphicCatalogItems[i].item_name);
+            graphicCatalogItems[i].item_cost_button.appendChild(graphicCatalogItems[i].item_cost);
+            graphicCatalogItems[i].item_cost_button.appendChild(graphicCatalogItems[i].add_remove_figure);
+            graphicCatalogItems[i].add_remove_figure.appendChild(graphicCatalogItems[i].item_btn);
+            graphicCatalogItems[i].add_remove_figure.appendChild(graphicCatalogItems[i].minus_btn);
+            graphicCatalogItems[i].add_remove_figure.appendChild(graphicCatalogItemCounter[i]);
+            graphicCatalogItems[i].add_remove_figure.appendChild(graphicCatalogItems[i].plus_btn);
+            graphicCatalogItems[i].internal_wrapper.appendChild(graphicCatalogItems[i].item_img_name);
+            graphicCatalogItems[i].internal_wrapper.appendChild(graphicCatalogItems[i].item_cost_button);
+            graphicCatalogItems[i].appendChild(graphicCatalogItems[i].internal_wrapper);
             document.querySelector(".items").appendChild(graphicCatalogItems[i]);
-            graphicCatalogItems[i].appendChild(graphicCatalogItems[i].item_img);
-            graphicCatalogItems[i].appendChild(graphicCatalogItems[i].item_name);
-            graphicCatalogItems[i].appendChild(graphicCatalogItems[i].item_cost);
-            graphicCatalogItems[i].appendChild(graphicCatalogItems[i].add_remove_figures);
-            graphicCatalogItems[i].add_remove_figures.appendChild(graphicCatalogItems[i].item_btn);
-            graphicCatalogItems[i].add_remove_figures.appendChild(graphicCatalogItems[i].minus_btn);
-            graphicCatalogItems[i].add_remove_figures.appendChild(graphicCatalogItemCounter[i]);
-            graphicCatalogItems[i].add_remove_figures.appendChild(graphicCatalogItems[i].plus_btn);
         }
 
         choose_time_btn_div.addEventListener("click", () => {
@@ -183,7 +192,7 @@ get_data_from_server(now_category_url).then((data_from_server) => {
                 document.querySelector(".container").classList.add("bottom_container_margin");
 
                 order.order_cost += +catalog.Items.get(i).item_cost;
-                choose_time_btn.textContent = `Посмотреть заказ • ${order.order_cost} ₽`;
+                choose_time_btn.textContent = `Посмотреть заказ на ${order.order_cost} ₽`;
 
                 graphicCatalogItems[i].item_btn.classList.add("hidden");
                 graphicCatalogItems[i].minus_btn.classList.remove("hidden");
