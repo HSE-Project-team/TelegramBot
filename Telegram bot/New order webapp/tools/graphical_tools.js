@@ -27,10 +27,11 @@ export function create_input(class_name = "", name, type, value, id) {
     element_variable.type = type;
     element_variable.value = value;
     element_variable.id = id;
+    element_variable.textContent = "123";
     return element_variable;
 }
 
-export function normalize_time(full_time) {
+export function simplify_time_for_user(full_time) {
     let separated_time = full_time.split(" ")[1].split(":");
     return `${separated_time[0]}:${separated_time[1]}`
 }

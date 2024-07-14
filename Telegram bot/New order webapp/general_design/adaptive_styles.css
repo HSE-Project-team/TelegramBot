@@ -11,6 +11,10 @@
         margin: 16px;
     }
 
+    .container {
+        margin: 20px 32px;
+    }
+
     .items {
         grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
     }
@@ -18,15 +22,15 @@
 
 @media (min-width: 700px) {
     .container {
-        margin: 32px 32px;
+        margin: 32px;
     }
 
     .bottom_container_margin {
         margin-bottom: 116px;
     }
 
-    .items {
-        margin: 88px 32px;
+    .items, .shopping_cart {
+        margin: 88px 0;
     }
 }
 
@@ -39,16 +43,18 @@
         width: 400px;
     }
 
-    .items {
-        margin: 88px 60px;
-    }
-
     .category_link {
         border-radius: 24px;
     }
 
     .items {
+        margin: 88px 0;
         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    .shopping_cart {
+        margin-top: 88px;
+        margin-bottom: 32px;
     }
 
     .category_link {

@@ -16,6 +16,6 @@ export let categories_url = "https://api.npoint.io/4e0547233bdd89362ba4"
 // for delete (start)
 export let cookie_category_test_url = "https://api.npoint.io/1b407941077fa8c04f73";
 export let coffee_category_test_url = "https://api.npoint.io/fded5c3cd48f90cef09a";
-export let cold_drinks_category_test_url = "https://api.npoint.io/1f65d894a6726e68f02e";
-export let chocolate_category_test_url = "https://api.npoint.io/2fe3ba57c1086ae729a3";
+export let tea_category_test_url = "https://api.npoint.io/1f65d894a6726e68f02e";
+export let sandwiches_category_test_url = "https://api.npoint.io/2fe3ba57c1086ae729a3";
 // for delete (end)

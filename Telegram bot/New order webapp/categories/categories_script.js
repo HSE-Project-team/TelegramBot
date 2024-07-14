@@ -10,6 +10,7 @@ import {Order} from "../tools/main_classs.js";
 
 let order = new Order();
 order.get_data_from_cash();
+console.log(order);
 
 let container = document.querySelector(".container");
 let choose_time_btn = document.querySelector(".choose_time_btn");

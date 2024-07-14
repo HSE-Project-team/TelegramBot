@@ -1,210 +1,127 @@
 @font-face {
-    font-family: 'Cyntho Pro';
-    src: local('CynthoPro-Regular'), url('../cynthopro/Cynthopro-regular.woff2') format('woff2'), url('../cynthopro/Cynthopro-regular.woff') format('woff'), url('../cynthopro/Cynthopro-regular.ttf') format('truetype');
-    font-weight: 400;
+    font-family: Mulish;
     font-style: normal;
+    src: url("../Mulish/Mulish.ttf"), url("../Mulish/Mulish italic.ttf");
 }
 
 body {
-    color: #2d2d2d;
     margin: 0;
-    background-color: white;
-    width: 100%;
-    font-size: 14px;
-    font-family: "Cyntho Pro", sans-serif;
+    background-color: #ffffff;
+    font-family: "Mulish", sans-serif;
+    font-size: 16px;
 }
 
 button, div {
-    color: #2d2d2d;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .container {
-    margin: 0;
-    height: 100%;
-    width: 100%;
-}
-
-.loading_image_wrapper {
-    margin-top: 3px;
-    margin-bottom: 3px;
-}
-
-.shopping_cart_add_remove_figure {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    height: 2em;
-    border-radius: 20px;
-    border: none;
-    background-color: #FFE0BC;
-}
-
-.shopping_cart_minus_btn, .shopping_cart_plus_btn {
-    background-color: #FFE0BC;
-    font-size: 1.2em;
-    padding: 0;
-    width: 35%;
-    height: 100%;
-    border-radius: 20px;
-    border: 0;
-    text-align: center;
-    vertical-align: middle;
-}
-
-.shopping_cart_item_label {
-    font-size: 1.2em;
-    padding: 0;
-    width: 30%;
-    height: 100%;
-    border: 0;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 1.9em;
-}
-
-.choose_time_btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    text-align: center;
-    vertical-align: middle;
-    width: 100%;
-    height: 100%;
-}
-
-.choose_time_btn:active,
-.choose_time_btn:hover,
-.choose_time_btn {
-    text-decoration: none;
-    color: #2d2d2d;
-}
-
-.checkout_btn {
-    bottom: 0;
-    position: fixed;
-
-    animation-delay: 0.4s !important;
-
-    width: 100%;
-    min-height: 2.2em;
-    height: 2.2em;
-    font-family: "Cyntho Pro", sans-serif;
-
-    border: none;
-
-    background-color: rgba(255, 165, 54, 0.5);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-
-    font-size: 1.3em;
-    align-self: flex-end;
-}
-
-.checkout_btn:disabled {
-    background-color: rgba(255, 165, 54, 0.4);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
+    margin: 20px 16px;
 }
 
 .shopping_cart {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    justify-content: space-between;
-    margin: 0;
-    padding: 0;
+    margin: 76px 0 20px;
 }
 
-.shopping_cart_label {
+.order_cost {
+    width: fit-content;
+    margin-left: auto;
+}
+
+.shopping_cart_add_remove_figure {
+    height: 28px;
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #C4A283;
+    border-radius: 30px;
+    margin-bottom: 8px;
+}
+
+.shopping_cart_minus_btn {
+    font-size: 16px;
+    font-family: "Mulish", sans-serif;
+    background-color: #C4A283;
+    color: #F6F6F6;
+    border: none;
+    border-radius: 30px;
     width: 100%;
-    height: fit-content;
-    text-align: center;
-    font-size: 2em;
-    margin-top: 0.5em;
+    height: 100%;
+    margin-right: 4px;
+}
+
+.shopping_cart_plus_btn {
+    font-size: 16px;
+    font-family: "Mulish", sans-serif;
+    background-color: #C4A283;
+    color: #F6F6F6;
+    border: none;
+    border-radius: 30px;
+    width: 100%;
+    height: 100%;
+    margin-left: 4px;
+}
+
+.shopping_cart_item_label {
+    color: #F6F6F6;
+}
+
+.checkout_btn:disabled {
+    font-family: "Mulish", sans-serif;
+    background-color: rgba(37, 37, 37, 0.88);
 }
 
 .shopping_cart_items {
     display: grid;
-    padding-top: 10px;
-    border: 1px solid #ddd;
-    margin-right: 5px;
-    margin-left: 5px;
-    margin-top: 55px;
-    border-radius: 25px;
-    overflow-x: hidden;
-    overflow-y: scroll;
+    grid-template-columns: repeat(auto-fit, minmax(288px, 1fr));
+    grid-gap: 16px;
+    box-sizing: border-box;
+    margin-bottom: 16px;
 }
 
 .shopping_item {
-    padding: 0;
-    display: grid;
-    grid-template-columns: 15% 50% 35%;
-    height: 70px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    margin-right: auto;
-    margin-left: auto;
-    width: 80%;
-    border-radius: 17px;
-    box-shadow: 5px 5px 10px #ddd;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    box-sizing: border-box;
+    justify-content: space-between;
 }
 
 .shopping_item_img {
-    display: inline-block;
-    margin: auto auto auto 10px;
-    width: 45px;
-    height: auto;
+    width: 48px;
+    height: 48px;
 }
 
 .shopping_cart_item_name {
-    margin: auto 10px;
     text-align: center;
-}
-
-.shopping_cart_item_cost {
-    width: fit-content;
-    height: fit-content;
-    font-size: 0.8em;
+    margin-left: 16px;
+    margin-right: 16px;
 }
 
 .buttons_and_cost_wrapper {
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-right: 10px;
-    height: 75%;
+    width: fit-content;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     flex-direction: column;
 }
 
 .empty_shopping_cart_label {
-    margin-top: 75px;
+    margin-top: 76px;
     width: 100%;
     text-align: center;
-    color: #939393;
-    font-size: 1.2em;
+    color: #686868;
 }
 
-.time_slider_area {
+.free_time_wrapper {
     animation-delay: 0.4s !important;
-
-    align-items: center;
-    height: fit-content;
-    border: 1px solid #ddd;
-    border-radius: 25px;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    margin: 0 5px 3.2em;
-}
-
-.buttons_wrapper {
+    border: 1px solid #E5E5E5;
+    border-radius: 20px;
+    padding: 16px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(65px, 1fr));
-    margin: 10px;
-    gap: 10px;
+    grid-column-gap: 8px;
+    grid-row-gap: 12px;
 }
 
 .free_time_button {
@@ -213,7 +130,7 @@ button, div {
 }
 
 .free_time_label {
-    line-height: 30px;
+    line-height: 32px;
 
     display: inline-block;
     text-align: center;
@@ -221,18 +138,10 @@ button, div {
 
     border-radius: 20px;
     border: none;
-    background-color: #FFE0BC;
-    font-family: "Cyntho Pro", sans-serif;
+    background-color: #F6F6F6;
+    color: #1C1C1C;
 
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-
-.time_selection_and_checkout {
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    bottom: 0;
-    width: 100%;
 }
 
 .error_404_label {
@@ -243,25 +152,21 @@ button, div {
 
 .order_comment_div {
     animation-delay: 0.2s !important;
-
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;
-    margin-right: 5px;
-    margin-left: 5px;
 }
 
 .order_comment {
     width: 100%;
     outline: none;
     resize: none;
-    font-family: "Cyntho Pro", sans-serif;
-    font-size: 1.1em;
-    color: #2d2d2d;
-    padding: 10px;
-    height: auto;
-    border: 1px solid #ddd;
-    border-radius: 25px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    color: #1C1C1C;
+    padding: 16px;
+    border-radius: 20px;
+    font-family: "Mulish", sans-serif;
+    font-size: 16px;
+    border: #E5E5E5 solid 1px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }

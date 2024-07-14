@@ -143,17 +143,17 @@
 
 @keyframes show_free_time_label_animation {
     0% {
-        box-shadow: 5px 5px 10px #ddd;
+
     }
     100% {
-        box-shadow: 5px 5px 10px #ddd;
-        background-color: #FFE0BC;
+        background-color: #C4A283;
+        color: #F6F6F6;
     }
 }
 
 @keyframes hide_free_time_label_animation {
     100% {
-        background-color: #FFF2E0;
+        /*background-color: #FFF2E0;*/
     }
 }
 

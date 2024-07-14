@@ -19,8 +19,14 @@ button, div {
     margin-bottom: 104px;
 }
 
+.container {
+    margin: 20px 16px;
+}
+
+
 .items {
-    margin: 76px 16px 20px;
+    margin-top: 76px;
+    margin-bottom: 20px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(136px, 1fr));
     grid-gap: 16px;
