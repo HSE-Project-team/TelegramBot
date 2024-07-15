@@ -24,6 +24,7 @@ button, div {
 }
 
 .order_cost {
+    font-style: italic;
     width: fit-content;
     margin-left: auto;
 }
@@ -74,8 +75,9 @@ button, div {
 
 .shopping_cart_items {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(288px, 1fr));
-    grid-gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
+    grid-row-gap: 16px;
+    grid-column-gap: 32px;
     box-sizing: border-box;
     margin-bottom: 16px;
 }
@@ -94,6 +96,7 @@ button, div {
 }
 
 .shopping_cart_item_name {
+    width: 100%;
     text-align: center;
     margin-left: 16px;
     margin-right: 16px;
@@ -113,13 +116,19 @@ button, div {
     color: #686868;
 }
 
+.order_comment_and_free_time_wrapper {
+    margin-top: 20px;
+    display: grid;
+    grid-column-gap: 32px;
+}
+
 .free_time_wrapper {
     animation-delay: 0.4s !important;
     border: 1px solid #E5E5E5;
     border-radius: 20px;
     padding: 16px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(65px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(68px, 1fr));
     grid-column-gap: 8px;
     grid-row-gap: 12px;
 }
@@ -144,12 +153,6 @@ button, div {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-.error_404_label {
-    width: 100%;
-    text-align: center;
-    margin-top: 20px;
-}
-
 .order_comment_div {
     animation-delay: 0.2s !important;
     display: flex;
@@ -167,6 +170,5 @@ button, div {
     font-family: "Mulish", sans-serif;
     font-size: 16px;
     border: #E5E5E5 solid 1px;
-    margin-top: 20px;
     margin-bottom: 20px;
 }

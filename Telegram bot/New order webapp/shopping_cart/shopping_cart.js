@@ -67,9 +67,12 @@ function generate_data_for_send() {
     object_for_send.orderCost = order.order_cost;
     object_for_send.comment = order.order_comment;
 
-    console.log(order);
-
     return JSON.stringify(object_for_send);
+}
+
+let previous_page = localStorage.getItem("previous_page");
+if (previous_page === "categories") {
+    back_button.href = "../index.html";
 }
 
 let order = new Order();
@@ -81,7 +84,7 @@ if (order.order_cost !== 0) {
         let response_status = data_from_server[0];
         if (response_status === 200) {
             loading_image_wrapper.classList.add("hidden");
-            checkout_btn.textContent = "Выберите время внизу";
+            checkout_btn.textContent = "Выберите время";
             checkout_btn.setAttribute('disabled', '');
             checkout_btn.classList.remove("hidden");
             shopping_cart.classList.remove("hidden");
@@ -174,4 +177,21 @@ back_button.addEventListener("click", () => {
     let order_comment = document.querySelector(".order_comment");
     order.order_comment = order_comment.value;
     order.push_data_to_cash();
+});
+
+let now_page_position_y = window.scrollY;
+
+order_comment.addEventListener("input", () => {
+    order.order_comment = order_comment.value;
+    localStorage.setItem("user_order_comment", order.order_comment);
+});
+
+shopping_cart.addEventListener('touchstart', (event) => {
+    if (!event.target.closest('.order_comment')) {
+        now_page_position_y = window.scrollY;
+        document.querySelector(".order_comment").tabIndex = -1;
+        document.querySelector(".shopping_cart").tabIndex = 1;
+        document.querySelector("body").focus();
+        window.scrollTo(0, now_page_position_y);
+    }
 });

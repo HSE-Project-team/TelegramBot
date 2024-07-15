@@ -48,7 +48,6 @@ get_data_from_server(now_category_url).then((data_from_server) => {
     let response_status = data_from_server[0];
     if (response_status === 200) {
         if (order.user_order.size !== 0) {
-            console.log(choose_time_btn_div);
             choose_time_btn_div.classList.remove("hidden");
             container.classList.add("bottom_container_margin");
             choose_time_btn.textContent = `Посмотреть заказ на ${order.order_cost} ₽`;
@@ -151,4 +150,8 @@ get_data_from_server(now_category_url).then((data_from_server) => {
             }
         });
     }
+});
+
+choose_time_btn_div.addEventListener("click", function () {
+    localStorage.setItem("previous_page", "catalog");
 });
