@@ -1,0 +1,121 @@
+@font-face {
+    font-family: Mulish;
+    font-style: normal;
+    src: url("../Mulish/Mulish-Regular.ttf");
+}
+
+@font-face {
+    font-family: Mulish-Bold;
+    font-style: normal;
+    src: url("../Mulish/Mulish-Bold.ttf");
+}
+
+@font-face {
+    font-family: Mulish-Italic;
+    src: url("../Mulish/Mulish-Italic.ttf");
+}
+
+body {
+    margin: 0;
+    background-color: #ffffff;
+    font-family: "Mulish", sans-serif;
+    font-size: 16px;
+}
+
+button {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.loading_image_wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.container {
+    margin: 20px 16px;
+}
+
+.orders {
+    margin: 76px 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
+    grid-row-gap: 20px;
+    grid-column-gap: 32px;
+}
+
+.order_wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 16px;
+    border: 1px solid #E5E5E5;
+    border-radius: 20px;
+    height: fit-content;
+}
+
+.order_items_wrapper {
+    display: grid;
+    grid-row-gap: 16px;
+    margin-bottom: 16px;
+}
+
+.order_item {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    box-sizing: border-box;
+    justify-content: space-between;
+}
+
+.order_info_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 12px;
+    margin-bottom: 20px;
+}
+
+.order_time {
+    font-family: "Mulish-Bold", sans-serif;
+}
+
+.receiving_code_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 4px;
+}
+
+.receiving_code {
+    font-family: "Mulish-Bold", sans-serif;
+    font-size: 18px;
+}
+
+.order_item_img {
+    width: 48px;
+    height: 48px;
+}
+
+.order_item_name {
+    width: 100%;
+    text-align: center;
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+.order_item_cost {
+    white-space: nowrap;
+    width: auto;
+    height: auto;
+}
+
+.order_item_number {
+    color: #B8B8B8;
+}
+
+.order_cost {
+    font-family: "Mulish-Italic", sans-serif;
+    width: fit-content;
+    margin-left: auto;
+}

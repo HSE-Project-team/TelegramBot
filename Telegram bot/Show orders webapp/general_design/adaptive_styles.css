@@ -1,0 +1,40 @@
+@media (min-width: 360px) {
+    .order_item_name {
+        text-align: left;
+    }
+}
+
+@media (min-width: 600px) {
+    .container {
+        margin: 20px 32px;
+    }
+
+    .order_wrapper {
+        border-radius: 22px;
+    }
+}
+
+@media (min-width: 700px) {
+    .container {
+        margin: 32px;
+    }
+
+    .orders {
+        margin: 88px 0;
+    }
+}
+
+@media (min-width: 1280px) {
+    .container {
+        margin: 32px 60px;
+    }
+
+    .orders {
+        margin-top: 88px;
+        margin-bottom: 32px;
+    }
+
+    .order_wrapper {
+        border-radius: 24px;
+    }
+}

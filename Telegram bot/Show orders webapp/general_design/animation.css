@@ -1,0 +1,35 @@
+@keyframes loading_image_animation {
+    100% {
+        width: 24px;
+        height: 24px;
+        background-color: #B8B8B8;
+    }
+}
+
+.loading_image_wrapper {
+    z-index: 999;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.loading_image {
+    display: flex;
+    margin: auto;
+
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    background-color: #E5E5E5;
+    animation: loading_image_animation;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-duration: 0.4s;
+    animation-direction: alternate;
+}
+
+.hidden {
+    display: none;
+}

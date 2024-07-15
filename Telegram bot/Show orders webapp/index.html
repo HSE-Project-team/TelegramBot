@@ -2,20 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="show_orders_style.css">
-    <link rel="stylesheet" href="page_header_style.css">
-    <link rel="stylesheet" href="animation.css">
+    <link rel="stylesheet" href="show_orders/show_orders_style.css">
+    <link rel="stylesheet" href="general_design/page_header_style.css">
+    <link rel="stylesheet" href="general_design/animation.css">
     <link rel="stylesheet" href="errors_handler/error_labels_style.css">
-    <link rel="stylesheet" href="adaptive_styles.css">
+    <link rel="stylesheet" href="general_design/adaptive_styles.css">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
     <title>TelegramWebApp</title>
 </head>
 <body>
 <div class="container">
     <div class="page_header">
-        <div class="header_label_wrapper">
-            <div class="header_label">Мои заказы</div>
-        </div>
+        <div class="header_label">Мои заказы</div>
     </div>
 
     <div class="error_labels_wrapper hidden">
@@ -35,14 +33,14 @@
         </div>
     </div>
 
-    <div class="orders adaptive_container" id="orders">
+    <div class="orders" id="orders">
 
     </div>
 </div>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-<script type="module" src="show_orders_script.js"></script>
+<script type="module" src="show_orders/show_orders_script.js"></script>
 
 </body>
 </html>
