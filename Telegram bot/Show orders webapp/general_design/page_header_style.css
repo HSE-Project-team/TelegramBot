@@ -1,3 +1,10 @@
+@font-face {
+    font-family: Mulish-Medium;
+    font-style: normal;
+    src: url("../Mulish/Mulish-Medium.ttf");
+}
+
+
 .page_header {
     z-index: 999;
     background-color: rgba(255, 255, 255);
@@ -17,9 +24,9 @@
 }
 
 .header_label {
+    font-family: Mulish-Medium, sans-serif;
     width: fit-content;
-    font-size: 16px;
-    font-weight: 550;
+    font-size: 17px;
 }
 
 .hidden {

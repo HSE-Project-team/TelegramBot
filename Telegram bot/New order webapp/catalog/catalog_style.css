@@ -1,7 +1,7 @@
 @font-face {
     font-family: Mulish;
     font-style: normal;
-    src: url("../Mulish/Mulish.ttf"), url("../Mulish/Mulish italic.ttf");
+    src: url("../Mulish/Mulish-Regular.ttf")
 }
 
 body {

@@ -1,7 +1,12 @@
 @font-face {
     font-family: Mulish;
     font-style: normal;
-    src: url("../Mulish/Mulish.ttf"), url("../Mulish/Mulish italic.ttf");
+    src: url("../Mulish/Mulish-Regular.ttf");
+}
+
+@font-face {
+    font-family: Mulish-Italic;
+    src: url("../Mulish/Mulish-Italic.ttf");
 }
 
 body {
@@ -24,7 +29,7 @@ button, div {
 }
 
 .order_cost {
-    font-style: italic;
+    font-family: Mulish-Italic, sans-serif;
     width: fit-content;
     margin-left: auto;
 }
