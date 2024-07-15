@@ -27,6 +27,7 @@ get_data_from_server(user_url).then((data_from_server) => {
             let time_from_server = order["time"];
             let status_from_server = order["status"];
             let order_cost_from_server = order["orderCost"];
+            let receiving_code_from_server = order["receivingCode"];
 
             let order_items = order["items"];
 
@@ -36,9 +37,19 @@ get_data_from_server(user_url).then((data_from_server) => {
             let order_time = create_element("label", "order_time", `Заказ на ${normalize_time(time_from_server)}`);
             let order_status = create_element("label", "order_status", statuses_for_user.get(status_from_server));
             let order_cost = create_element("label", "order_cost", `Сумма: ${order_cost_from_server} ₽`);
+            let receiving_code_wrapper = create_element("div", "receiving_code_wrapper");
+            let receiving_code_label = create_element("label", "receiving_code_label", "Код получения:");
 
             order_info_wrapper.appendChild(order_time);
             order_info_wrapper.appendChild(order_status);
+
+            if (["paid and preparing", "ready", "received"].indexOf(status_from_server) !== -1) {
+                let receiving_code = create_element("label", "receiving_code", receiving_code_from_server);
+                receiving_code_wrapper.appendChild(receiving_code_label);
+                receiving_code_wrapper.appendChild(receiving_code);
+                order_info_wrapper.appendChild(receiving_code_wrapper);
+            }
+
             order_wrapper.appendChild(order_info_wrapper);
 
             for (let item of order_items) {
