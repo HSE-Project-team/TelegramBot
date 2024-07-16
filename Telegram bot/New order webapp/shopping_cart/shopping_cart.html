@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="../general_design/big_buttons_styles.css">
     <link rel="stylesheet" href="../general_design/adaptive_styles.css">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+    <link rel="preload" href="../Mulish/Mulish-Italic.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="../Mulish/Mulish-Medium.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="../Mulish/Mulish-SemiBold.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="../Mulish/Mulish-Regular.ttf" as="font" type="font/ttf" crossorigin>
     <title>TelegramWebApp</title>
 </head>
 <body>
@@ -23,8 +27,18 @@
             <div class="header_label">Корзина</div>
         </div>
     </div>
-    <div class="shopping_cart hidden" id="shopping_cart">
-        <div class="shopping_cart_items" id="shopping_cart_items"></div>
+
+    <div class="error_label_wrapper hidden">
+        <div class="error_notification_label">Что-то пошло не так 😕</div>
+        <div class="error_text_label"></div>
+
+        <a class="reload_button" href="shopping_cart.html">
+            <img class="reload_button_svg" src="../images/reload_arrow.svg" alt="">
+        </a>
+    </div>
+
+    <div class="shopping_cart hidden">
+        <div class="shopping_cart_items"></div>
         <div class="order_cost"></div>
         <div class="order_comment_and_free_time_wrapper">
             <div class="order_comment_div">

@@ -2,12 +2,16 @@ import {
     create_error_label
 } from "/tools/graphical_tools.js";
 
+let error_dict = new Map(
+    [
+        [500, "Внутренняя ошибка сервера. Повтори попытку чуть позже."],
+        [404, "Сервер временно недоступен. Повтори попытку чуть позже."],
+    ])
+
 export function show_error(error_number) {
-    if (error_number === 500) {
-        create_error_label(error_number, "Внутренняя ошибка сервера.");
-    } else if (error_number === 404) {
-        create_error_label(error_number, "Сервер временно недоступен.");
+    if (error_dict.has(error_number)) {
+        create_error_label(error_number, error_dict.get(error_number));
     } else {
-        create_error_label("", "Проверьте соединение с интернетом или повторите попытку позже.");
+        create_error_label(error_number, "Проверь соединение с интернетом или повтори попытку чуть позже.");
     }
 }

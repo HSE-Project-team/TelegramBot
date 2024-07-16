@@ -1,6 +1,7 @@
 import {get_data_from_server} from "../tools/networking_tools.js";
 import {user_url} from "../URL/URL_storage.js";
 import {create_element, create_image, normalize_time} from "../tools/graphical_tools.js";
+import {show_error} from "../errors_handler/errors_handler.js";
 
 let loading_image_wrapper = document.querySelector(".loading_image_wrapper");
 let orders = document.querySelector(".orders");
@@ -10,20 +11,18 @@ let statuses_for_user = new Map(
     [
         ["waiting for payment", "Ожидает оплаты ⌛️"],
         ["paid and preparing", "Оплачен и уже готовится 💫"],
-        ["ready", "Можно забирать ✅"],
+        ["ready", "Можно забирать 👍"],
         ["received", "Получен 👌"],
-        ["cancelled", "Отменён ❌"]
+        ["cancelled", "Отменён 🌚"]
     ]
 );
 
 get_data_from_server(user_url).then((data_from_server) => {
     let response_status = data_from_server[0];
+    loading_image_wrapper.classList.add("hidden");
     if (response_status === 200) {
-        loading_image_wrapper.classList.add("hidden");
-
         let orders_from_server = data_from_server[1]["orders"];
         for (let order of orders_from_server) {
-            console.log(order);
             let time_from_server = order["time"];
             let status_from_server = order["status"];
             let order_cost_from_server = order["orderCost"];
@@ -60,7 +59,7 @@ get_data_from_server(user_url).then((data_from_server) => {
                 let order_item = create_element("div", "order_item");
                 let order_item_img = create_image("order_item_img", "../images/Кофе.png");
                 let order_item_name = create_element("div", "order_item_name", item_name_from_server);
-                let order_item_cost = create_element("div", "order_item_cost", `${item_cost_from_server} ₽/шт`);
+                let order_item_cost = create_element("div", "order_item_cost", `${item_cost_from_server} ₽/шт.`);
 
                 if (item_number_from_server > 1) {
                     let order_item_number = create_element("span", "order_item_number", ` (x${item_number_from_server})`);
@@ -77,6 +76,8 @@ get_data_from_server(user_url).then((data_from_server) => {
             order_wrapper.appendChild(order_cost);
             orders.appendChild(order_wrapper);
         }
+    } else {
+        show_error(response_status);
     }
 });
 

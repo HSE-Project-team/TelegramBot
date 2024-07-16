@@ -4,12 +4,18 @@ import {
 } from "../tools/graphical_tools.js";
 import {get_data_from_server} from "../tools/networking_tools.js";
 import {free_order_time_url} from "../URL/URL_storage.js";
+import {show_error} from "../errors_handler/errors_handler.js";
 
 let tg = window.Telegram.WebApp;
 tg.expand();
 
-let shopping_cart_items = document.querySelector(".shopping_cart_items");
+let order = new Order();
+order.get_data_from_cash();
+
 let order_cost = document.querySelector(".order_cost");
+order_cost.textContent = `Сумма: ${order.order_cost} ₽`;
+
+let shopping_cart_items = document.querySelector(".shopping_cart_items");
 let loading_image_wrapper = document.querySelector(".loading_image_wrapper");
 let shopping_cart = document.querySelector(".shopping_cart");
 let checkout_btn = document.querySelector(".checkout_btn");
@@ -75,15 +81,12 @@ if (previous_page === "categories") {
     back_button.href = "../index.html";
 }
 
-let order = new Order();
-order.get_data_from_cash();
-
 if (order.order_cost !== 0) {
     loading_image_wrapper.classList.remove("hidden");
     get_data_from_server(free_order_time_url).then((data_from_server) => {
         let response_status = data_from_server[0];
+        loading_image_wrapper.classList.add("hidden");
         if (response_status === 200) {
-            loading_image_wrapper.classList.add("hidden");
             checkout_btn.textContent = "Выберите время";
             checkout_btn.setAttribute('disabled', '');
             checkout_btn.classList.remove("hidden");
@@ -93,7 +96,7 @@ if (order.order_cost !== 0) {
 
             display_free_time_buttons(time_from_server);
         } else {
-            shopping_cart.classList.add("hidden");
+            show_error(response_status);
         }
     });
 
@@ -114,7 +117,6 @@ if (order.order_cost !== 0) {
         let shopping_cart_minus_btn = create_element("button", "shopping_cart_minus_btn", "-");
         let shopping_cart_item_label = create_element("label", "shopping_cart_item_label", now_item["item_number"]);
         let item_cost = create_element("label", "item_cost", `${now_item["item_cost"]} ₽/шт.`);
-        order_cost.textContent = `Сумма: ${order.order_cost} ₽`;
 
         shopping_item.appendChild(shopping_item_img);
         shopping_item.appendChild(shopping_cart_item_name);

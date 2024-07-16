@@ -4,20 +4,21 @@ import {
     cookie_category_test_url, coffee_category_test_url, tea_category_test_url, sandwiches_category_test_url
 } from "../URL/URL_storage.js";
 import {create_element, create_image} from "../tools/graphical_tools.js";
+import {show_error} from "../errors_handler/errors_handler.js";
+
+let header_label = document.querySelector(".header_label");
+let now_category = localStorage["category"];
+header_label.textContent = now_category;
 
 let container = document.querySelector(".container");
 let items = document.querySelector(".items");
-let loading_image = document.querySelector(".loading_image");
+let loading_image_wrapper = document.querySelector(".loading_image_wrapper");
 let choose_time_btn_div = document.querySelector(".choose_time_btn_div");
 let choose_time_btn = document.querySelector(".choose_time_btn");
-let header_label = document.querySelector(".header_label");
 
 let order = new Order();
 
 order.get_data_from_cash();
-
-let now_category = localStorage["category"];
-header_label.textContent = now_category;
 
 let now_category_url = "";
 
@@ -46,14 +47,13 @@ function update_choose_time_btn_label(new_cost) {
 
 get_data_from_server(now_category_url).then((data_from_server) => {
     let response_status = data_from_server[0];
+    loading_image_wrapper.classList.add("hidden");
     if (response_status === 200) {
         if (order.user_order.size !== 0) {
             choose_time_btn_div.classList.remove("hidden");
             container.classList.add("bottom_container_margin");
             choose_time_btn.textContent = `Посмотреть заказ на ${order.order_cost} ₽`;
         }
-
-        loading_image.classList.add("hidden");
 
         let items_from_server = data_from_server[1]["items"];
 
@@ -141,14 +141,16 @@ get_data_from_server(now_category_url).then((data_from_server) => {
                 order.push_data_to_cash();
             });
         }
-    }
-    for (let id of graphical_items.keys()) {
-        graphical_items.get(id).addEventListener("click", (event) => {
-            if (!event.target.closest('.add_remove_figure')) {
-                console.log(`id: ${id}`);
-                console.log(graphical_items.get(id));
-            }
-        });
+        for (let id of graphical_items.keys()) {
+            graphical_items.get(id).addEventListener("click", (event) => {
+                if (!event.target.closest('.add_remove_figure')) {
+                    console.log(`id: ${id}`);
+                    console.log(graphical_items.get(id));
+                }
+            });
+        }
+    } else {
+        show_error(response_status);
     }
 });
 

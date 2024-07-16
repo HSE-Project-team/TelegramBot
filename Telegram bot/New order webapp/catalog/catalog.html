@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="../general_design/big_buttons_styles.css">
     <link rel="stylesheet" href="../general_design/adaptive_styles.css">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+    <link rel="preload" href="../Mulish/Mulish-Medium.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="../Mulish/Mulish-SemiBold.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="../Mulish/Mulish-Regular.ttf" as="font" type="font/ttf" crossorigin>
     <title>TelegramWebApp</title>
 </head>
 <body>
@@ -24,15 +27,12 @@
         </div>
     </div>
 
-    <div class="error_labels_wrapper hidden">
-        <div class="error_number_label"></div>
+    <div class="error_label_wrapper hidden">
+        <div class="error_notification_label">Что-то пошло не так 😕</div>
         <div class="error_text_label"></div>
 
-        <a class="refresh_svg_element" href="catalog.html">
-            <svg width="24px" height="24px" class="refresh_svg_element_img" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10,21a9,9,0,1,1,9-9v3" fill="none"/>
-                <polyline points="23 11 19 15 15 11" fill="none"/>
-            </svg>
+        <a class="reload_button" href="catalog.html">
+            <img class="reload_button_svg" src="../images/reload_arrow.svg" alt="">
         </a>
     </div>
 
@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    <div class="items" id="items">
+    <div class="items">
 
     </div>
 

@@ -57,10 +57,9 @@ export function push_plus_minus_button_animation(element_name, animation_class, 
 }
 
 export function create_error_label(error_number, error_text) {
-    let error_labels_wrapper = document.querySelector(".error_labels_wrapper");
-    let error_number_label = document.querySelector(".error_number_label");
+    let error_label_wrapper = document.querySelector(".error_label_wrapper");
     let error_text_label = document.querySelector(".error_text_label");
-    error_number_label.textContent = `Ошибка ${error_number}`;
     error_text_label.textContent = error_text;
-    error_labels_wrapper.classList.remove("hidden");
+    error_label_wrapper.classList.remove("hidden");
 }
+

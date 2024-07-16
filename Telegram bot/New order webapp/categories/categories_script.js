@@ -14,6 +14,7 @@ order.get_data_from_cash();
 let container = document.querySelector(".container");
 let choose_time_btn = document.querySelector(".choose_time_btn");
 let choose_time_btn_div = document.querySelector(".choose_time_btn_div");
+let loading_image_wrapper = document.querySelector(".loading_image_wrapper");
 
 function proportional_elements_change(elements) {
     elements.forEach(element => {
@@ -23,24 +24,22 @@ function proportional_elements_change(elements) {
 
 get_data_from_server(categories_url).then((data_from_server) => {
     let response_status = data_from_server[0];
-    data_from_server = data_from_server[1];
-    document.querySelector(".loading_image_wrapper").classList.add("hidden");
+    loading_image_wrapper.classList.add("hidden");
     if (response_status === 200) {
-        let gap_for_animation = 0;
-        for (let item in data_from_server) {
+        let categories = data_from_server[1];
+        for (let item in categories) {
             let category_link = create_element("a", "category_link");
             let category_div = create_element("div", "category_div");
             let category_name = create_element("div", "category_name");
-            category_name.textContent = data_from_server[item];
-            let category_image = create_image("category_image", `images/${data_from_server[item]}.png`);
+            let category_image = create_image("category_image", `images/${categories[item]}.png`);
+
+            category_name.textContent = categories[item];
             category_link.href = "catalog/catalog.html"
+
             category_div.appendChild(category_image);
             category_div.appendChild(category_name);
             category_link.appendChild(category_div);
             container.appendChild(category_link);
-
-            gap_for_animation += 0.03;
-            category_link.style.animationDelay = `${gap_for_animation}s`;
 
             category_link.addEventListener("click", () => {
                 localStorage.setItem("category", category_link.textContent);
