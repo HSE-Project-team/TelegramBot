@@ -109,7 +109,7 @@ if (order.order_cost !== 0) {
         let now_item = order_items.get(item);
 
         let shopping_item = create_element("div", "shopping_item");
-        let shopping_item_img = create_image("shopping_item_img", "../images/Кофе.png");
+        let shopping_item_img = create_image("shopping_item_img", `../images/products/${item}.png`);
         let shopping_cart_item_name = create_element("div", "shopping_cart_item_name", now_item["item_name"]);
         let buttons_and_cost_wrapper = create_element("div", "buttons_and_cost_wrapper");
         let shopping_cart_add_remove_figure = create_element("div", "shopping_cart_add_remove_figure");

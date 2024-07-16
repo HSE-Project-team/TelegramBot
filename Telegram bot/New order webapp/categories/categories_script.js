@@ -31,7 +31,7 @@ get_data_from_server(categories_url).then((data_from_server) => {
             let category_link = create_element("a", "category_link");
             let category_div = create_element("div", "category_div");
             let category_name = create_element("div", "category_name");
-            let category_image = create_image("category_image", `images/${categories[item]}.png`);
+            let category_image = create_image("category_image", `images/categories/${categories[item]}.png`);
 
             category_name.textContent = categories[item];
             category_link.href = "catalog/catalog.html"

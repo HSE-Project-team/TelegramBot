@@ -55,9 +55,11 @@ get_data_from_server(user_url).then((data_from_server) => {
                 let item_cost_from_server = item["item"]["itemCost"];
                 let item_name_from_server = item["item"]["itemName"]
                 let item_number_from_server = item["itemNumber"];
+                let item_id_from_server = item["item"]["itemId"];
+                console.log(item_name_from_server, item_id_from_server);
 
                 let order_item = create_element("div", "order_item");
-                let order_item_img = create_image("order_item_img", "../images/Кофе.png");
+                let order_item_img = create_image("order_item_img", `../images/${item_id_from_server}.png`);
                 let order_item_name = create_element("div", "order_item_name", item_name_from_server);
                 let order_item_cost = create_element("div", "order_item_cost", `${item_cost_from_server} ₽/шт.`);
 
