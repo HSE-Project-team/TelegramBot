@@ -6,7 +6,7 @@
 
 .page_header {
     z-index: 999;
-    background-color: rgba(255, 255, 255);
+    background-color: var(--background);
 
     position: fixed;
     display: grid;
@@ -19,7 +19,7 @@
 
     width: 100%;
     height: 56px;
-    border-bottom: 1px solid #F6F6F6;
+    border-bottom: 1px solid var(--light-grey);
 }
 
 .header_label_wrapper {

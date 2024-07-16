@@ -6,7 +6,6 @@ import {show_error} from "../errors_handler/errors_handler.js";
 let loading_image_wrapper = document.querySelector(".loading_image_wrapper");
 let orders = document.querySelector(".orders");
 
-
 let statuses_for_user = new Map(
     [
         ["waiting for payment", "Ожидает оплаты ⌛️"],
@@ -56,7 +55,6 @@ get_data_from_server(user_url).then((data_from_server) => {
                 let item_name_from_server = item["item"]["itemName"]
                 let item_number_from_server = item["itemNumber"];
                 let item_id_from_server = item["item"]["itemId"];
-                console.log(item_name_from_server, item_id_from_server);
 
                 let order_item = create_element("div", "order_item");
                 let order_item_img = create_image("order_item_img", `../images/${item_id_from_server}.png`);

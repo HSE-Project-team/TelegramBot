@@ -62,4 +62,3 @@ export function create_error_label(error_number, error_text) {
     error_text_label.textContent = error_text;
     error_label_wrapper.classList.remove("hidden");
 }
-

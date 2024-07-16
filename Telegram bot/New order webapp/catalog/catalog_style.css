@@ -6,7 +6,8 @@
 
 body {
     margin: 0;
-    background-color: #ffffff;
+    background-color: var(--background);
+    color: var(--perfect-black);
     font-family: "Mulish", sans-serif;
     font-size: 16px;
 }
@@ -33,7 +34,7 @@ button, div {
 }
 
 .item {
-    background-color: #F6F6F6;
+    background-color: var(--light-grey);
     display: grid;
     border-radius: 20px;
 }
@@ -81,7 +82,7 @@ button, div {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #C4A283;
+    background-color: var(--coffee-color);
     border-radius: 30px;
 }
 
@@ -90,8 +91,8 @@ button, div {
     height: 100%;
     font-size: 16px;
     font-family: "Mulish", sans-serif;
-    background-color: #C4A283;
-    color: #F6F6F6;
+    background-color: var(--coffee-color);
+    color: var(--light-grey);
     border-radius: 30px;
     border: none;
 }
@@ -99,8 +100,8 @@ button, div {
 .btn_minus {
     font-size: 16px;
     font-family: "Mulish", sans-serif;
-    background-color: #C4A283;
-    color: #F6F6F6;
+    background-color: var(--coffee-color);
+    color: var(--light-grey);
     border: none;
     border-radius: 30px;
     width: 100%;
@@ -111,8 +112,8 @@ button, div {
 .btn_plus {
     font-size: 16px;
     font-family: "Mulish", sans-serif;
-    background-color: #C4A283;
-    color: #F6F6F6;
+    background-color: var(--coffee-color);
+    color: var(--light-grey);
     border: none;
     border-radius: 30px;
     width: 100%;
@@ -121,5 +122,5 @@ button, div {
 }
 
 .order_item_label {
-    color: #F6F6F6;
+    color: var(--light-grey);
 }

@@ -7,7 +7,7 @@
     width: 288px;
     height: 64px;
     font-size: 18px;
-    background-color: rgba(0, 0, 0, 0.88);
+    background-color: var(--black-88);
     border-radius: 32px;
     left: 0;
     right: 0;
@@ -36,7 +36,7 @@
 .checkout_btn:active,
 .checkout_btn:hover,
 .checkout_btn {
-    color: #F6F6F6;
+    color: var(--light-grey);
 }
 
 .category_link:active,
@@ -44,5 +44,5 @@
 .category_link {
     cursor: pointer;
     text-decoration: none;
-    color: #1C1C1C;
+    color: var(--perfect-black);
 }

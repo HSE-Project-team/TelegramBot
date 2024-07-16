@@ -12,7 +12,8 @@
 
 body {
     margin: 0;
-    background-color: #ffffff;
+    background-color: var(--background);
+    color: var(--perfect-black);
     font-family: "Mulish", sans-serif;
     font-size: 16px;
 }
@@ -41,7 +42,7 @@ button, div {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #C4A283;
+    background-color: var(--coffee-color);
     border-radius: 30px;
     margin-bottom: 8px;
 }
@@ -49,8 +50,8 @@ button, div {
 .shopping_cart_minus_btn {
     font-size: 16px;
     font-family: "Mulish", sans-serif;
-    background-color: #C4A283;
-    color: #F6F6F6;
+    background-color: var(--coffee-color);
+    color: var(--light-grey);
     border: none;
     border-radius: 30px;
     width: 100%;
@@ -61,8 +62,8 @@ button, div {
 .shopping_cart_plus_btn {
     font-size: 16px;
     font-family: "Mulish", sans-serif;
-    background-color: #C4A283;
-    color: #F6F6F6;
+    background-color: var(--coffee-color);
+    color: var(--light-grey);
     border: none;
     border-radius: 30px;
     width: 100%;
@@ -71,12 +72,12 @@ button, div {
 }
 
 .shopping_cart_item_label {
-    color: #F6F6F6;
+    color: var(--light-grey);
 }
 
 .checkout_btn:disabled {
     font-family: "Mulish", sans-serif;
-    background-color: rgba(37, 37, 37, 0.88);
+    background-color: var(--grey-88);
 }
 
 .shopping_cart_items {
@@ -119,7 +120,7 @@ button, div {
     margin-top: 76px;
     width: 100%;
     text-align: center;
-    color: #686868;
+    color: var(--dark-grey);
 }
 
 .order_comment_and_free_time_wrapper {
@@ -130,7 +131,7 @@ button, div {
 
 .free_time_wrapper {
     animation-delay: 0.4s !important;
-    border: 1px solid #E5E5E5;
+    border: 1px solid var(--grey-white);
     border-radius: 20px;
     padding: 16px;
     display: grid;
@@ -153,8 +154,8 @@ button, div {
 
     border-radius: 20px;
     border: none;
-    background-color: #F6F6F6;
-    color: #1C1C1C;
+    background-color: var(--light-grey);
+    color: var(--perfect-black);
 
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -170,11 +171,11 @@ button, div {
     width: 100%;
     outline: none;
     resize: none;
-    color: #1C1C1C;
+    color: var(--perfect-black);
     padding: 16px;
     border-radius: 20px;
     font-family: "Mulish", sans-serif;
     font-size: 16px;
-    border: #E5E5E5 solid 1px;
+    border: var(--grey-white) solid 1px;
     margin-bottom: 20px;
 }

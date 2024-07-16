@@ -17,7 +17,8 @@
 
 body {
     margin: 0;
-    background-color: #ffffff;
+    background-color: var(--background);
+    color: var(--perfect-black);
     font-family: "Mulish", sans-serif;
     font-size: 16px;
 }
@@ -49,7 +50,7 @@ button {
     display: flex;
     flex-direction: column;
     padding: 20px 16px;
-    border: 1px solid #E5E5E5;
+    border: 1px solid var(--grey-white);
     border-radius: 20px;
     height: fit-content;
 }
@@ -111,7 +112,7 @@ button {
 }
 
 .order_item_number {
-    color: #B8B8B8;
+    color: var(--middle-grey);
 }
 
 .order_cost {

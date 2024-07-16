@@ -30,7 +30,7 @@
 .error_text_label {
     font-family: Mulish, sans-serif;
     font-size: 16px;
-    color: #686868;
+    color: var(--dark-grey);
     margin-bottom: 28px;
     max-width: 288px;
     text-align: center;
