@@ -37,8 +37,8 @@ button, div {
 }
 
 .shopping_cart_add_remove_figure {
-    height: 28px;
-    width: 100px;
+    height: 30px;
+    width: 108px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -73,11 +73,6 @@ button, div {
 
 .shopping_cart_item_label {
     color: var(--light-grey);
-}
-
-.checkout_btn:disabled {
-    font-family: "Mulish", sans-serif;
-    background-color: var(--grey-88);
 }
 
 .shopping_cart_items {
@@ -130,7 +125,6 @@ button, div {
 }
 
 .free_time_wrapper {
-    animation-delay: 0.4s !important;
     border: 1px solid var(--grey-white);
     border-radius: 20px;
     padding: 16px;
@@ -138,6 +132,7 @@ button, div {
     grid-template-columns: repeat(auto-fit, minmax(68px, 1fr));
     grid-column-gap: 8px;
     grid-row-gap: 12px;
+    scroll-margin-block-start: 77px;
 }
 
 .free_time_button {
@@ -161,7 +156,6 @@ button, div {
 }
 
 .order_comment_div {
-    animation-delay: 0.2s !important;
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;

@@ -25,6 +25,8 @@ let back_button = document.querySelector(".back_button");
 let empty_shopping_cart_label = document.querySelector(".empty_shopping_cart_label");
 
 function display_free_time_buttons(free_time_list) {
+    let previous_clicked_time = null;
+
     for (let free_time of free_time_list) {
         const free_time_button = create_input("free_time_button", "free_time", "radio", free_time, free_time);
         const free_time_label = create_element("label", "free_time_label", simplify_time_for_user(free_time));
@@ -33,18 +35,20 @@ function display_free_time_buttons(free_time_list) {
         free_time_wrapper.appendChild(free_time_button);
         free_time_wrapper.appendChild(free_time_label);
 
+
         free_time_button.addEventListener("click", () => {
-            checkout_btn.removeAttribute("disabled");
+            checkout_btn.classList.remove("checkout_btn_disabled");
             checkout_btn.textContent = `Заказать к ${free_time_label.textContent} на ${order.order_cost} ₽`;
             order.order_time = free_time_button.value;
 
-            let time_buttons = document.querySelectorAll(".free_time_label");
-            for (let time_button of time_buttons) {
-                time_button.classList.remove("show_free_time_label_animation_selector");
-                time_button.classList.add("hide_free_time_label_animation_selector");
+            if (previous_clicked_time) {
+                previous_clicked_time.classList.add("hide_free_time_label_animation_selector");
+                previous_clicked_time.classList.remove("show_free_time_label_animation_selector");
             }
+
             free_time_label.classList.add("show_free_time_label_animation_selector");
             free_time_label.classList.remove("hide_free_time_label_animation_selector");
+            previous_clicked_time = free_time_label;
         });
     }
 }
@@ -88,7 +92,7 @@ if (order.order_cost !== 0) {
         loading_image_wrapper.classList.add("hidden");
         if (response_status === 200) {
             checkout_btn.textContent = "Выберите время";
-            checkout_btn.setAttribute('disabled', '');
+            checkout_btn.classList.add("checkout_btn_disabled");
             checkout_btn.classList.remove("hidden");
             shopping_cart.classList.remove("hidden");
 
@@ -135,7 +139,7 @@ if (order.order_cost !== 0) {
             shopping_cart_item_label.textContent = order.user_order.get(item).item_number;
             order.order_cost += order.user_order.get(item).item_cost;
             order_cost.textContent = `Сумма: ${order.order_cost} ₽`;
-            if (!checkout_btn.disabled) {
+            if (!checkout_btn.classList.contains("checkout_btn_disabled")) {
                 checkout_btn.textContent = `Заказать к ${simplify_time_for_user(order.order_time)} на ${order.order_cost} ₽`;
             }
             order.push_data_to_cash();
@@ -158,7 +162,7 @@ if (order.order_cost !== 0) {
                 }
             }
             order_cost.textContent = `Сумма: ${order.order_cost} ₽`;
-            if (!checkout_btn.disabled) {
+            if (!checkout_btn.classList.contains("checkout_btn_disabled")) {
                 checkout_btn.textContent = `Заказать к ${simplify_time_for_user(order.order_time)} на ${order.order_cost} ₽`;
             }
             order.push_data_to_cash();
@@ -169,10 +173,16 @@ if (order.order_cost !== 0) {
 }
 
 checkout_btn.addEventListener("click", () => {
-    let order_comment = document.querySelector(".order_comment");
-    order.order_comment = order_comment.value;
-    localStorage.clear();
-    tg.sendData(generate_data_for_send());
+    if (!checkout_btn.classList.contains("checkout_btn_disabled")) {
+        let order_comment = document.querySelector(".order_comment");
+        order.order_comment = order_comment.value;
+        localStorage.clear();
+        tg.sendData(generate_data_for_send());
+    } else {
+        free_time_wrapper.classList.remove("highlight_free_time_wrapper_animation_selector");
+        free_time_wrapper.scrollIntoView({ behavior: 'smooth'});
+        free_time_wrapper.classList.add("highlight_free_time_wrapper_animation_selector");
+    }
 });
 
 back_button.addEventListener("click", () => {

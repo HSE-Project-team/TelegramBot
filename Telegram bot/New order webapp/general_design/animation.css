@@ -30,6 +30,81 @@
     animation-direction: alternate;
 }
 
+@keyframes show_big_button_animation {
+    0% {
+        transform: translateY(84px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes hide_big_button_animation {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(84px);
+        visibility: hidden;
+    }
+}
+
+.show_big_button_animation_selector {
+    animation: show_big_button_animation forwards;
+    animation-duration: 0.25s;
+}
+
+.hide_big_button_animation_selector {
+    animation: hide_big_button_animation forwards;
+    animation-duration: 0.25s;
+}
+
+@keyframes show_free_time_label_animation {
+    60% {
+        color: var(--light-grey);
+    }
+    100% {
+        background-color: var(--coffee-color);
+        color: var(--light-grey);
+    }
+}
+
+@keyframes hide_free_time_label_animation {
+    0% {
+        background-color: var(--coffee-color);
+        color: var(--light-grey);
+    }
+    60% {
+        color: var(--perfect-black);
+    }
+    100% {
+        background-color: var(--light-grey);
+        color: var(--perfect-black);
+    }
+}
+
+.show_free_time_label_animation_selector {
+    animation: show_free_time_label_animation forwards;
+    animation-duration: 0.5s;
+}
+
+.hide_free_time_label_animation_selector {
+    animation: hide_free_time_label_animation forwards;
+    animation-duration: 0.5s;
+}
+
+@keyframes highlight_free_time_wrapper_animation {
+    50% {
+        border: 1px solid var(--coffee-color);
+    }
+}
+
+.highlight_free_time_wrapper_animation_selector {
+    animation: highlight_free_time_wrapper_animation;
+    animation-delay: 0.7s;
+    animation-duration: 0.5s;
+}
+
 .hidden {
     display: none;
 }

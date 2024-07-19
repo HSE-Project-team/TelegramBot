@@ -11,10 +11,6 @@
 }
 
 @media (min-width: 600px) {
-    .shopping_cart_add_remove_figure {
-        height: 30px;
-    }
-
     .choose_time_btn_div, .checkout_btn {
         width: 360px;
     }

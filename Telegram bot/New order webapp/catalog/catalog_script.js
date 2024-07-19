@@ -3,7 +3,12 @@ import {get_data_from_server} from "../tools/networking_tools.js";
 import {
     cookie_category_test_url, coffee_category_test_url, tea_category_test_url, sandwiches_category_test_url
 } from "../URL/URL_storage.js";
-import {create_element, create_image} from "../tools/graphical_tools.js";
+import {
+    create_element,
+    create_image,
+    hide_element_with_animation,
+    show_element_with_animation
+} from "../tools/graphical_tools.js";
 import {show_error} from "../errors_handler/errors_handler.js";
 
 let header_label = document.querySelector(".header_label");
@@ -34,13 +39,15 @@ if (now_category === "Печенье") {
 
 let graphical_items = new Map();
 
-function update_choose_time_btn_label(new_cost) {
+function update_choose_time_btn_label(gap, new_cost) {
     if (new_cost !== 0) {
-        choose_time_btn_div.classList.remove("hidden");
+        if (new_cost - gap === 0) {
+            show_element_with_animation(choose_time_btn_div, "show_big_button_animation_selector", "hide_big_button_animation_selector");
+        }
         container.classList.add("bottom_container_margin");
         choose_time_btn.textContent = `Посмотреть заказ на ${new_cost} ₽`;
     } else {
-        choose_time_btn_div.classList.add("hidden");
+        hide_element_with_animation(choose_time_btn_div, "show_big_button_animation_selector", "hide_big_button_animation_selector");
         container.classList.remove("bottom_container_margin");
     }
 }
@@ -103,7 +110,7 @@ get_data_from_server(now_category_url).then((data_from_server) => {
                 order_item_label.textContent = "1";
                 order.user_order.set(item_id_from_server, new ItemFromOrder(item_name_from_server, item_cost_from_server, 1));
                 order.order_cost += +item_cost_from_server;
-                update_choose_time_btn_label(order.order_cost);
+                update_choose_time_btn_label(item_cost_from_server, order.order_cost);
                 order.push_data_to_cash();
             });
 
@@ -116,7 +123,7 @@ get_data_from_server(now_category_url).then((data_from_server) => {
                 order.user_order.set(item_id_from_server, item_from_order);
                 order_item_label.textContent = order.user_order.get(item_id_from_server).item_number;
                 order.order_cost += +item_cost_from_server;
-                update_choose_time_btn_label(order.order_cost);
+                update_choose_time_btn_label(item_cost_from_server, order.order_cost);
                 order.push_data_to_cash();
             });
 
@@ -128,7 +135,7 @@ get_data_from_server(now_category_url).then((data_from_server) => {
 
                 order.user_order.set(item_id_from_server, item_from_order);
                 order.order_cost -= +item_cost_from_server;
-                update_choose_time_btn_label(order.order_cost);
+                update_choose_time_btn_label(item_cost_from_server, order.order_cost);
                 if (order.user_order.get(item_id_from_server).item_number !== 0) {
                     order_item_label.textContent = order.user_order.get(item_id_from_server).item_number;
                 } else {

@@ -27,7 +27,6 @@ export function create_input(class_name = "", name, type, value, id) {
     element_variable.type = type;
     element_variable.value = value;
     element_variable.id = id;
-    element_variable.textContent = "123";
     return element_variable;
 }
 

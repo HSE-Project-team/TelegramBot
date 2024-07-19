@@ -27,7 +27,7 @@ export class Order {
             this.order_comment = localStorage.getItem("user_order_comment");
         }
         if (localStorage.getItem("user_order_time")) {
-            this.order_time = +localStorage.getItem("user_order_time");
+            this.order_time = localStorage.getItem("user_order_time");
         }
     }
 

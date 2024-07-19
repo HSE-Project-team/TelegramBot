@@ -15,6 +15,12 @@
     border: none;
 }
 
+.checkout_btn_disabled {
+    font-family: "Mulish", sans-serif;
+    background-color: var(--grey-88);
+    cursor: default;
+}
+
 .choose_time_btn {
     display: flex;
     align-items: center;
