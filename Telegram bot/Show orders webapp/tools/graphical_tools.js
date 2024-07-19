@@ -31,7 +31,21 @@ export function create_input(class_name = "", name, type, value, id) {
 }
 
 export function normalize_time(full_time) {
+    let date = new Date();
+
+    let separated_date = full_time.split(" ")[0].split("-");
     let separated_time = full_time.split(" ")[1].split(":");
+
+    let year_from_server = separated_date[0];
+    let month_from_server = separated_date[1];
+    let day_from_server = separated_date[2];
+
+    if (date.getFullYear() !== +year_from_server ||
+        date.getMonth() + 1 !== +month_from_server ||
+        date.getDate() !== +day_from_server) {
+        return `${day_from_server}.${month_from_server}.${year_from_server}, ${separated_time[0]}:${separated_time[1]}`
+    }
+
     return `${separated_time[0]}:${separated_time[1]}`
 }
 
