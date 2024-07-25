@@ -17,7 +17,7 @@ class Config:
     order_status_url: str
 
 
-def load_config(path):
+async def load_config(path):
     env = Env()
     env.read_env(path)
     return Config(telegram_bot=TelegramBot(
