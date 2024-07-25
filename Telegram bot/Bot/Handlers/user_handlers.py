@@ -55,8 +55,17 @@ async def orders(message: types.Message):
 
     # await message.answer(active_orders_message_generate(f"{config.user_url}/{str(user_id)}"),
     #                      reply_markup=user_orders_keyboard)
-    await message.answer(await active_orders_message_generate(f"{config.user_url}"),
-                         reply_markup=user_orders_keyboard)
+    response = await active_orders_message_generate(f"{config.user_url}")
+    if response[0] == 200:
+        await message.answer(response[1],
+                             reply_markup=user_orders_keyboard)
+    else:
+        await message.answer(response[1])
+
+
+@user_handlers_router.message(Command(commands=['help']))
+async def start(message: types.Message):
+    await message.answer(Lexicon.help_message, disable_web_page_preview=True)
 
 
 @user_handlers_router.message(F.content_type == 'web_app_data')
@@ -71,9 +80,9 @@ async def buy_process(message: types.Message):
                                                      user_id,
                                                      first_name,
                                                      config.ready_order_for_server_url)
-    if data_for_user.order_id and data_for_user.link_for_payment:
+    if data_for_user.link_for_payment:
         pay_for_order_button = InlineKeyboardButton(
-            text=f"{Lexicon.pay_for_order_button} на {str(json_from_bot['orderCost'])} ₽",
+            text=f"{Lexicon.pay_for_order_button} {str(json_from_bot['orderCost'])} ₽",
             url=data_for_user.link_for_payment
         )
         pay_for_order_keyboard = InlineKeyboardMarkup(inline_keyboard=[[pay_for_order_button]])
@@ -82,4 +91,3 @@ async def buy_process(message: types.Message):
         await message.answer(data_for_user.string_for_user)
 
     print(f"link_for_payment: {data_for_user.link_for_payment}")
-    print(f"order_id: {data_for_user.order_id}")

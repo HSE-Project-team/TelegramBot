@@ -10,7 +10,7 @@ from Handlers.user_handlers import user_handlers_router, GetConfigMiddleware
 async def main():
     config = await load_config(".env")
 
-    bot = Bot(config.telegram_bot.token, default=DefaultBotProperties(parse_mode=ParseMode.MARKDOWN))
+    bot = Bot(config.telegram_bot.token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     dp = Dispatcher()
 
     dp.include_router(user_handlers_router)
