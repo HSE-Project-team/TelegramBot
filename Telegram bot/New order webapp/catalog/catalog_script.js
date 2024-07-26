@@ -1,7 +1,11 @@
 import {ItemFromOrder, Order} from "../tools/main_classs.js";
 import {get_data_from_server} from "../tools/networking_tools.js";
 import {
-    cookie_category_test_url, coffee_category_test_url, tea_category_test_url, sandwiches_category_test_url
+    // cookie_category_test_url,
+    // coffee_category_test_url,
+    // tea_category_test_url,
+    // sandwiches_category_test_url,
+    categories_url
 } from "../URL/URL_storage.js";
 import {
     create_element,
@@ -25,17 +29,17 @@ let order = new Order();
 
 order.get_data_from_cash();
 
-let now_category_url = "";
+let now_category_url = `${categories_url}/${now_category}`;
 
-if (now_category === "Печенье") {
-    now_category_url = cookie_category_test_url;
-} else if (now_category === "Кофе") {
-    now_category_url = coffee_category_test_url;
-} else if (now_category === "Чай") {
-    now_category_url = tea_category_test_url;
-} else if (now_category === "Сендвичи") {
-    now_category_url = sandwiches_category_test_url;
-}
+// if (now_category === "Печенье") {
+//     now_category_url = cookie_category_test_url;
+// } else if (now_category === "Кофе") {
+//     now_category_url = coffee_category_test_url;
+// } else if (now_category === "Чай") {
+//     now_category_url = tea_category_test_url;
+// } else if (now_category === "Сендвичи") {
+//     now_category_url = sandwiches_category_test_url;
+// }
 
 let graphical_items = new Map();
 

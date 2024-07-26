@@ -16,7 +16,7 @@ let statuses_for_user = new Map(
     ]
 );
 
-get_data_from_server(user_url).then((data_from_server) => {
+get_data_from_server(`${user_url}/${window.Telegram.WebApp.initDataUnsafe.user.id.toString()}`).then((data_from_server) => {
     let response_status = data_from_server[0];
     loading_image_wrapper.classList.add("hidden");
     if (response_status === 200) {
@@ -42,6 +42,9 @@ get_data_from_server(user_url).then((data_from_server) => {
             order_info_wrapper.appendChild(order_status);
 
             if (["paid and preparing", "ready", "received"].indexOf(status_from_server) !== -1) {
+                if (!receiving_code_from_server) {
+                    receiving_code_from_server = 3248
+                }
                 let receiving_code = create_element("label", "receiving_code", receiving_code_from_server);
                 receiving_code_wrapper.appendChild(receiving_code_label);
                 receiving_code_wrapper.appendChild(receiving_code);

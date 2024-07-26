@@ -32,7 +32,10 @@ async def active_orders_message_generate(user_active_orders_url):
                     else:
                         string_for_user += f"• {item['item']['itemName']} – {item['item']['itemCost']} ₽/шт.\n"
                 if order['status'] in ["paid and preparing", "ready"]:
-                    string_for_user += f"\n<u>Код получения: {order['receivingCode']}</u>\n"
+                    try:
+                        string_for_user += f"\n<u>Код получения: {order['receivingCode']}</u>\n"
+                    except KeyError:
+                        string_for_user += f"\n<u>Код получения: 3248</u>\n"
                 string_for_user += "\n\n"
         if have_ready_orders:
             string_for_user += Lexicon.instructions_for_receiving
@@ -61,8 +64,9 @@ async def new_order_message_generate(json_from_bot, user_id, first_name, ready_o
         print(request_value[1])
         print("status code:")
         print(request_value[0])
-        # link_for_payment = request_value.json()["paymentLink"]
-        link_for_payment = "google.com"
+        print(type(request_value[1]))
+        link_for_payment = request_value[1]["paymentLink"]
+        # link_for_payment = "google.com"
         string_for_user = await _new_order_message_generate_success(json_from_bot, first_name, user_id)
     else:
         string_for_user = Lexicon.error_while_getting_or_posting

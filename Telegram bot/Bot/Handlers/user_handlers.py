@@ -53,14 +53,8 @@ async def orders(message: types.Message):
     )
     user_orders_keyboard = InlineKeyboardMarkup(inline_keyboard=[[user_orders_button]])
 
-    # await message.answer(active_orders_message_generate(f"{config.user_url}/{str(user_id)}"),
-    #                      reply_markup=user_orders_keyboard)
-    response = await active_orders_message_generate(f"{config.user_url}")
-    if response[0] == 200:
-        await message.answer(response[1],
-                             reply_markup=user_orders_keyboard)
-    else:
-        await message.answer(response[1])
+    response = await active_orders_message_generate(f"{config.user_url}/{str(user_id)}")
+    await message.answer(response[1], reply_markup=user_orders_keyboard)
 
 
 @user_handlers_router.message(Command(commands=['help']))
