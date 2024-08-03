@@ -5,6 +5,7 @@ import {
 import {get_data_from_server} from "../tools/networking_tools.js";
 import {free_order_time_url} from "../URL/URL_storage.js";
 import {show_error} from "../errors_handler/errors_handler.js";
+import {clear_local_storage} from "../tools/local_storage_manager.js";
 
 let tg = window.Telegram.WebApp;
 tg.expand();
@@ -176,7 +177,7 @@ checkout_btn.addEventListener("click", () => {
     if (!checkout_btn.classList.contains("checkout_btn_disabled")) {
         let order_comment = document.querySelector(".order_comment");
         order.order_comment = order_comment.value;
-        localStorage.clear();
+        clear_local_storage();
         tg.sendData(generate_data_for_send());
     } else {
         free_time_wrapper.classList.remove("highlight_free_time_wrapper_animation_selector");

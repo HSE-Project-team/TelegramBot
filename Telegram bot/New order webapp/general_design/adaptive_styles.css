@@ -29,6 +29,7 @@
 
     .free_time_label {
         line-height: 30px;
+        max-height: 30px;
     }
 
     .free_time_wrapper {

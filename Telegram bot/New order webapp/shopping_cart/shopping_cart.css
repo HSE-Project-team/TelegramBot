@@ -142,6 +142,7 @@ button, div {
 
 .free_time_label {
     line-height: 32px;
+    max-height: 32px;
 
     display: inline-block;
     text-align: center;
