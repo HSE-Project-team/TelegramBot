@@ -1,8 +1,9 @@
 export class ItemFromOrder {
-    constructor(item_name, item_cost, item_number) {
+    constructor(item_name, item_cost, item_number, item_category) {
         this.item_name = item_name;
         this.item_cost = item_cost;
         this.item_number = item_number;
+        this.item_category = item_category;
     }
 }
 

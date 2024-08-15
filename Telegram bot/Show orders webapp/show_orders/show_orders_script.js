@@ -54,13 +54,15 @@ get_data_from_server(`${user_url}/${window.Telegram.WebApp.initDataUnsafe.user.i
             order_wrapper.appendChild(order_info_wrapper);
 
             for (let item of order_items) {
+                let item_category_from_server = item["item"]["itemCategory"];
                 let item_cost_from_server = item["item"]["itemCost"];
                 let item_name_from_server = item["item"]["itemName"]
                 let item_number_from_server = item["itemNumber"];
                 let item_id_from_server = item["item"]["itemId"];
+                console.log(item_category_from_server);
 
                 let order_item = create_element("div", "order_item");
-                let order_item_img = create_image("order_item_img", `../images/${item_id_from_server}.png`);
+                let order_item_img = create_image("order_item_img", `../images/${item_category_from_server}.png`);
                 let order_item_name = create_element("div", "order_item_name", item_name_from_server);
                 let order_item_cost = create_element("div", "order_item_cost", `${item_cost_from_server} ₽/шт.`);
 

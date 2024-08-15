@@ -10,7 +10,7 @@ async def get_data_from_server(url):
             if response.status == 200:
                 return [response.status, await response.json()]
             else:
-                print(f"response.status: {response.status}")
+                print(f"response.status (get): {response.status}")
                 return [response.status, None]
 
 
@@ -22,7 +22,7 @@ async def post_data_to_server(url, data):
             if response.status == 200:
                 return [response.status, await response.json()]
             else:
-                print(f"response.status: {response.status}")
+                print(f"response.status (post): {response.status}")
                 return [response.status, None]
 
 

@@ -113,8 +113,10 @@ if (order.order_cost !== 0) {
     for (let item of order_items.keys()) {
         let now_item = order_items.get(item);
 
+        let item_category = now_item["item_category"];
+
         let shopping_item = create_element("div", "shopping_item");
-        let shopping_item_img = create_image("shopping_item_img", `../images/products/${item}.png`);
+        let shopping_item_img = create_image("shopping_item_img", `../images/${item_category}.png`);
         let shopping_cart_item_name = create_element("div", "shopping_cart_item_name", now_item["item_name"]);
         let buttons_and_cost_wrapper = create_element("div", "buttons_and_cost_wrapper");
         let shopping_cart_add_remove_figure = create_element("div", "shopping_cart_add_remove_figure");
@@ -134,7 +136,7 @@ if (order.order_cost !== 0) {
         shopping_cart_items.appendChild(shopping_item);
 
         shopping_cart_plus_btn.addEventListener("click", () => {
-            let item_from_order = new ItemFromOrder(order.user_order.get(item).item_name, order.user_order.get(item).item_cost, order.user_order.get(item).item_number + 1);
+            let item_from_order = new ItemFromOrder(order.user_order.get(item).item_name, order.user_order.get(item).item_cost, order.user_order.get(item).item_number + 1, item_category);
 
             order.user_order.set(item, item_from_order);
             shopping_cart_item_label.textContent = order.user_order.get(item).item_number;
@@ -147,7 +149,7 @@ if (order.order_cost !== 0) {
         });
 
         shopping_cart_minus_btn.addEventListener("click", () => {
-            let item_from_order = new ItemFromOrder(order.user_order.get(item).item_name, order.user_order.get(item).item_cost, order.user_order.get(item).item_number - 1);
+            let item_from_order = new ItemFromOrder(order.user_order.get(item).item_name, order.user_order.get(item).item_cost, order.user_order.get(item).item_number - 1, item_category);
 
             order.user_order.set(item, item_from_order);
             order.order_cost -= order.user_order.get(item).item_cost;
@@ -181,7 +183,7 @@ checkout_btn.addEventListener("click", () => {
         tg.sendData(generate_data_for_send());
     } else {
         free_time_wrapper.classList.remove("highlight_free_time_wrapper_animation_selector");
-        free_time_wrapper.scrollIntoView({ behavior: 'smooth'});
+        free_time_wrapper.scrollIntoView({behavior: 'smooth'});
         free_time_wrapper.classList.add("highlight_free_time_wrapper_animation_selector");
     }
 });

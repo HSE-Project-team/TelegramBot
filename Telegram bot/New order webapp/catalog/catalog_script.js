@@ -79,7 +79,7 @@ get_data_from_server(now_category_url).then((data_from_server) => {
             let internal_wrapper = create_element("div", "internal_wrapper");
             let item_img_name = create_element("div", "item_img_name");
             let item_cost_button = create_element("div", "item_cost_button");
-            let item_img = create_image("item_img", `../images/products/${item_id_from_server}.png`);
+            let item_img = create_image("item_img", `../images/${now_category}.png`);
             let item_name = create_element("div", "item_name", items_from_server[i]["itemName"]);
             let item_cost = create_element("div", "item_cost", `${items_from_server[i]["itemCost"]} ₽`);
             let add_remove_figure = create_element("div", "add_remove_figure");
@@ -112,7 +112,7 @@ get_data_from_server(now_category_url).then((data_from_server) => {
                 btn_minus.classList.remove("hidden");
                 order_item_label.classList.remove("hidden");
                 order_item_label.textContent = "1";
-                order.user_order.set(item_id_from_server, new ItemFromOrder(item_name_from_server, item_cost_from_server, 1));
+                order.user_order.set(item_id_from_server, new ItemFromOrder(item_name_from_server, item_cost_from_server, 1, now_category));
                 order.order_cost += +item_cost_from_server;
                 update_choose_time_btn_label(item_cost_from_server, order.order_cost);
                 order.push_data_to_cash();
@@ -122,7 +122,7 @@ get_data_from_server(now_category_url).then((data_from_server) => {
                 let item_from_order = new ItemFromOrder(
                     item_name_from_server,
                     item_cost_from_server,
-                    order.user_order.get(item_id_from_server).item_number + 1);
+                    order.user_order.get(item_id_from_server).item_number + 1, now_category);
 
                 order.user_order.set(item_id_from_server, item_from_order);
                 order_item_label.textContent = order.user_order.get(item_id_from_server).item_number;
@@ -135,7 +135,7 @@ get_data_from_server(now_category_url).then((data_from_server) => {
                 let item_from_order = new ItemFromOrder(
                     item_name_from_server,
                     item_cost_from_server,
-                    order.user_order.get(item_id_from_server).item_number - 1);
+                    order.user_order.get(item_id_from_server).item_number - 1, now_category);
 
                 order.user_order.set(item_id_from_server, item_from_order);
                 order.order_cost -= +item_cost_from_server;
