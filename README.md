@@ -7,8 +7,8 @@ The bot includes the ability to create an order by a certain time, pay for them 
 The bot is integrated with the Sloy Cafe's CRM system and the [YooKassa](https://yookassa.ru) payment system.
 
 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-  <img src="Screenshots/Catalog.png" alt="Catalog" width="300" />
-  <img src="Screenshots/Cart.png" alt="Cart" width="300" />
+  <img src="Screenshots/Catalog.png" alt="Catalog" width="320" />
+  <img src="Screenshots/Cart.png" alt="Cart" width="320" />
 </div>
 
 ## Project Structure and Architecture
