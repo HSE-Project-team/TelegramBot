@@ -6,6 +6,11 @@ Course project about [Telegram Bot](https://t.me/WebAppFotTestBot) with web app 
 The bot includes the ability to create an order by a certain time, pay for them online, track the status and view the order history.
 The bot is integrated with the Sloy Cafe's CRM system and the [YooKassa](https://yookassa.ru) payment system.
 
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <img src="Screenshots/Catalog.png" alt="Catalog" width="300" />
+  <img src="Screenshots/Cart.png" alt="Cart" width="300" />
+</div>
+
 ## Project Structure and Architecture
 The project consists of a front-end built with JavaScript, HTML and CSS, and a back-end developed using Java with Spring and a PostgreSQL database. 
 It includes a swagger specification to generate the blank server.
